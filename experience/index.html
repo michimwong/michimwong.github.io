@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Experience — Michi Wong</title>
+<meta name="description" content="Professional experience of Michi Wong.">
+
+<style>
+  /* -------- Design tokens: change colours here in one place -------- */
+  :root {
+    --paper:  #FAF6F0;   /* page background (warm cream) */
+    --ink:    #2B211B;   /* main text (dark brown) */
+    --muted:  #8A776B;   /* secondary text (warm taupe) */
+    --accent: #742F14;   /* links + highlights (rust) */
+    --line:   #EADFD3;   /* hairline dividers (warm) */
+    --maxw:   680px;     /* content width */
+
+    /* palette accents */
+    --rust:   #742F14;
+    --blue:   #5A84AC;
+    --orange: #FC9C44;
+    --tan:    #C7AC9F;
+    --brown:  #5C3C2C;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Colorful scroll-progress bar tying the whole palette together */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: var(--scroll, 0%);
+    background: linear-gradient(90deg,
+      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+    background-size: 100vw 100%;
+    background-repeat: no-repeat;
+    z-index: 50;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12vh 24px 18vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color .15s ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* -------- Header -------- */
+  header { margin-bottom: 6vh; }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 .5rem;
+    font-weight: 650;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+
+  .back { border-bottom: none; }
+  .back:hover { color: var(--ink); }
+
+  p { margin: 0 0 1rem; }
+
+  /* -------- Experience entries -------- */
+  .entry {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .entry:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  /* Logo linking to the company site */
+  .logo-link {
+    flex: none;
+    display: block;
+    border-bottom: none;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .logo-link:hover { transform: translateY(-2px); opacity: .75; }
+  .logo {
+    display: block;
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border: 2px solid var(--tan);
+    border-radius: 10px;
+    background: #fff;
+    padding: 6px;
+  }
+
+  .entry-body { min-width: 0; }
+  .entry-body .role { font-weight: 600; font-size: 1.05rem; }
+  .entry-body .org { color: var(--ink); margin-bottom: .1rem; }
+  .entry-body .meta { color: var(--muted); font-size: .95rem; margin-bottom: .75rem; }
+
+  ul { margin: 0; padding-left: 1.1rem; }
+  li { margin-bottom: .4rem; }
+  li:last-child { margin-bottom: 0; }
+
+  /* -------- Footer -------- */
+  footer {
+    margin-top: 10vh;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .entry { gap: .8rem; }
+    .logo { width: 40px; height: 40px; }
+  }
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <header>
+    <p><a class="back mono" href="../">← Back to home</a></p>
+    <h1>Experience</h1>
+  </header>
+
+  <div class="entry">
+    <a class="logo-link" href="https://getstructured.ai/" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/structured-ai.png" alt="Structured AI logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">AI/Computer Vision Researcher</div>
+      <div class="org">Structured AI</div>
+      <div class="meta">Oxford, UK · March 2026</div>
+      <ul>
+        <li>Identified and developed a novel ML use case for automated quality assurance of engineering blueprints</li>
+        <li>Translated evaluation findings into a proof-of-concept system deployed in a high-stakes enterprise environment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <a class="logo-link" href="https://www.oii.ox.ac.uk/" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/oii.png" alt="Oxford Internet Institute logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">Graduate Researcher</div>
+      <div class="org">University of Oxford — Oxford Internet Institute</div>
+      <div class="meta">Oxford, UK · October 2025 – Present</div>
+      <ul>
+        <li>Built a pipeline to stream and filter large Reddit archives, using stratified sampling and an LLM-as-proxy scheme</li>
+        <li>Leveraged fine-tuned and frontier model outputs to conduct large-scale discourse analysis to characterize the dissemination of absolutist claims</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <a class="logo-link" href="https://connectedlife.oii.ox.ac.uk/" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/connected-life.jpeg" alt="Connected Life Summit logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">Host of Trust and Safety</div>
+      <div class="org">University of Oxford — Connected Life Summit</div>
+      <div class="meta">Oxford, UK · August 2025 – Present</div>
+      <ul>
+        <li>Organized an interdisciplinary conference at the Oxford Union bridging the social and data sciences</li>
+        <li>Curated research presentations across AI ethics, computational methods, and digital behavior analysis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <a class="logo-link" href="https://www.eagor.ai/" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/eagor.jpeg" alt="Eagor logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">User Research and Product Launch Intern</div>
+      <div class="org">Eagor</div>
+      <div class="meta">New York, NY · May 2025 – August 2025</div>
+      <ul>
+        <li>Evaluated multiple AI model performance and prompting techniques using benchmark and comparison frameworks</li>
+        <li>Conducted exploratory and confirmatory statistical analyses on product usage data and user behavior in Mixpanel</li>
+        <li>Collaborated with SWE teams to define evaluation criteria, data collection protocol, and success metrics</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <a class="logo-link" href="https://as.nyu.edu/departments/sociology.html" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/nyu.png" alt="New York University logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">Senior Thesis — High-Skilled Immigrant Conceptions of Americanness</div>
+      <div class="org">New York University — Department of Sociology</div>
+      <div class="meta">New York, NY · August 2024 – May 2025</div>
+      <ul>
+        <li>Designed and deployed a large-scale survey measuring identity formation among high-skilled immigrants</li>
+        <li>Applied causal inference and statistical testing methods to identify predictive factors across demographic groups</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="entry">
+    <a class="logo-link" href="https://www.moadsf.org/" target="_blank" rel="noopener">
+      <img class="logo" src="../assets/logos/smithsonian.png" alt="Museum of the African Diaspora logo">
+    </a>
+    <div class="entry-body">
+      <div class="role">Leadership for Change Intern</div>
+      <div class="org">Smithsonian Institution — Museum of the African Diaspora</div>
+      <div class="meta">San Francisco, CA · June 2024 – August 2024</div>
+      <ul>
+        <li>Conducted a structured analysis of exhibition and archival materials to surface trends relevant to migration studies</li>
+        <li>Translated qualitative findings into decision-ready research briefs for museum educators and curators</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <span class="mono">Built with plain HTML · hosted on GitHub Pages</span>
+  </footer>
+
+</main>
+
+<script>
+  // Drive the top gradient bar's width from scroll progress.
+  (function () {
+    var root = document.documentElement;
+    function update() {
+      var max = root.scrollHeight - root.clientHeight;
+      var pct = max > 0 ? (root.scrollTop || window.scrollY) / max * 100 : 0;
+      root.style.setProperty('--scroll', pct + '%');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>

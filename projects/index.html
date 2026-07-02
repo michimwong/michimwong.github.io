@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Projects &amp; Writing — Michi Wong</title>
+<meta name="description" content="Projects and writing by Michi Wong.">
+
+<style>
+  :root {
+    --paper:  #FAF6F0;
+    --ink:    #2B211B;
+    --muted:  #8A776B;
+    --accent: #742F14;
+    --line:   #EADFD3;
+    --maxw:   720px;
+
+    /* palette accents */
+    --rust:   #742F14;
+    --blue:   #5A84AC;
+    --orange: #FC9C44;
+    --tan:    #C7AC9F;
+    --brown:  #5C3C2C;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Colorful scroll-progress bar tying the whole palette together */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: var(--scroll, 0%);
+    background: linear-gradient(90deg,
+      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+    background-size: 100vw 100%;
+    background-repeat: no-repeat;
+    z-index: 50;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12vh 24px 18vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color .15s ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  header { margin-bottom: 4vh; }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 .5rem;
+    font-weight: 650;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+
+  .back { border-bottom: none; }
+  .back:hover { color: var(--ink); }
+
+  p { margin: 0 0 1rem; }
+
+  /* -------- Sections -------- */
+  section { margin-top: 7vh; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid var(--sec, var(--line));
+  }
+  .section-head .mono {
+    color: color-mix(in srgb, var(--sec, var(--muted)) 80%, var(--ink));
+    font-weight: 600;
+  }
+  .section-head h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  /* -------- Project cards -------- */
+  .project {
+    display: block;
+    padding: 1rem 1.1rem;
+    margin-bottom: .75rem;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--card, var(--tan));
+    border-radius: 8px;
+    color: inherit;
+    background: color-mix(in srgb, var(--paper) 60%, white);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .project:hover { border-color: var(--accent); border-left-color: var(--card, var(--accent)); transform: translateY(-2px); }
+  .project .title { font-weight: 600; margin-bottom: .15rem; }
+  .project .desc { color: var(--muted); font-size: .95rem; }
+
+  /* -------- Writing cards (image on top) -------- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .write-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--card, var(--tan));
+    border-radius: 10px;
+    overflow: hidden;
+    color: inherit;
+    background: color-mix(in srgb, var(--paper) 60%, white);
+    border-bottom: none;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .write-card:hover { border-color: var(--accent); border-top-color: var(--card, var(--accent)); transform: translateY(-3px); }
+  .write-card .thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: var(--line);
+  }
+  .write-card .body { padding: 1rem 1.1rem 1.2rem; }
+  .write-card .title { font-weight: 600; line-height: 1.3; margin-bottom: .3rem; }
+  .write-card .date { color: var(--muted); font-size: .8rem; margin-bottom: .5rem; }
+  .write-card .desc { color: var(--muted); font-size: .93rem; }
+
+  footer {
+    margin-top: 10vh;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <header>
+    <p><a class="back mono" href="../">← Back to home</a></p>
+    <h1>Projects &amp; Writing</h1>
+  </header>
+
+  <!-- ======================= PROJECTS ======================= -->
+  <section style="margin-top: 3vh;">
+    <div class="section-head" style="--sec: var(--rust);">
+      <span class="mono">01</span>
+      <h2>Projects</h2>
+    </div>
+
+    <p style="color: var(--muted);">
+      Selected work from my MSC in Social Data Science at the Oxford Internet Institute.
+    </p>
+
+    <a class="project" href="https://github.com/michimwong/genz-detection" style="--card: var(--orange);">
+      <div class="title">Detecting Gen-Z Language Register</div>
+      <div class="desc">A comparative evaluation of six classifiers — from a word-frequency
+        baseline to GPT-4o-mini — for detecting Gen-Z register in text, tested on both
+        curated and naturalistic Reddit data.</div>
+    </a>
+
+    <a class="project" href="https://github.com/michimwong/gails_effect" style="--card: var(--rust);">
+      <div class="title">The Gail's Effect</div>
+      <div class="desc">A staggered difference-in-differences study using Callaway-Sant'Anna
+        estimation to test whether Gail's café openings drive gentrification in London
+        neighborhoods — or merely follow it.</div>
+    </a>
+  </section>
+
+  <!-- ======================= WRITING ======================= -->
+  <section>
+    <div class="section-head" style="--sec: var(--blue);">
+      <span class="mono">02</span>
+      <h2>Writing</h2>
+    </div>
+
+    <p style="color: var(--muted);">
+      Essays written as a Smithsonian Leadership for Change intern for the
+      <a href="https://www.moadsf.org/journal" target="_blank" rel="noopener">MoAD Journal</a>.
+    </p>
+
+    <div class="card-grid">
+
+      <a class="write-card" href="https://www.moadsf.org/moad-journal/we-are-also-the-universe" target="_blank" rel="noopener" style="--card: var(--blue);">
+        <img class="thumb" src="../assets/writing/we-are-also-the-universe.jpeg"
+             alt="vanessa german, Self Portrait with the Universe in my Mouth">
+        <div class="body">
+          <div class="title">We Are Also the Universe</div>
+          <div class="date mono">MoAD Journal · July 31, 2024</div>
+          <div class="desc">On vanessa german's sculptural self-portraits, and how found
+            materials turn personal emotion into work that pulls the viewer in.</div>
+        </div>
+      </a>
+
+      <a class="write-card" href="https://www.moadsf.org/moad-journal/many-meanings-of-animation" target="_blank" rel="noopener" style="--card: var(--orange);">
+        <img class="thumb" src="../assets/writing/many-meanings-of-animation.jpeg"
+             alt="Rachel Jones, from the exhibition !!!!!">
+        <div class="body">
+          <div class="title">Many Meanings of Animation</div>
+          <div class="date mono">MoAD Journal · August 7, 2024</div>
+          <div class="desc">On Rachel Jones's exhibition <em>!!!!!</em>, where oil-pastel
+            mouths borrow from Looney Tunes to amplify Black voices.</div>
+        </div>
+      </a>
+
+      <a class="write-card" href="https://www.moadsf.org/moad-journal/currents-in-an-ocean-of-art" target="_blank" rel="noopener" style="--card: var(--brown);">
+        <img class="thumb" src="../assets/writing/currents-in-an-ocean-of-art.jpeg"
+             alt="Artwork from MoAD's Unruly Navigations exhibition">
+        <div class="body">
+          <div class="title">Currents in an Ocean of Art: Unruly Navigations</div>
+          <div class="date mono">MoAD Journal · August 19, 2024</div>
+          <div class="desc">A walk through MoAD's <em>Unruly Navigations</em>, reading
+            artistic resistance through oceanic metaphor and diasporic narrative.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">Built with plain HTML · hosted on GitHub Pages</span>
+  </footer>
+
+</main>
+
+<script>
+  // Drive the top gradient bar's width from scroll progress.
+  (function () {
+    var root = document.documentElement;
+    function update() {
+      var max = root.scrollHeight - root.clientHeight;
+      var pct = max > 0 ? (root.scrollTop || window.scrollY) / max * 100 : 0;
+      root.style.setProperty('--scroll', pct + '%');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>

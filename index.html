@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Michi Wong</title>
+<meta name="description" content="Personal site of Michi Wong — MSc student in Social Data Science at the University of Oxford.">
+
+<style>
+  /* -------- Design tokens: change colours here in one place -------- */
+  :root {
+    --paper:  #FAF6F0;   /* page background (warm cream) */
+    --ink:    #2B211B;   /* main text (dark brown) */
+    --muted:  #8A776B;   /* secondary text (warm taupe) */
+    --accent: #742F14;   /* links + highlights (rust) */
+    --line:   #EADFD3;   /* hairline dividers (warm) */
+    --maxw:   680px;     /* content width */
+
+    /* palette accents */
+    --rust:   #742F14;
+    --blue:   #5A84AC;
+    --orange: #FC9C44;
+    --tan:    #C7AC9F;
+    --brown:  #5C3C2C;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Colorful scroll-progress bar tying the whole palette together */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: var(--scroll, 0%);
+    background: linear-gradient(90deg,
+      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+    background-size: 100vw 100%;
+    background-repeat: no-repeat;
+    z-index: 50;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12vh 24px 18vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color .15s ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* -------- Header -------- */
+  header { margin-bottom: 8vh; }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 .5rem;
+    font-weight: 650;
+  }
+
+  .tagline {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Small monospace label used for section markers + nav links */
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  .links a { border-bottom: none; }
+  .links a:hover { color: var(--ink); }
+
+  /* -------- Page navigation cards -------- */
+  .nav-cards { margin-top: 2vh; }
+
+  .card {
+    display: flex;
+    align-items: baseline;
+    gap: .9rem;
+    padding: 1.1rem 1.1rem;
+    margin-bottom: .75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: inherit;
+    background: color-mix(in srgb, var(--paper) 60%, white);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card .num { flex: none; }
+  .card .title { font-weight: 600; }
+  .card .desc { color: var(--muted); font-size: .95rem; margin-top: .1rem; }
+
+  /* -------- Sections -------- */
+  section { margin-top: 8vh; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid var(--sec, var(--line));
+  }
+  .section-head .mono {
+    color: color-mix(in srgb, var(--sec, var(--muted)) 80%, var(--ink));
+    font-weight: 600;
+  }
+  .section-head h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  /* -------- Experience preview (logo + title) -------- */
+  .exp-row {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .6rem 0;
+    color: inherit;
+    border-bottom: none;
+  }
+  .exp-row + .exp-row { border-top: 1px solid var(--line); }
+  .exp-row:hover .role { color: var(--accent); }
+  .exp-row .logo {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border: 2px solid var(--tan);
+    border-radius: 9px;
+    background: #fff;
+    padding: 5px;
+    transition: border-color .15s ease;
+  }
+  .exp-row:hover .logo { border-color: var(--accent); }
+  .exp-row .role { font-weight: 600; }
+  .exp-row .org { color: var(--muted); font-size: .95rem; }
+
+  /* -------- Projects preview -------- */
+  .proj-row {
+    display: block;
+    padding: .8rem 0;
+    color: inherit;
+    border-bottom: none;
+  }
+  .proj-row + .proj-row { border-top: 1px solid var(--line); }
+  .proj-row:hover .role { color: var(--accent); }
+  .proj-row .role { display: block; font-weight: 600; }
+  .proj-row .desc { display: block; color: var(--muted); font-size: .95rem; margin-top: .1rem; }
+
+  .more-link { display: inline-block; margin-top: 1.25rem; }
+
+  /* -------- About preview -------- */
+  .about-preview p { margin-bottom: 1rem; }
+  .about-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .about-photo {
+    flex: none;
+    width: 180px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 3px solid var(--blue);
+    border-radius: 10px;
+    background: var(--line);
+  }
+  .about-text { flex: 1; min-width: 0; }
+  .about-text p:first-child { margin-top: 0; }
+
+  @media (max-width: 520px) {
+    .about-body { flex-direction: column; }
+    .about-photo { width: 140px; }
+  }
+
+  /* -------- Footer -------- */
+  footer {
+    margin-top: 10vh;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <!-- ======================= HEADER ======================= -->
+  <header>
+    <h1>Michi Wong</h1>
+    <p class="tagline">NYU Sociology/Data Science alumna and current MSc student in Social Data Science at the University of Oxford</p>
+
+    <nav class="links mono">
+      <a href="mailto:michimwong@icloud.com">email</a>
+      <a href="https://github.com/michimwong">github</a>
+      <a href="https://www.linkedin.com/in/michi-wong/">linkedin</a>
+      <a href="https://www.oii.ox.ac.uk/people/profiles/michi-wong/">oii</a>
+    </nav>
+  </header>
+
+  <!-- ======================= ABOUT PREVIEW ======================= -->
+  <section class="about-preview">
+    <div class="section-head" style="--sec: var(--blue);">
+      <span class="mono">01</span>
+      <h2>About</h2>
+    </div>
+
+    <div class="about-body">
+      <img class="about-photo" src="assets/michi.png" alt="Michi Wong">
+      <div class="about-text">
+        <p>I'm an MSc student in Social Data Science at the University of Oxford, co-supervised by
+           Bernie Hogan and Mohsen Mosleh. My work sits at the intersection of the social and
+           data sciences — using machine learning, NLP, and sociological theory to study how people
+           form identities and how ideas spread online.</p>
+
+        <a class="more-link mono" href="about/">More about me →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= EXPERIENCE PREVIEW ======================= -->
+  <section>
+    <div class="section-head" style="--sec: var(--orange);">
+      <span class="mono">02</span>
+      <h2>Experience</h2>
+    </div>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/structured-ai.png" alt="Structured AI logo">
+      <span>
+        <span class="role">AI/Computer Vision Researcher</span><br>
+        <span class="org">Structured AI</span>
+      </span>
+    </a>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/oii.png" alt="Oxford Internet Institute logo">
+      <span>
+        <span class="role">Graduate Researcher</span><br>
+        <span class="org">University of Oxford — Oxford Internet Institute</span>
+      </span>
+    </a>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/connected-life.jpeg" alt="Connected Life Summit logo">
+      <span>
+        <span class="role">Host of Trust and Safety</span><br>
+        <span class="org">University of Oxford — Connected Life Summit</span>
+      </span>
+    </a>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/eagor.jpeg" alt="Eagor logo">
+      <span>
+        <span class="role">User Research and Product Launch Intern</span><br>
+        <span class="org">Eagor</span>
+      </span>
+    </a>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/nyu.png" alt="New York University logo">
+      <span>
+        <span class="role">Senior Thesis</span><br>
+        <span class="org">New York University — Department of Sociology</span>
+      </span>
+    </a>
+
+    <a class="exp-row" href="experience/">
+      <img class="logo" src="assets/logos/smithsonian.png" alt="Museum of the African Diaspora logo">
+      <span>
+        <span class="role">Leadership for Change Intern</span><br>
+        <span class="org">Smithsonian Institution — Museum of the African Diaspora</span>
+      </span>
+    </a>
+
+    <a class="more-link mono" href="experience/">See full experience →</a>
+  </section>
+
+  <!-- ======================= PROJECTS PREVIEW ======================= -->
+  <section>
+    <div class="section-head" style="--sec: var(--rust);">
+      <span class="mono">03</span>
+      <h2>Projects &amp; Writing</h2>
+    </div>
+
+    <a class="proj-row" href="projects/">
+      <span class="role">Detecting Gen-Z Language Register</span>
+      <span class="desc">A comparative evaluation of six classifiers for detecting Gen-Z register in text.</span>
+    </a>
+
+    <a class="proj-row" href="projects/">
+      <span class="role">The Gail's Effect</span>
+      <span class="desc">A difference-in-differences study on café openings and gentrification in London.</span>
+    </a>
+
+    <a class="more-link mono" href="projects/">See all projects &amp; writing →</a>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer>
+    <span class="mono">Built with plain HTML · hosted on GitHub Pages</span>
+  </footer>
+
+</main>
+
+<script>
+  // Drive the top gradient bar's width from scroll progress.
+  (function () {
+    var root = document.documentElement;
+    function update() {
+      var max = root.scrollHeight - root.clientHeight;
+      var pct = max > 0 ? (root.scrollTop || window.scrollY) / max * 100 : 0;
+      root.style.setProperty('--scroll', pct + '%');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>
