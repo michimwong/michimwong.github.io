@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>L'Art pour L'Art in Manet's A Bar at the Folies-Bergère — Michi Wong</title>
+<meta name="description" content="An essay on l'art pour l'art (art for art's sake) in Édouard Manet's A Bar at the Folies-Bergère.">
+
+<style>
+  :root {
+    --paper:  #FAF6F0;
+    --ink:    #2B211B;
+    --muted:  #8A776B;
+    --accent: #742F14;
+    --line:   #EADFD3;
+    --maxw:   680px;
+
+    --rust:   #742F14;
+    --blue:   #5A84AC;
+    --orange: #FC9C44;
+    --tan:    #C7AC9F;
+    --brown:  #5C3C2C;
+
+    --sec:    var(--brown);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: var(--scroll, 0%);
+    background: linear-gradient(90deg,
+      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+    background-size: 100vw 100%;
+    background-repeat: no-repeat;
+    z-index: 50;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12vh 24px 18vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color .15s ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+  .back { border-bottom: none; }
+  .back:hover { color: var(--ink); }
+
+  .article-head {
+    margin-bottom: 4vh;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--sec, var(--line));
+  }
+  h1 {
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin: 1.5rem 0 .6rem;
+    font-weight: 650;
+  }
+  .doc-head { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+
+  article p { margin: 0 0 1.4rem; }
+  article em { font-style: italic; }
+  article h2 {
+    font-size: 1.3rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 2.6rem 0 .9rem;
+  }
+  article blockquote {
+    margin: 1.8rem 0;
+    padding: .3rem 0 .3rem 1.2rem;
+    border-left: 3px solid var(--sec, var(--tan));
+    color: var(--muted);
+    font-size: .96rem;
+  }
+
+  /* Footnote references (Chicago) */
+  sup.fn { font-size: .7em; line-height: 0; vertical-align: super; }
+  sup.fn a { border-bottom: none; }
+
+  /* Figures */
+  figure { margin: 2.6rem 0; }
+  figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 8px; }
+  .fig-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    background: color-mix(in srgb, var(--tan) 28%, var(--paper));
+    border: 1px dashed color-mix(in srgb, var(--tan) 70%, var(--ink));
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: .85rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  figcaption { color: var(--muted); font-size: .85rem; margin-top: .6rem; line-height: 1.5; }
+
+  /* Notes + Bibliography */
+  .notes, .refs { margin-top: 4vh; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .notes h2, .refs h2 {
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.2rem;
+  }
+  .notes ol { margin: 0; padding-left: 1.6rem; }
+  .notes li { font-size: .85rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.5; }
+  .notes li a.fn-back { border-bottom: none; margin-left: .35rem; }
+  .refs .ref {
+    padding-left: 2em;
+    text-indent: -2em;
+    margin-bottom: 1rem;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+
+  footer {
+    margin-top: 10vh;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <div class="article-head">
+    <p><a class="back mono" href="../../projects/#essays">← Projects &amp; Writing</a></p>
+    <h1>Art and Society: L’Art pour L’Art (Art for Art’s Sake) in Manet’s <em>A Bar at the Folies-Bergère</em></h1>
+    <div class="doc-head mono">
+      Michi Wong<br>
+      Expressive Culture: Art and Society · 10 May 2024
+    </div>
+  </div>
+
+  <article>
+    <h2>Introduction and Social/Intellectual Context</h2>
+
+    <p>The mid-19th century brought with it new interpretations of the purpose of art. Prior to this period, art was deeply connected with religion and politics under the Old Master tradition, with a majority of popular artworks being commissioned by religious and political institutions. However, the introduction of Realism, Impressionism, and the avant-garde art movement signaled a monumental shift in the collective understanding of the purpose of art; during this transformational era, the idea of <em>l'art pour l'art</em> (art for art’s sake) gained popularity among European (specifically French) painters. Ultimately, the emergence and proliferation of the concept of <em>l'art pour l'art</em> revealed a profound shift in the purpose of art and artistic expression.</p>
+
+    <p>The notion of <em>l'art pour l'art</em> was strongly influenced by philosopher Immanuel Kant’s aesthetic theory;<sup class="fn"><a id="fnref1" href="#fn1">1</a></sup> the Enlightenment thinker headed the Aestheticism movement, arguing that art should be perceived through judgements of beauty rather than judgements of interest:</p>
+
+    <blockquote>Interest is what we call the liking we connect with the presentation of an object's existence. Hence such a liking always refers at once to our power of desire, either as the basis that determines it, or at any rate as necessarily connected with that determining basis. But if the question is whether something is beautiful, what we want to know is not whether we or anyone cares, or so much as might care, in any way, about the thing's existence, but rather how we judge it in our mere contemplation of it (intuition or reflection).<sup class="fn"><a id="fnref2" href="#fn2">2</a></sup></blockquote>
+
+    <p>This belief that art should be judged based on subjective experience rather than personal interest, socio-political utility, or desire provided the foundations for <em>l'art pour l'art</em>. French writer and art critic Théophile Gautier used this Aestheticist framework to argue for the freedom of artistic expression, claiming that artists should not be responsible for advancing public morality.<sup class="fn"><a id="fnref3" href="#fn3">3</a></sup> He furthered this Aestheticist position by asserting that utility does not equate to beauty when he wrote that “Il n’y a de vraiment beau que ce qui ne peut servir à rien; tout ce qui est utile est laid, car c’est ; expression de quelque besoin, et ceux de l’homme sont ignobles et dégoûtants, comme sa pauvre et informe nature.” (“Nothing is really beautiful unless it is useless; everything useful is ugly, for it expresses a need, and the needs of man are ignoble and disgusting, like his poor weak nature.”)<sup class="fn"><a id="fnref4" href="#fn4">4</a></sup> Gautier’s position as a well-known and respected art critic strongly influenced French artists of the 19th century, leading to the popularity of <em>l'art pour l'art</em> at the time.</p>
+
+    <p>19th century French Realism exemplifies the transition between social art and <em>l'art pour l'art</em>. This artistic movement was a form of social art in that it sought to “convey a truthful and objective vision of contemporary life”<sup class="fn"><a id="fnref5" href="#fn5">5</a></sup> in 19th century France through depictions of the working class. Realism was marked by a pronounced social awareness that served as a response to the emerging class divides and socioeconomic inequalities following the Industrial Revolution, the “Haussmannization” of Paris,<sup class="fn"><a id="fnref6" href="#fn6">6</a></sup> and the French Belle Époque era; Realist artists used everyday scenes and subjects to comment on the new social realities and the “charged social issue[s] of the moment”.<sup class="fn"><a id="fnref7" href="#fn7">7</a></sup> In addition to representing the social and political currents of France in the 19th century, French Realism served as an early form of <em>l'art pour l'art</em> because it aimed to accurately and authentically depict reality without moral obligations. These unembellished depictions broke away from previous artistic traditions that prioritized idealized forms; in portraying some of the more mundane or darker features of modern French life, Realism art hinted at <em>l'art pour l'art</em> because it ignored previous notions of what should be painted. Overall, French Realism was social in that it was concerned with depicting social and political realities, but it was also a form of <em>l'art pour l'art</em> because it rejected idealism, allowing for more artistic freedom.</p>
+
+    <p>French artist Édouard Manet best demonstrates the Realist movement’s progression towards <em>l'art pour l'art</em>. He began his career as a Realist artist, but incorporated Impressionist elements in his later work, illustrating the growing influence of <em>l'art pour l'art</em> and the changing understandings of the purpose of art at the time. Early-20th century art critic Camille Mauclair applauded Manet for his unique style and highlighted Manet as the artist that established the Impressionist movement:</p>
+
+    <blockquote>There remains then a great personality, who knew how to dominate the rather coarse conceptions of realism ; who influenced by his modernity all contemporary illustration ; who re-established a strong and sound condition in the face of the Academy ; and who not only created a new transition, but marked his place on the new roach which he had opened.<br><br>To him, [I]mpressionism owes its existence; his tenacity enabled it to take root … his work has enriched the world by some beautiful examples, which demonstrate the union of the two principles of [R]ealism [and] of that technical [I]mpressionism.<sup class="fn"><a id="fnref8" href="#fn8">8</a></sup></blockquote>
+
+    <p>This convergence of Realism and Impressionism present in Manet’s work set the stage for the broader French Impressionist movement and growth of <em>l'art pour l'art</em> during the late-19th century. Specifically, Manet’s last major painting <em>A Bar at the Folies-Bergère</em> epitomizes this synthesis of Realist and Impressionist elements and displays the pinnacle of his abilities. Ultimately, the composition of Manet’s final masterpiece <em>A Bar at the Folies-Bergère</em> fluctuates between Realism and Impressionism, providing a prime example of the French artistic movement towards <em>l'art pour l'art</em>.</p>
+
+    <h2>Creation and Characteristics</h2>
+
+    <p><em>A Bar at the Folies-Bergère</em> was Manet’s last major work, and it was painted and exhibited at the Paris Salon in 1882. Manet visited the Folies-Bergère — a music and party venue at the heart of Parisian social life during the Belle Époque era — to create preliminary sketches of the painting.<sup class="fn"><a id="fnref9" href="#fn9">9</a></sup> The painting depicts a woman standing behind a bar in the Folies-Bergère, leaning on her palms and addressing a customer. She has rosy cheeks, blonde hair, as well as an exhausted (sometimes read as “austere”<sup class="fn"><a id="fnref10" href="#fn10">10</a></sup>) expression on her face that provides a “provocative mystique” to her character.<sup class="fn"><a id="fnref11" href="#fn11">11</a></sup> This barmaid is wearing gold jewelry and a dark blue velvet blouse with white lace detailing. A small vase of flowers, a bowl of oranges, and a variety of wines and liquors sit on the marble counter in front of her. A large mirror behind the bar depicts the lively scene in front of the barmaid; French socialites gather under a large chandelier and an acrobat hangs from the ceiling. The mirror also reveals that a customer, standing in the position of the viewer, is speaking to the barmaid. Contemporary radiography testing on the painting has shown that the composition of the oil painting has gone through multiple revisions: the barmaid’s hands were originally crossed in front of her stomach<sup class="fn"><a id="fnref12" href="#fn12">12</a></sup> and her reflection has been altered.<sup class="fn"><a id="fnref13" href="#fn13">13</a></sup> Overall, the composition of <em>A Bar at the Folies-Bergère</em> uses both Realist and Impressionist techniques to depict the stark contrast between the innocent, exhausted barmaid and the party in front of her.</p>
+
+    <figure>
+      <div class="fig-placeholder">Fig. 1 — add image at assets/essays/lart-pour-lart/fig1.jpg</div>
+      <figcaption>Fig. 1, Manet, Édouard. <em>A Bar at the Folies-Bergère</em>, 1882. Oil on canvas, 96 x 130 cm. Courtauld Institute of Art, London.</figcaption>
+    </figure>
+
+    <p><em>A Bar at the Folies-Bergère</em> is a Realist painting in that it authentically depicts Parisian life, making a social commentary on the new class that emerged during the French Belle Époque era. French Realism attempted to “create objective representations of the external world based on the impartial observation of contemporary life”.<sup class="fn"><a id="fnref14" href="#fn14">14</a></sup> Manet employed Realist methods by using actual models for his work; the barmaid in the final iteration of the painting was a real woman named Suzon who worked at the Folies-Bergère.<sup class="fn"><a id="fnref15" href="#fn15">15</a></sup> The representation of the exhausted barmaid is Realist in that it is unembellished and signals to the new challenges of modern city life. Manet’s painting rejects the idealization and glorification of Suzon, and instead emphasizes the Realist principle of painting the objective truth. The catalog of the 1882 Salon describes this Realist manner, stating that the painting has “pas un brin de beauté, mais du naturel, de la gaieté, de la lumière, de l'adresse, des lazzis, des crudités, des coquetteries” (“not a bit of beauty, but naturalness, cheerfulness, light, skill, nonsense, crudities, coquetry”).<sup class="fn"><a id="fnref16" href="#fn16">16</a></sup> Thus, the composition of <em>A Bar at the Folies-Bergère</em> is Realist in that it draws from modern city life to portray an ordinary working class woman without idealizing her, juxtaposing Suzon’s fatigue with the extravagant festivities in front of her to highlight the vastly different realities of modern Parisian life in the 19th century.</p>
+
+    <p>Despite having its roots in Realism, the composition of <em>A Bar at the Folies-Bergère</em> utilizes Impressionist motifs and techniques, contributing to the establishment of French Impressionist art in the late-19th century. In comparison to his earlier artworks such as <em>The Absinthe Drinker</em> painted in 1859, Manet’s later works signals a shift away from Realism through his use of lighter palettes and a looser brush strokes, which were artistic elements characteristic of Impressionism. Furthermore, the subjective, inconsistent perspective of <em>A Bar at the Folies-Bergère</em> shows Manet’s Impressionist tendencies; art critics Thierry de Duve and Brian Holmes argue that the position and reflection of the mirror is incorrect when they write that “the painting’s construction is aberrant with regard to commonsense or ‘realistic’ assumptions about the depiction of perceived space”.<sup class="fn"><a id="fnref17" href="#fn17">17</a></sup> Art historian James D. Herbert builds on this common belief and asserts that this apparent deviation from Realism is deliberate, noting that these “perspectival inconsistencies of the reflection in the mirror—aspects of <em>A Bar at the Folies-Bergère</em> that have been thoroughly rehearsed in the literature on the picture—defy established conventions of mimesis” because they produce an illusory effect that mimics the feeling of being in the Folies-Bergère.<sup class="fn"><a id="fnref18" href="#fn18">18</a></sup> Thus, the inconsistent optics of <em>A Bar at the Folies-Bergère</em> is purposeful and Impressionistic in nature. Additionally Manet’s use of fragmentation in the composition of the painting reveals his movement towards Impressionism and <em>l'art pour l'art</em>. The trapeze artist in the upper left corner of the painting is cut out of the frame; Manet only shows the trapezist’s legs in order to depict movement, which was a compositional technique used to highlight the “momentary qualities of [Impressionist artists’] perceptions”.<sup class="fn"><a id="fnref19" href="#fn19">19</a></sup> Additionally, Manet also uses fragmentation by estranging the viewer; the viewers of the painting only see themselves (as the customer) through a mirror. French philosopher Michel Foucault argues that Manet’s choice to alienate the viewer challenges preconceived notions of the relationship between the observer and the subject, describing this fragmentation as “a representational play of the fundamental material elements of the canvas”;<sup class="fn"><a id="fnref20" href="#fn20">20</a></sup> <em>A Bar at the Folies-Bergère</em> puts the viewer in place of the customer, using Impressionist compositional methods in order to push the viewer to reconsider the subjective nature of perception. These compositional uses of intentional cuts and fragmentations create a sense of randomness, signaling to viewers that chance – rather than social forces – structure the picture. Ultimately, <em>A Bar at the Folies-Bergère</em>’s Impressionist elements of subjective perspective and fragmentation highlight Manet’s artistic freedom, displaying his tendency to lean towards <em>l'art pour l'art</em> in his later works.</p>
+
+    <figure>
+      <div class="fig-placeholder">Fig. 2 — add image at assets/essays/lart-pour-lart/fig2.jpg</div>
+      <figcaption>Fig. 2, Manet, Édouard. <em>The Absinthe Drinker</em>, 1859. Oil on canvas, 180.5 x 105.6 cm. Ny Carlsberg Glyptotek, Copenhagen.</figcaption>
+    </figure>
+
+    <h2>Social Function and Responses</h2>
+
+    <p>Throughout his career, Manet’s artwork was both praised and criticized; he showed his paintings in both the Paris Salon and Salon des Refusés, which displays the controversial nature of his blending of Realist and Impressionist styles. The fact that <em>A Bar at the Folies-Bergère</em> was exhibited in the 1882 Paris Salon shows that it was well-received by critics at the time because it made it past the jury of art professors from the French Academy.<sup class="fn"><a id="fnref21" href="#fn21">21</a></sup> Art critics at the 1882 salon were fascinated by the Impressionist ambiguity of Suzon’s expression: one critic perceived the barmaid to have an “air embêté” (“annoyed look”), whereas another critic assessed her as being “bien vivante” (“truly alive”).<sup class="fn"><a id="fnref22" href="#fn22">22</a></sup> This experimental blend of Realism and Impressionism was dubbed a “brillante et fraîche palette” (“brilliant and fresh palette)<sup class="fn"><a id="fnref23" href="#fn23">23</a></sup> of not just colors, but of artistic styles and understandings of the purpose of art. Overall, the critics of the Salon were so impressed by <em>A Bar at the Folies-Bergère</em>’s Impressionist characteristics that it described Manet as “le maître [I]mpressionniste” (“the master Impressionist”)<sup class="fn"><a id="fnref24" href="#fn24">24</a></sup> in the 1882 Salon catalog.</p>
+
+    <p>Furthermore, <em>A Bar at the Folies-Bergère</em> has continued to be applauded and appreciated by contemporary art historians and theorists, and it has been canonized “as one of their heroic and exalted monuments”.<sup class="fn"><a id="fnref25" href="#fn25">25</a></sup> These contemporary thinkers have added to understandings of the painting through recontextualizations that interpret <em>A Bar at the Folies-Bergère</em> through a modern lens; for example, Impressionist scholar Ruth E. Iskin’s sociological gendered take on the painting interprets Suzon as a prostitute who is selling herself through her alienation as the only person in front of the viewer.<sup class="fn"><a id="fnref26" href="#fn26">26</a></sup> Similarly, art historian Bradford Collins curates a variety of modern interpretations – ranging from feminist persepctives to Lacanian psychoanalysis – of the painting in his collection <em>Twelve Views of Manet’s Bar</em>, showcasing the various ways that contemporary intellectual theory can be applied to <em>A Bar at the Folies-Bergère</em>.</p>
+
+    <p>Manet’s later artwork served a social purpose in that it established the foundations for the rise of Impressionism. Despite not officially exhibiting with other Impressionist artists in the Paris Salon des Refusés, Manet’s later paintings served as a leading precedent for the new movement.<sup class="fn"><a id="fnref27" href="#fn27">27</a></sup> Manet’s fascination with Parisian city life translated over into the Impressionist art movement, and later Impressionist artwork also exhibited this interest in modern subjects (as seen in Auguste Renoir’s <em>Young Girl in a Pink-and-Black Hat</em> painted in 1891 and Camille Pissarro’s <em>La Place du Théâtre Français</em> painted in 1898). Ultimately, Manet’s union of Realist and Impressionist elements layed the groundwork for late-19th century Impressionism, and this fascinating combination of artistic styles continues to be examined in contemporary contexts.</p>
+
+    <figure>
+      <div class="fig-placeholder">Fig. 3 — add image at assets/essays/lart-pour-lart/fig3.jpg</div>
+      <figcaption>Fig. 3, Renoir, Auguste. <em>Young Girl in a Pink-and-Black Hat</em>, 1891. Oil on canvas, 40.6 x 32.4 cm. Metropolitan Museum of Art, New York.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="fig-placeholder">Fig. 4 — add image at assets/essays/lart-pour-lart/fig4.jpg</div>
+      <figcaption>Fig. 4, Pissarro, Camille. <em>La Place du Théâtre Français</em>, 1898. Oil on canvas, 92.71 x 72.39 cm. Los Angeles County Museum of Art, Los Angeles.</figcaption>
+    </figure>
+
+    <h2>Conclusion</h2>
+
+    <p>In summary, Manet’s fluctuations between Realism and Impressionism in <em>A Bar at the Folies-Bergère</em> reveals the increased focus on artistic expressionism during the 19th century and signals a shift in the understanding of the purpose of art from art as a social practive to <em>l'art pour l'art</em>. Despite Manet’s allusions to the class tensions between the barmaid and the Folies-Bergère partygoers, the use of irrational perspective and the fragmented composition of the painting makes it an Impressionist painting. The painting’s subjective elements show Manet’s inclination towards <em>l'art pour l'art</em>, with Manet himself purportedly noting that “no one can be a painter unless he cares for painting above all else”;<sup class="fn"><a id="fnref28" href="#fn28">28</a></sup> this emphasis on artistic expression over social or political obligation shows Manet’s understanding that the purpose of art is <em>l'art pour l'art</em>. His incorporation of Impressionism in his later works shaped the works of his successors, and “his bold manner with paint inspired the future [I]mpressionists”.<sup class="fn"><a id="fnref29" href="#fn29">29</a></sup> In conclusion, Manet developed <em>A Bar at the Folies-Bergère</em> in dialogue with Impressionism, balancing the painting’s Realist elements with a composition that laid the groundwork for the rise of Impressionism and <em>l'art pour l'art</em>.</p>
+  </article>
+
+  <section class="notes">
+    <h2>Notes</h2>
+    <ol>
+      <li id="fn1">John Wilcox, “The Beginnings of l’Art Pour l’Art,” <em>The Journal of Aesthetics and Art Criticism</em> 11, no. 4 (1953): 361. <a class="fn-back" href="#fnref1">↩</a></li>
+      <li id="fn2">Immanuel Kant, <em>Critique of Judgement</em>, trans. J. H. Bernard (London: Macmillan, 1914), 45. <a class="fn-back" href="#fnref2">↩</a></li>
+      <li id="fn3">Margueritte Murphy, “Pure Art, Pure Desire: Changing Definitions of ‘l’art Pour l’art’ from Kant to Gautier.” <em>Studies in Romanticism</em> 47, no. 2 (2008): 154-155. <a class="fn-back" href="#fnref3">↩</a></li>
+      <li id="fn4">Murphy, “Pure Art, Pure Desire: Changing Definitions of ‘l’art Pour l’art’ from Kant to Gautier”, 156; Gautier, Preface, <em>Mademoiselle de Maupin</em>, in Gautier, <em>Oeuvres: Choix de roma contes</em>, ed. Paolo Tortonese (Paris: Robert Laffont), 193. <a class="fn-back" href="#fnref4">↩</a></li>
+      <li id="fn5">Ross Finocchio, “Nineteenth-Century French Realism,” The Metropolitan Museum of Art, Heilbrunn Timeline of Art History (October 2004), https://www.metmuseum.org/toah/hd/rlsm/hd_rlsm.htm. <a class="fn-back" href="#fnref5">↩</a></li>
+      <li id="fn6">Timothy J. Clark, <em>The Painting of Modern Life</em> (New York: Knopf, 1985), 203. <a class="fn-back" href="#fnref6">↩</a></li>
+      <li id="fn7">Alex Potts, “Social Theory and the Realist Impulse in Nineteenth-Century Art,” <em>Nonsite</em> (Atlanta, Ga.), no. 27 (April 1, 2019). <a class="fn-back" href="#fnref7">↩</a></li>
+      <li id="fn8">Camille Mauclair, P. G. Konody, and Arthur J. Eddy, “Two Appreciations of Manet,” <em>Brush and Pencil</em> 19, no. 1 (1907): 23. <a class="fn-back" href="#fnref8">↩</a></li>
+      <li id="fn9">Tag Gronberg, “Dumbshows: A Carefully Staged Indifference” <em>Twelve Views of Manet’s Bar</em>, ed. Bradford R. Collins, vol. 1 (Princeton University Press, 1996), 189. <a class="fn-back" href="#fnref9">↩</a></li>
+      <li id="fn10">Albert Boime, “Manet’s ‘Un Bar Aux Folies-Bergère’ as an Allegory of Nostalgia,” <em>Zeitschrift für Kunstgeschichte</em> 56, no. 2 (1993): 240. <a class="fn-back" href="#fnref10">↩</a></li>
+      <li id="fn11">Novelene Ross, <em>Manet’s Bar at the Folies-Bergère and the Myths of Popular Illustration</em> (UMI Research Press, 1982). <a class="fn-back" href="#fnref11">↩</a></li>
+      <li id="fn12">J. Loveday, “A New Way of Looking at Manet: The Revelations of Radiography,” <em>BMJ</em> 293, no. 6562 (December 20, 1986): 1638–39. <a class="fn-back" href="#fnref12">↩</a></li>
+      <li id="fn13">Silvia Rita Amato et al., “Interpreting Technical Evidence from Spectral Imaging of Paintings by Édouard Manet in the Courtauld Gallery,” <em>X-ray spectrometry</em> 48, no. 4 (July 2019): 282–92. <a class="fn-back" href="#fnref13">↩</a></li>
+      <li id="fn14">J. H. Rubin, “Realism” (Oxford University Press, 2003), doi:10.1093/gao/9781884446054.article.T070996. <a class="fn-back" href="#fnref14">↩</a></li>
+      <li id="fn15">“A Bar at the Folies-Bergère,” The Courtauld, n.d., https://courtauld.ac.uk/highlights/a-bar-at-the-folies-bergere/. <a class="fn-back" href="#fnref15">↩</a></li>
+      <li id="fn16">“L’Exposition des beaux-arts (Salon de 1882),” Librairie d’art L. Baschet (1882), 125. <a class="fn-back" href="#fnref16">↩</a></li>
+      <li id="fn17">Thierry de Duve and Brian Holmes, “How Manet’s ‘A Bar at the Folies-Bergère’ Is Constructed,” <em>Critical Inquiry</em> 25, no. 1 (1998): 139–40. <a class="fn-back" href="#fnref17">↩</a></li>
+      <li id="fn18">James D. Herbert, “Privilege and the Illusion of the Real”, <em>Twelve Views of Manet’s Bar</em>, ed. Bradford R. Collins, vol. 1 (Princeton University Press, 1996), 215. <a class="fn-back" href="#fnref18">↩</a></li>
+      <li id="fn19">Grace Seiberling, “Impressionism” (Oxford University Press, 2003), doi:10.1093/gao/9781884446054.article.T040015. <a class="fn-back" href="#fnref19">↩</a></li>
+      <li id="fn20">Michel Foucault and Matthew Barr, <em>Manet and the Object of Painting</em> (Tate Publishing, 2009), 79. <a class="fn-back" href="#fnref20">↩</a></li>
+      <li id="fn21">Rebecca Rabinow, “Édouard Manet (1832–1883),” The Metropolitan Museum of Art, Heilbrunn Timeline of Art History (October 2004), https://www.metmuseum.org/toah/hd/mane/hd_mane.htm; Susan D Greenberg and Robert L Herbert, <em>A Selection of French Impressionist Paintings from the Yale University Art Gallery</em> (Yale University Art Gallery, 2000), 10. <a class="fn-back" href="#fnref21">↩</a></li>
+      <li id="fn22">Albert Boime, “Manet’s ‘Un Bar Aux Folies-Bergère’ as an Allegory of Nostalgia,” 240. <a class="fn-back" href="#fnref22">↩</a></li>
+      <li id="fn23">“L’Exposition des beaux-arts (Salon de 1882),” Librairie d’art L. Baschet (1882), 127. <a class="fn-back" href="#fnref23">↩</a></li>
+      <li id="fn24">“L’Exposition des beaux-arts (Salon de 1882),” Librairie d’art L. Baschet (1882), 125. <a class="fn-back" href="#fnref24">↩</a></li>
+      <li id="fn25">Albert Boime, “Manet’s ‘Un Bar Aux Folies-Bergère’ as an Allegory of Nostalgia,” 234. <a class="fn-back" href="#fnref25">↩</a></li>
+      <li id="fn26">Ruth E. Iskin, “Selling, Seduction, and Soliciting the Eye: Manet’s Bar at the Folies-Bergère,” <em>The Art Bulletin</em> 77, no. 1 (1995): 25–44. <a class="fn-back" href="#fnref26">↩</a></li>
+      <li id="fn27">Greenberg and Herbert, <em>A Selection of French Impressionist Paintings from the Yale University Art Gallery</em>, 9. <a class="fn-back" href="#fnref27">↩</a></li>
+      <li id="fn28">This quote is commonly attributed to Manet, but its authenticity remains uncertain because it lacks a specific source document or date. It is often cited as part of his well-known beliefs rather than in one of his documented statements or letters. <a class="fn-back" href="#fnref28">↩</a></li>
+      <li id="fn29">“Manet and His Influence,” National Gallery of Art, n.d., https://www.nga.gov/features/slideshows/manet-and-his-influence.html. <a class="fn-back" href="#fnref29">↩</a></li>
+    </ol>
+  </section>
+
+  <section class="refs">
+    <h2>Bibliography</h2>
+    <div class="ref">“A Bar at the Folies-Bergère.” The Courtauld, n.d. https://courtauld.ac.uk/highlights/a-bar-at-the-folies-bergere/.</div>
+    <div class="ref">Amato, Silvia Rita, Aviva Burnstock, Maureen Cross, Koen Janssens, Francesca Rosi, Laura Cartechini, Raffaella Fontana, et al. “Interpreting Technical Evidence from Spectral Imaging of Paintings by Édouard Manet in the Courtauld Gallery,” <em>X-ray spectrometry</em> 48, no. 4 (July 2019): 282–92. doi:10.1002/xrs.2828.</div>
+    <div class="ref">Boime, Albert. “Manet’s ‘Un Bar Aux Folies-Bergère’ as an Allegory of Nostalgia,” <em>Zeitschrift für Kunstgeschichte</em> 56, no. 2 (1993): 234–48. doi:10.2307/1482637.</div>
+    <div class="ref">Clark, Timothy J. <em>The Painting of Modern Life</em>. New York: Knopf, 1985.</div>
+    <div class="ref">Duve, Thierry de, and Brian Holmes. “How Manet’s ‘A Bar at the Folies-Bergère’ Is Constructed,” <em>Critical Inquiry</em> 25, no. 1 (1998): 136–68. http://www.jstor.org/stable/1344137.</div>
+    <div class="ref">Finocchio, Ross. “Nineteenth-Century French Realism,” The Metropolitan Museum of Art, no. Heilbrunn Timeline of Art History (October 2004). https://www.metmuseum.org/toah/hd/rlsm/hd_rlsm.htm.</div>
+    <div class="ref">Foucault, Michel, and Matthew Barr. <em>Manet and the Object of Painting</em>. Tate Publishing, 2009.</div>
+    <div class="ref">Greenberg, Susan D, and Robert L Herbert. <em>A Selection of French Impressionist Paintings from the Yale University Art Gallery</em>. Yale University Art Gallery, 2000.</div>
+    <div class="ref">Gronberg, Tag. <em>Dumbshows:; A Carefully Staged Indifference</em>. Edited by Bradford R. Collins. Vol. 1. Twelve Views of Manet’s Bar 1. Princeton University Press, 1996. doi:10.2307/j.ctv18zhd9c.14.</div>
+    <div class="ref">Herbert, James D. <em>Privilege and the Illusion of the Real</em>. Edited by Bradford R. Collins. Vol. 1. Twelve Views of Manet’s Bar 1. Princeton University Press, 1996. doi:10.2307/j.ctv18zhd9c.15.</div>
+    <div class="ref">Iskin, Ruth E. “Selling, Seduction, and Soliciting the Eye: Manet’s Bar at the Folies-Bergère,” <em>The Art Bulletin</em> 77, no. 1 (1995): 25–44. doi:10.2307/3046078.</div>
+    <div class="ref">Kant, Immanuel. <em>Critique of Judgement</em>. Translated by J. H. Bernard. London: Macmillan, 1914. https://worldcat.org/title/3808312.</div>
+    <div class="ref">“L’Exposition des beaux-arts (Salon de 1882),” Librairie d’art L. Baschet, 1882. https://library.si.edu/digital-library/book/lexpositiondesbe00salo.</div>
+    <div class="ref">Loveday, J. “A New Way of Looking at Manet: The Revelations of Radiography,” <em>BMJ</em> 293, no. 6562 (December 20, 1986): 1638–39. doi:10.1136/bmj.293.6562.1638.</div>
+    <div class="ref">“Manet and His Influence.” National Gallery of Art, n.d. https://www.nga.gov/features/slideshows/manet-and-his-influence.html.</div>
+    <div class="ref">Mauclair, Camille, P. G. Konody, and Arthur J. Eddy. “Two Appreciations of Manet,” <em>Brush and Pencil</em> 19, no. 1 (1907): 23–38. http://www.jstor.org/stable/25619668.</div>
+    <div class="ref">Murphy, Margueritte. “Pure Art, Pure Desire: Changing Definitions of ‘l’art Pour l’art’ from Kant to Gautier,” <em>Studies in Romanticism</em> 47, no. 2 (2008): 147–60. http://www.jstor.org/stable/25602139.</div>
+    <div class="ref">Potts, Alex. “Social Theory and the Realist Impulse in Nineteenth-Century Art,” <em>Nonsite</em> (Atlanta, Ga.), no. 27 (April 1, 2019). https://search.proquest.com/docview/2211924305.</div>
+    <div class="ref">Rabinow, Rebecca. “Édouard Manet (1832–1883),” The Metropolitan Museum of Art, no. Heilbrunn Timeline of Art History (October 2004). https://www.metmuseum.org/toah/hd/mane/hd_mane.htm.</div>
+    <div class="ref">Ross, Novelene. <em>Manet’s Bar at the Folies-Bergère and the Myths of Popular Illustration</em>. UMI Research Press, 1982.</div>
+    <div class="ref">Rubin, J. H. “Realism.” Oxford University Press, 2003. doi:10.1093/gao/9781884446054.article.T070996.</div>
+    <div class="ref">Seiberling, Grace. “Impressionism.” Oxford University Press, 2003. doi:10.1093/gao/9781884446054.article.T040015.</div>
+    <div class="ref">Wilcox, John. “The Beginnings of l’Art Pour l’Art,” <em>The Journal of Aesthetics and Art Criticism</em> 11, no. 4 (1953): 360–77. doi:10.2307/426457.</div>
+  </section>
+
+  <footer>
+    <span class="mono">Built with plain HTML · hosted on GitHub Pages</span>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    function update() {
+      var max = root.scrollHeight - root.clientHeight;
+      var pct = max > 0 ? (root.scrollTop || window.scrollY) / max * 100 : 0;
+      root.style.setProperty('--scroll', pct + '%');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>

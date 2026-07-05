@@ -187,6 +187,31 @@
 
   .more-link { display: inline-block; margin-top: 1.25rem; }
 
+  /* -------- Writing banner -------- */
+  .writing-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--orange);
+    border-radius: 12px;
+    color: inherit;
+    border-bottom: none;
+    background: linear-gradient(120deg,
+      color-mix(in srgb, var(--orange) 16%, var(--paper)) 0%,
+      color-mix(in srgb, var(--tan) 12%, var(--paper)) 50%,
+      color-mix(in srgb, var(--blue) 16%, var(--paper)) 100%);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .writing-group { margin-top: 2.5rem; }
+  .writing-banner + .writing-banner { margin-top: .9rem; }
+  .writing-banner:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .writing-banner .b-title { display: block; font-weight: 600; font-size: 1.05rem; margin-bottom: .2rem; }
+  .writing-banner .b-desc { display: block; color: var(--muted); font-size: .95rem; }
+  .writing-banner .b-cta { margin-top: .5rem; color: var(--accent); font-weight: 600; }
+
   /* -------- About preview -------- */
   .about-preview p { margin-bottom: 1rem; }
   .about-body {
@@ -320,24 +345,49 @@
     <a class="more-link mono" href="experience/">See full experience →</a>
   </section>
 
-  <!-- ======================= PROJECTS PREVIEW ======================= -->
+  <!-- ======================= PROJECTS & WRITING ======================= -->
   <section>
     <div class="section-head" style="--sec: var(--rust);">
       <span class="mono">03</span>
       <h2>Projects &amp; Writing</h2>
     </div>
 
-    <a class="proj-row" href="projects/">
+    <a class="proj-row" href="https://github.com/michimwong/genz-detection">
       <span class="role">Detecting Gen-Z Language Register</span>
       <span class="desc">A comparative evaluation of six classifiers for detecting Gen-Z register in text.</span>
     </a>
 
-    <a class="proj-row" href="projects/">
+    <a class="proj-row" href="https://github.com/michimwong/gails_effect">
       <span class="role">The Gail's Effect</span>
       <span class="desc">A difference-in-differences study on café openings and gentrification in London.</span>
     </a>
 
-    <a class="more-link mono" href="projects/">See all projects &amp; writing →</a>
+    <a class="proj-row" href="https://github.com/michimwong/f1_parenthood_effect">
+      <span class="role">The F1 Parenthood Effect</span>
+      <span class="desc">A quasi-experimental study on whether Formula 1 drivers slow down after parenthood.</span>
+    </a>
+
+    <a class="more-link mono" href="projects/">See all projects →</a>
+
+    <!-- Writing blocks, kept on their own within this section -->
+    <div class="writing-group">
+      <a class="writing-banner" href="projects/#writing">
+        <span class="b-text">
+          <span class="b-title">MoAD Journal</span>
+          <span class="b-desc">Pieces written for the MoAD Journal as a
+            Smithsonian Leadership for Change intern</span>
+        </span>
+        <span class="b-cta mono">Read essays →</span>
+      </a>
+
+      <a class="writing-banner" href="projects/#essays">
+        <span class="b-text">
+          <span class="b-title">Essays</span>
+          <span class="b-desc">Essays on art, film, and culture</span>
+        </span>
+        <span class="b-cta mono">Read essays →</span>
+      </a>
+    </div>
   </section>
 
 </main>
