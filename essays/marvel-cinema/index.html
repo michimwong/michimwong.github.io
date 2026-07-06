@@ -93,22 +93,47 @@
   }
   .doc-head { color: var(--muted); font-size: .85rem; line-height: 1.7; }
 
+  /* Hero image + summary caption */
+  .hero { margin: 0 0 5vh; }
+  .hero img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--sec, var(--tan));
+  }
+  .hero figcaption {
+    color: var(--muted);
+    font-size: .95rem;
+    margin-top: .9rem;
+    line-height: 1.55;
+  }
+
   article p { margin: 0 0 1.4rem; }
   article em { font-style: italic; }
 
-  /* Works Cited (MLA, hanging indent) */
-  .refs { margin-top: 4vh; padding-top: 1.5rem; border-top: 1px solid var(--line); }
-  .refs h2 {
+  /* Footnote references (Chicago) */
+  sup.fn { font-size: .7em; line-height: 0; vertical-align: super; }
+  sup.fn a { border-bottom: none; }
+
+  /* Notes + Bibliography */
+  .notes, .refs { margin-top: 4vh; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .notes h2, .refs h2 {
     font-size: 1.15rem;
     font-weight: 650;
     letter-spacing: -0.01em;
     margin: 0 0 1.2rem;
   }
+  .notes ol { margin: 0; padding-left: 1.6rem; }
+  .notes li { font-size: .85rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.5; }
+  .notes li a.fn-back { border-bottom: none; margin-left: .35rem; }
   .refs .ref {
     padding-left: 2em;
     text-indent: -2em;
     margin-bottom: 1rem;
-    font-size: .95rem;
+    font-size: .9rem;
     line-height: 1.5;
   }
 
@@ -137,6 +162,12 @@
     </div>
   </div>
 
+  <figure class="hero">
+    <img src="hero.jpg" alt="Still from Werewolf by Night (2022)">
+    <figcaption>Michael Giacchino’s <em>Werewolf by Night</em> draws on classic horror and a
+      morally gray monster-hunter to argue that, against Scorsese, franchise films can be cinema.</figcaption>
+  </figure>
+
   <article>
     <p>At first glance, Michael Giacchino’s Marvel special presentation short film <em>Werewolf by Night</em> (2022) seems like a regular, cookie-cutter superhero movie. It begins with the traditional Marvel opening, a zoom-out on their logo as popular scenes from previous movies play to the background of their iconic, triumphant theme. But suddenly, a woman’s scream and monster’s growl cut through and a large gash appears on the screen. The introduction goes noir and the Marvel theme music takes on an unsettling tone. Just from the introduction alone, audience members can tell that <em>Werewolf by Night</em> is no ordinary Marvel superhero movie.</p>
 
@@ -144,15 +175,15 @@
 
     <p>The introduction of the film’s main character makes the audience wonder: is Jack a hero? Many would assume that he is because he’s the main character in a Marvel movie, but Jack is portrayed in such an ominous way that it’s difficult to see him as a protagonist; audience members soon learn that he has killed “over 100” monsters, a number that greatly surpasses the kills of his fellow monster hunters. However, he also isn’t fully a villain; he’s hunting a fearsome monster, so he must be good… right?</p>
 
-    <p>Ambiguity is common in the horror genre because it makes use of a fear that everyone has – the fear of the unknown. Giacchino takes this ambiguity and applies it to Jack’s morally gray character, making us ask: who is the true monster? This idea traces its roots back to Mary Shelley’s 1818 novel <em>Frankenstein</em>; Shelley’s readers are forced to question if the real monster is Victor Frankenstein or his creation. After bringing his creation to life, Frankenstein immediately shuns the creature and calls him a “demoniacal corpse” (Shelley 46). Frankenstein’s neglect and abandonment leaves the creature to navigate its complex emotions of “rage and revenge” all by itself (Shelley 128); without the guidance of a parental-figure, these anger-filled emotions push the creature to kill. So who is the monster in this story? Is it Frankenstein for neglecting his creation, therefore causing the creature’s murderous, vengeful rampage? Or is it the creature for giving in to his desire to kill? Though these questions are never formally answered in <em>Frankenstein</em>, Shelley uses ambiguity to challenge readers’ ideas of good and bad – of what makes a monster <em>a monster</em>.</p>
+    <p>Ambiguity is common in the horror genre because it makes use of a fear that everyone has – the fear of the unknown. Giacchino takes this ambiguity and applies it to Jack’s morally gray character, making us ask: who is the true monster? This idea traces its roots back to Mary Shelley’s 1818 novel <em>Frankenstein</em>; Shelley’s readers are forced to question if the real monster is Victor Frankenstein or his creation. After bringing his creation to life, Frankenstein immediately shuns the creature and calls him a “demoniacal corpse.”<sup class="fn"><a id="fnref1" href="#fn1">1</a></sup> Frankenstein’s neglect and abandonment leaves the creature to navigate its complex emotions of “rage and revenge” all by itself;<sup class="fn"><a id="fnref2" href="#fn2">2</a></sup> without the guidance of a parental-figure, these anger-filled emotions push the creature to kill. So who is the monster in this story? Is it Frankenstein for neglecting his creation, therefore causing the creature’s murderous, vengeful rampage? Or is it the creature for giving in to his desire to kill? Though these questions are never formally answered in <em>Frankenstein</em>, Shelley uses ambiguity to challenge readers’ ideas of good and bad – of what makes a monster <em>a monster</em>.</p>
 
-    <p>Since then, this essential question has permeated through the horror genre and has found its way into cult-classic horror films such as the Universal Classic Monster movies. Even though these characters are portrayed as monsters, they still are able to evoke a sense of empathy from the audience. You can’t help but feel bad for characters like Frankenstein, Dracula, the Mummy, the Invisible Man, the Creature from the Black Lagoon, and (most importantly) the Wolf Man. In an interview with Screen Rant Plus, Giacchino says that, growing up, he felt bad for these classic monsters because “they just are who they are and … the world will not accept them for who they are” (Screen Rant Plus, 1:29). Giacchino tries and succeeds to recreate this ambiguity and empathy and have the audience see monsters not just as horrible creatures, but as living beings with thoughts, feelings, and emotions.</p>
+    <p>Since then, this essential question has permeated through the horror genre and has found its way into cult-classic horror films such as the Universal Classic Monster movies. Even though these characters are portrayed as monsters, they still are able to evoke a sense of empathy from the audience. You can’t help but feel bad for characters like Frankenstein, Dracula, the Mummy, the Invisible Man, the Creature from the Black Lagoon, and (most importantly) the Wolf Man. In an interview with Screen Rant Plus, Giacchino says that, growing up, he felt bad for these classic monsters because “they just are who they are and … the world will not accept them for who they are.”<sup class="fn"><a id="fnref3" href="#fn3">3</a></sup> Giacchino tries and succeeds to recreate this ambiguity and empathy and have the audience see monsters not just as horrible creatures, but as living beings with thoughts, feelings, and emotions.</p>
 
     <p>Later in the film, we see Giacchino further complicate and add to the obscurity of Jack’s character. Jack has just unintentionally locked himself into the Bloodstone family crypt with a wounded Elsa Bloodstone, a fellow monster hunter competing for her birthright to the Bloodstone. The coffins of the deceased family members are neatly stacked on top of each other, their names brightly lit up like marquees reminiscent of the time when Universal Monster horror films played in theaters. Unexpectedly, Jack offers to help bandage the gash in the back of her leg. Elsa immediately says no, beginning to tie the tourniquet herself and explaining that she has to escape the crypt and get the Bloodstone to finally overcome the burden of her family. However, after bandaging herself incorrectly, she finally yields to having Jack help her. As Jack fixes her botched tourniquet, his face shadowed by the bright light of the coffins behind him, Elsa calls him out for not wanting to compete for the Bloodstone: “You didn't want to fight before either, did you, running into me? Then that maniac with the axe, hell, you didn't fight. I'm having a hard time believing you hunted and killed monsters.”</p>
 
     <p>“Well, I'm not that type of hunter. At least not like those <em>esbirros</em> out there.” Jack responds. He and Elsa find common ground in that they aren’t henchmen or minions vying for the Bloodstone; Jack isn’t even there to get the Bloodstone – he’s there to <em>save</em> the monster that they are hunting. Jack wanders around the room, the click of his shoes echoing around the crypt. He comes up with an offer for Elsa, “You know, maybe we can help each other. If you help me get the monster out of here alive, I can get you the stone.” By trade, Jack may be a fearsome monster hunter, but he is also an anti-hero that <em>saves</em> monsters. Ultimately, Jack’s moral grayness compels audience members to reflect on their preconceived notions of what a hero is.</p>
 
-    <p>However, many people see franchise movies like <em>Werewolf by Night</em> as superficial and over-processed. In his op-ed for <em>The New York Times</em>, renowned director Martin Scorsese criticizes Marvel films: “I don’t think they’re cinema.” He states that true cinema is about “the complexity of people and their contradictory and sometimes paradoxical natures” and argues that superhero movies stray far from this because the audience knows what to expect from the protagonist – there is no ambiguity (Scorsese). Predictability stands in direct contrast to ambiguity in film. When audiences walk into a theater to watch a movie like <em>Avengers: Endgame</em>, they know that the hero will win because that’s what always happens. Scorsese asserts that the only reason why franchise superhero movies are popular is because they have undergone a process of being “market researched, audience-tested, vetted, modified, revetted, and remodified until they’re ready for consumption” and that this popularity and overprocessing of Marvel movies is what is killing the art of cinema (Scorsese). Scorsese’s comments drew immense backlash from comic fans around the world who argued that franchise movies don’t have to be great cinematic works of art to be considered valuable movies. Ultimately, Giacchino proves that both Scorsese and his critics are correct; traditional Marvel movies aren’t cinema because they’ve pigeon-holed themselves into a single, artless, predictable form, but that doesn't mean that they have to stay that way. <em>Werewolf by Night</em>, through its nod to classic horror films and use of ambiguity, breaks out of Marvel's predictable mold and proves that franchise films can be art.</p>
+    <p>However, many people see franchise movies like <em>Werewolf by Night</em> as superficial and over-processed. In his op-ed for <em>The New York Times</em>, renowned director Martin Scorsese criticizes Marvel films: “I don’t think they’re cinema.” He states that true cinema is about “the complexity of people and their contradictory and sometimes paradoxical natures” and argues that superhero movies stray far from this because the audience knows what to expect from the protagonist – there is no ambiguity.<sup class="fn"><a id="fnref4" href="#fn4">4</a></sup> Predictability stands in direct contrast to ambiguity in film. When audiences walk into a theater to watch a movie like <em>Avengers: Endgame</em>, they know that the hero will win because that’s what always happens. Scorsese asserts that the only reason why franchise superhero movies are popular is because they have undergone a process of being “market researched, audience-tested, vetted, modified, revetted, and remodified until they’re ready for consumption” and that this popularity and overprocessing of Marvel movies is what is killing the art of cinema.<sup class="fn"><a id="fnref5" href="#fn5">5</a></sup> Scorsese’s comments drew immense backlash from comic fans around the world who argued that franchise movies don’t have to be great cinematic works of art to be considered valuable movies. Ultimately, Giacchino proves that both Scorsese and his critics are correct; traditional Marvel movies aren’t cinema because they’ve pigeon-holed themselves into a single, artless, predictable form, but that doesn't mean that they have to stay that way. <em>Werewolf by Night</em>, through its nod to classic horror films and use of ambiguity, breaks out of Marvel's predictable mold and proves that franchise films can be art.</p>
 
     <p>At the climax of the movie, Elsa’s wicked stepmother and revealed antagonist of the film, Verussa Bloodstone, has caged Jack and Elsa up in the hopes of killing Elsa. Earlier, Jack had bent down to grab the Bloodstone, but he was thrown back in a burst of energy, rejected by the stone and revealed to be a monster himself. Verussa now plans to use the Bloodstone to trigger Jack’s transformation into a werewolf and use his lycanthropy to kill Elsa. Jack apologizes to Elsa for not telling her earlier, distancing himself from his other side and saying, “I'm like this, you know. I'm… I would never hurt you or hurt any one of them. And any hunting that I do is done by a part of me that is not me…” Audiences can’t help but feel bad for Jack because he has no control over his monstrous half.</p>
 
@@ -165,12 +196,23 @@
     <p>Nowadays, audiences don’t like ambiguity because we’re impatient and want a singular answer. Everything is either black or white, yes or no, right or wrong and characters reflect simple, uncomplicated values. But ambiguity and morally gray characters force us to reflect on ourselves. When audiences see a complex character like Jack, they have to ask themselves what they think a monster is. Giacchino’s work debuted at the perfect time, not simply because it was released in time for Halloween, but also because its release and critical acclaim shows that, even in a world that seems to value simplicity, audiences want franchise movies with complex, morally gray characters. This desire for complex characters and ambiguity is why <em>Frankenstien</em> and the horror genre have stood the test of time and why Scorsese isn’t completely right; ambiguity stands in opposition to predictability, but that doesn’t mean that traditionally predictable Marvel movies have to stay unambiguous. In a world that seems so clear-cut and absolute, it is vital that we have characters in major-media that make us question our own beliefs and push us to grow because these characters are the spirit of cinema.</p>
   </article>
 
+  <section class="notes">
+    <h2>Notes</h2>
+    <ol>
+      <li id="fn1">Mary Shelley, <em>Frankenstein, or, The Modern Prometheus: The 1818 Text</em> (Oxford: Oxford University Press, 1998), 46. <a class="fn-back" href="#fnref1">↩</a></li>
+      <li id="fn2">Shelley, <em>Frankenstein</em>, 128. <a class="fn-back" href="#fnref2">↩</a></li>
+      <li id="fn3">“Michael Giacchino Interview: Werewolf by Night,” YouTube video, uploaded by Screen Rant Plus, October 3, 2022, 1:29, https://www.youtube.com/watch?v=OKTZlLJRsZk. <a class="fn-back" href="#fnref3">↩</a></li>
+      <li id="fn4">Martin Scorsese, “I Said Marvel Movies Aren't Cinema. Let Me Explain,” <em>The New York Times</em>, November 4, 2019, https://www.nytimes.com/2019/11/04/opinion/martin-scorsese-marvel.html. <a class="fn-back" href="#fnref4">↩</a></li>
+      <li id="fn5">Scorsese, “Marvel Movies.” <a class="fn-back" href="#fnref5">↩</a></li>
+    </ol>
+  </section>
+
   <section class="refs">
-    <h2>Works Cited</h2>
-    <div class="ref">Giacchino, Michael, director. <em>Werewolf by Night</em>. Marvel Studios, 2022. <em>Disney+</em>, https://www.disneyplus.com/movies/werewolf-by-night/J1sCDfT3MaDl.</div>
-    <div class="ref">“Michael Giacchino Interview: Werewolf by Night.” <em>Youtube</em>, uploaded by Screen Rant Plus, 3 October 2022, https://www.youtube.com/watch?v=OKTZlLJRsZk.</div>
-    <div class="ref">Scorsese, Martin. “Opinion | Martin Scorsese: I Said Marvel Movies Aren't Cinema. Let Me Explain. (Published 2019).” <em>The New York Times</em>, 4 November 2019, https://www.nytimes.com/2019/11/04/opinion/martin-scorsese-marvel.html.</div>
-    <div class="ref">Shelley, Mary Wollstonecraft, 1797-1851. <em>Frankenstein, or, The Modern Prometheus: the 1818 Text</em>. Oxford; New York: Oxford University Press, 1998.</div>
+    <h2>Bibliography</h2>
+    <div class="ref">Giacchino, Michael, dir. <em>Werewolf by Night</em>. Marvel Studios, 2022. Disney+. https://www.disneyplus.com/movies/werewolf-by-night/J1sCDfT3MaDl.</div>
+    <div class="ref">“Michael Giacchino Interview: Werewolf by Night.” YouTube video. Uploaded by Screen Rant Plus, October 3, 2022. https://www.youtube.com/watch?v=OKTZlLJRsZk.</div>
+    <div class="ref">Scorsese, Martin. “I Said Marvel Movies Aren't Cinema. Let Me Explain.” <em>The New York Times</em>, November 4, 2019. https://www.nytimes.com/2019/11/04/opinion/martin-scorsese-marvel.html.</div>
+    <div class="ref">Shelley, Mary Wollstonecraft. <em>Frankenstein, or, The Modern Prometheus: The 1818 Text</em>. Oxford: Oxford University Press, 1998.</div>
   </section>
 
 </main>

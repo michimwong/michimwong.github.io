@@ -93,6 +93,24 @@
   }
   .doc-head { color: var(--muted); font-size: .85rem; line-height: 1.7; }
 
+  /* Hero image + summary caption */
+  .hero { margin: 0 0 5vh; }
+  .hero img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--sec, var(--tan));
+  }
+  .hero figcaption {
+    color: var(--muted);
+    font-size: .95rem;
+    margin-top: .9rem;
+    line-height: 1.55;
+  }
+
   article p { margin: 0 0 1.4rem; }
   article em { font-style: italic; }
   article blockquote {
@@ -101,6 +119,29 @@
     border-left: 3px solid var(--sec, var(--tan));
     color: var(--muted);
     font-style: italic;
+  }
+
+  /* Footnote references (Chicago) */
+  sup.fn { font-size: .7em; line-height: 0; vertical-align: super; }
+  sup.fn a { border-bottom: none; }
+
+  /* Notes + Bibliography */
+  .notes, .refs { margin-top: 4vh; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .notes h2, .refs h2 {
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.2rem;
+  }
+  .notes ol { margin: 0; padding-left: 1.6rem; }
+  .notes li { font-size: .85rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.5; }
+  .notes li a.fn-back { border-bottom: none; margin-left: .35rem; }
+  .refs .ref {
+    padding-left: 2em;
+    text-indent: -2em;
+    margin-bottom: 1rem;
+    font-size: .9rem;
+    line-height: 1.5;
   }
 
   footer {
@@ -128,15 +169,45 @@
     </div>
   </div>
 
+  <figure class="hero">
+    <img src="hero.jpg" alt="Still from Faces Places (2017)">
+    <figcaption>Agnès Varda and JR’s <em>Faces Places</em> and Rachel Carson’s <em>The Edge of the
+      Sea</em> use the art of noticing to recover overlooked people and creatures — and to resist
+      the monotony of “24/7 time.”</figcaption>
+  </figure>
+
   <article>
-    <p>How can the art of noticing exist in a non-stop environment? Humanity’s uninterrupted march towards progress and efficiency has led to massive achievements, but these triumphs have led to the creation of a continuously demanding world. In Johnathan Crary’s novel <em>24/7: Late Capitalism and the Ends of Sleep</em>, Crary grapples with this increasing perpetuity and explores the concept of 24/7 time. He describes 24/7 time as an “expanding, non-stop life-world” and a product of modernization and capitalism (8 Crary). Crary further argues that this distorted sense of time has created a monotonous world, writing that 24/7 time is “extracted from any unfolding of variegated or cumulative experience” (9 Crary). Even though this nonstop time seems eternal and unyielding, the art of noticing has an unassuming ability to challenge it. In artists Agnés Varda and JR’s 2017 documentary <em>Faces Places</em>, the duo travel around France and use the art of noticing to document people living in rural villages. Likewise, in Rachel Carson’s 1955 seaside guide <em>The Edge of the Sea</em>, Carson uses the art of noticing to record the sea creatures and plants found on the East Coast. Ultimately, although Agnés Varda and JR’s <em>Faces Places</em> and Rachel Carson’s <em>The Edge of the Sea</em> deal with environments that seem worlds apart, they both reveal how aesthetic practices function as coping mechanisms for the world’s increasingly fast-paced lifestyle.</p>
+    <p>How can the art of noticing exist in a non-stop environment? Humanity’s uninterrupted march towards progress and efficiency has led to massive achievements, but these triumphs have led to the creation of a continuously demanding world. In Johnathan Crary’s novel <em>24/7: Late Capitalism and the Ends of Sleep</em>, Crary grapples with this increasing perpetuity and explores the concept of 24/7 time. He describes 24/7 time as an “expanding, non-stop life-world” and a product of modernization and capitalism.<sup class="fn"><a id="fnref1" href="#fn1">1</a></sup> Crary further argues that this distorted sense of time has created a monotonous world, writing that 24/7 time is “extracted from any unfolding of variegated or cumulative experience.”<sup class="fn"><a id="fnref2" href="#fn2">2</a></sup> Even though this nonstop time seems eternal and unyielding, the art of noticing has an unassuming ability to challenge it. In artists Agnés Varda and JR’s 2017 documentary <em>Faces Places</em>, the duo travel around France and use the art of noticing to document people living in rural villages. Likewise, in Rachel Carson’s 1955 seaside guide <em>The Edge of the Sea</em>, Carson uses the art of noticing to record the sea creatures and plants found on the East Coast. Ultimately, although Agnés Varda and JR’s <em>Faces Places</em> and Rachel Carson’s <em>The Edge of the Sea</em> deal with environments that seem worlds apart, they both reveal how aesthetic practices function as coping mechanisms for the world’s increasingly fast-paced lifestyle.</p>
 
-    <p>Firstly, Varda and JR’s <em>Faces Places</em> takes an anthropocentric stance on the art of noticing, displaying the ways in which the aesthetic mediums of filmmaking and flyposting can represent overlooked individuals in French villages and communities. At the beginning of the documentary, Varda and JR travel to a quiet town and tell the story of a woman named Jeanine who is the last inhabitant of a row of old miner homes slated for demolition. When asked why she refuses to leave, Jeanine tells the camera that she is staying because “[she has] too many memories [there] … No one can understand what [she and her family] lived through” and tells Varda and JR stories about her childhood growing up in a mining town (<em>Faces Places</em> 00:08:18). JR decides to paste a huge portrait of Jeanine up on the side of her house, representing Jeanine’s perseverance in the face of modernization on a large scale and moving Jeanine to bittersweet tears (<em>Faces Places</em> 00:12:00). Through using the aesthetic practices of filmmaking and pasting, Varda and JR are able to tell the poignant story of a woman quietly protesting modernization and the demolition of her home who would otherwise be disregarded and forgotten. Similarly, Varda and JR focus on unnoticed women when they interview and paste photos of dock workers’ wives in Le Havre. Instead of focusing on the dock workers themselves, Varda wants to document their wives because they are the ones that work silently in the background, yet “[they] are rarely mentioned” (<em>Faces Places</em> 01:08:11). JR highlights the wives and their unheeded work through ginormous standing portraits of them pasted onto stacks of shipping containers (<em>Faces Places</em> 01:13:28). Both Varda and JR use art to bring light to these underappreciated women, exhibiting how aesthetic mediums are used to shine the light of recognition onto people who typically go unseen. Thus, Varda and JR use filmmaking and pasting to highlight the people quietly living on the edges of the communities they visit, revealing how artistic practices can be used in anthropocentric environments to bring attention to overlooked individuals.</p>
+    <p>Firstly, Varda and JR’s <em>Faces Places</em> takes an anthropocentric stance on the art of noticing, displaying the ways in which the aesthetic mediums of filmmaking and flyposting can represent overlooked individuals in French villages and communities. At the beginning of the documentary, Varda and JR travel to a quiet town and tell the story of a woman named Jeanine who is the last inhabitant of a row of old miner homes slated for demolition. When asked why she refuses to leave, Jeanine tells the camera that she is staying because “[she has] too many memories [there] … No one can understand what [she and her family] lived through” and tells Varda and JR stories about her childhood growing up in a mining town.<sup class="fn"><a id="fnref3" href="#fn3">3</a></sup> JR decides to paste a huge portrait of Jeanine up on the side of her house, representing Jeanine’s perseverance in the face of modernization on a large scale and moving Jeanine to bittersweet tears.<sup class="fn"><a id="fnref4" href="#fn4">4</a></sup> Through using the aesthetic practices of filmmaking and pasting, Varda and JR are able to tell the poignant story of a woman quietly protesting modernization and the demolition of her home who would otherwise be disregarded and forgotten. Similarly, Varda and JR focus on unnoticed women when they interview and paste photos of dock workers’ wives in Le Havre. Instead of focusing on the dock workers themselves, Varda wants to document their wives because they are the ones that work silently in the background, yet “[they] are rarely mentioned.”<sup class="fn"><a id="fnref5" href="#fn5">5</a></sup> JR highlights the wives and their unheeded work through ginormous standing portraits of them pasted onto stacks of shipping containers.<sup class="fn"><a id="fnref6" href="#fn6">6</a></sup> Both Varda and JR use art to bring light to these underappreciated women, exhibiting how aesthetic mediums are used to shine the light of recognition onto people who typically go unseen. Thus, Varda and JR use filmmaking and pasting to highlight the people quietly living on the edges of the communities they visit, revealing how artistic practices can be used in anthropocentric environments to bring attention to overlooked individuals.</p>
 
-    <p>Contrastingly to the human centric position Varda and JR take in <em>Faces Places</em>, in Carson’s <em>The Edge of the Sea</em>, Carson practices a thalassic art of noticing and shows how the aesthetic mediums of writing and illustration can reveal unappreciated aspects of rich seaside ecosystems. Carson begins her shoreline guide by acknowledging the unnoticed strength of the sea creatures living at the edge of the ocean, writing that “only the most hardy and adaptable can survive in a region so mutable … In this difficult world of the shore, life displays its enormous toughness and vitality by occupying almost every conceivable niche” (Carson 1). In recognizing the sheer might of these tiny creatures, Carson challenges the widely accepted idea of a human-oriented, hierarchical relationship between humanity and nature. Furthermore, Carson pulls her audience’s attention towards the hidden powers of ocean creatures when she narrates how a ghost crab she happened across “became a symbol that stood for life itself – for the delicate, destructible, yet incredible vital force that somehow holds its place amid the harsh realities of the inorganic world” (Carson 5). She uses compelling speech to describe the ghost crab and displays how the art of noticing can bring light to the underappreciated power and complexity of sea animals. Lastly, <em>The Edge of the Sea</em> utilizes drawings of the seaside to highlight the beauty of oceanic creatures throughout the book. For example, on page 19 illustrator Bob Hines uses thin ink strokes to sketch miniscule hydroides worms, exhibiting how illustrations work in conjunction with words to shed light on the unheralded creatures of the shore. Ultimately, Carson’s <em>The Edge of the Sea</em> uses highly descriptive language and detailed drawings to challenge popular notions of the ideal hierarchical relationship between humanity and nature and show how the artistic practices of writing and illustration can be used to bring attention to underappreciated sea creatures.</p>
+    <p>Contrastingly to the human centric position Varda and JR take in <em>Faces Places</em>, in Carson’s <em>The Edge of the Sea</em>, Carson practices a thalassic art of noticing and shows how the aesthetic mediums of writing and illustration can reveal unappreciated aspects of rich seaside ecosystems. Carson begins her shoreline guide by acknowledging the unnoticed strength of the sea creatures living at the edge of the ocean, writing that “only the most hardy and adaptable can survive in a region so mutable … In this difficult world of the shore, life displays its enormous toughness and vitality by occupying almost every conceivable niche.”<sup class="fn"><a id="fnref7" href="#fn7">7</a></sup> In recognizing the sheer might of these tiny creatures, Carson challenges the widely accepted idea of a human-oriented, hierarchical relationship between humanity and nature. Furthermore, Carson pulls her audience’s attention towards the hidden powers of ocean creatures when she narrates how a ghost crab she happened across “became a symbol that stood for life itself – for the delicate, destructible, yet incredible vital force that somehow holds its place amid the harsh realities of the inorganic world.”<sup class="fn"><a id="fnref8" href="#fn8">8</a></sup> She uses compelling speech to describe the ghost crab and displays how the art of noticing can bring light to the underappreciated power and complexity of sea animals. Lastly, <em>The Edge of the Sea</em> utilizes drawings of the seaside to highlight the beauty of oceanic creatures throughout the book. For example, on page 19 illustrator Bob Hines uses thin ink strokes to sketch miniscule hydroides worms, exhibiting how illustrations work in conjunction with words to shed light on the unheralded creatures of the shore. Ultimately, Carson’s <em>The Edge of the Sea</em> uses highly descriptive language and detailed drawings to challenge popular notions of the ideal hierarchical relationship between humanity and nature and show how the artistic practices of writing and illustration can be used to bring attention to underappreciated sea creatures.</p>
 
-    <p>Although <em>Faces Places</em> and <em>The Edge of the Sea</em> utilize different aesthetic mediums to practice the art of noticing in vastly dissimilar environments, they are similar in that they both simplify their mediums in order to recognize parts of their respective environments that typically are overlooked. In <em>Faces Places</em>, Varda and JR break down the art of filmmaking into its essential elements: people and images; this disassembly of filmmaking as an artistic practice allows them to cope with the non-stop time of 24/7. Varda shows how her and JR’s art opposes 24/7 time when she explains the purpose of the <em>Faces Places</em> project, telling a curious rail worker that “The point is … the power of imagination” (<em>Faces Places</em> 01:17:15). Ultimately, Varda and JR use the power of imagination to bring attention to people on the margins of society and to challenge the monotony and banality of 24/7 time. Similar to how Varda and JR deconstruct filmmaking into images and humans, Carson’s <em>The Edge of the Sea</em> dissects the shore into small units of individual ocean plants and creatures that are separate from the fast-paced lifestyle of 24/7 time. At the end of the first chapter, Carson asserts that humans ought to step away from their 24/7 lives and search for the underlying “meaning and significance” of the seaside and of life (Carson 7). Paying close attention to the shore’s unnoticed complexity and biodiversity, Carson argues, is key to combating the perceived triviality of 24/7 time. Thus, Carson uses detailed writing and elaborate illustrations to magnify overlooked creatures and cope with the monotonous existence of 24/7 time. Both <em>Faces Places</em> and <em>The Edge of the Sea</em> break down the world into smaller units and use aesthetic practices to combat the valuelessness and dullness of 24/7 time. Concludingly, although Varda and JR and Carson practice the art of noticing in contrasting environments using different artistic mediums, they both deconstruct the world around them and offer recognition to people and creatures that typically go unnoticed, revealing how aesthetic practices can be used to challenge the meaninglessness of 24/7 time.</p>
+    <p>Although <em>Faces Places</em> and <em>The Edge of the Sea</em> utilize different aesthetic mediums to practice the art of noticing in vastly dissimilar environments, they are similar in that they both simplify their mediums in order to recognize parts of their respective environments that typically are overlooked. In <em>Faces Places</em>, Varda and JR break down the art of filmmaking into its essential elements: people and images; this disassembly of filmmaking as an artistic practice allows them to cope with the non-stop time of 24/7. Varda shows how her and JR’s art opposes 24/7 time when she explains the purpose of the <em>Faces Places</em> project, telling a curious rail worker that “The point is … the power of imagination.”<sup class="fn"><a id="fnref9" href="#fn9">9</a></sup> Ultimately, Varda and JR use the power of imagination to bring attention to people on the margins of society and to challenge the monotony and banality of 24/7 time. Similar to how Varda and JR deconstruct filmmaking into images and humans, Carson’s <em>The Edge of the Sea</em> dissects the shore into small units of individual ocean plants and creatures that are separate from the fast-paced lifestyle of 24/7 time. At the end of the first chapter, Carson asserts that humans ought to step away from their 24/7 lives and search for the underlying “meaning and significance” of the seaside and of life.<sup class="fn"><a id="fnref10" href="#fn10">10</a></sup> Paying close attention to the shore’s unnoticed complexity and biodiversity, Carson argues, is key to combating the perceived triviality of 24/7 time. Thus, Carson uses detailed writing and elaborate illustrations to magnify overlooked creatures and cope with the monotonous existence of 24/7 time. Both <em>Faces Places</em> and <em>The Edge of the Sea</em> break down the world into smaller units and use aesthetic practices to combat the valuelessness and dullness of 24/7 time. Concludingly, although Varda and JR and Carson practice the art of noticing in contrasting environments using different artistic mediums, they both deconstruct the world around them and offer recognition to people and creatures that typically go unnoticed, revealing how aesthetic practices can be used to challenge the meaninglessness of 24/7 time.</p>
   </article>
+
+  <section class="notes">
+    <h2>Notes</h2>
+    <ol>
+      <li id="fn1">Jonathan Crary, <em>24/7: Late Capitalism and the Ends of Sleep</em> (London: Verso, 2013), 8. <a class="fn-back" href="#fnref1">↩</a></li>
+      <li id="fn2">Crary, <em>24/7</em>, 9. <a class="fn-back" href="#fnref2">↩</a></li>
+      <li id="fn3"><em>Faces Places</em>, directed by Agnès Varda and JR (2017), 00:08:18. <a class="fn-back" href="#fnref3">↩</a></li>
+      <li id="fn4"><em>Faces Places</em>, 00:12:00. <a class="fn-back" href="#fnref4">↩</a></li>
+      <li id="fn5"><em>Faces Places</em>, 01:08:11. <a class="fn-back" href="#fnref5">↩</a></li>
+      <li id="fn6"><em>Faces Places</em>, 01:13:28. <a class="fn-back" href="#fnref6">↩</a></li>
+      <li id="fn7">Rachel Carson, <em>The Edge of the Sea</em> (Boston: Houghton Mifflin, 1955), 1. <a class="fn-back" href="#fnref7">↩</a></li>
+      <li id="fn8">Carson, <em>The Edge of the Sea</em>, 5. <a class="fn-back" href="#fnref8">↩</a></li>
+      <li id="fn9"><em>Faces Places</em>, 01:17:15. <a class="fn-back" href="#fnref9">↩</a></li>
+      <li id="fn10">Carson, <em>The Edge of the Sea</em>, 7. <a class="fn-back" href="#fnref10">↩</a></li>
+    </ol>
+  </section>
+
+  <section class="refs">
+    <h2>Bibliography</h2>
+    <div class="ref">Carson, Rachel. <em>The Edge of the Sea</em>. Boston: Houghton Mifflin, 1955.</div>
+    <div class="ref">Crary, Jonathan. <em>24/7: Late Capitalism and the Ends of Sleep</em>. London: Verso, 2013.</div>
+    <div class="ref"><em>Faces Places</em>. Directed by Agnès Varda and JR. 2017.</div>
+  </section>
 
 </main>
 
