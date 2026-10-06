@@ -105,6 +105,7 @@
     --sand:    #E2C29F;
     --mint:    #BDDBCA;
     --stone:   #AAA2A0;
+    --teal:    #5E9C80;   /* deepened mint, matches the figures */
     --maxw:   720px;
   }
 
@@ -229,7 +230,7 @@
     overflow: hidden;
     color: inherit;
     background: var(--surface);
-    border-bottom: none;
+    border-bottom: 1px solid var(--line);
     transition: border-color .15s ease, transform .15s ease;
   }
   .write-card:hover { border-color: var(--accent); border-top-color: var(--card, var(--accent)); transform: translateY(-3px); }
@@ -247,9 +248,11 @@
 
   /* -------- Sub-heading within a section -------- */
   .subhead {
-    font-size: 1rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.2;
     margin: 2.5rem 0 1rem;
   }
 
@@ -262,7 +265,7 @@
     border-left: 4px solid var(--card, var(--sand));
     border-radius: 8px;
     color: inherit;
-    border-bottom: none;
+    border-bottom: 1px solid var(--line);
     background: var(--surface);
     transition: border-color .15s ease, transform .15s ease;
   }
@@ -356,16 +359,16 @@
       Selected work from my MSC in Social Data Science at the Oxford Internet Institute as well as personal projects
     </p>
 
-    <h3 class="subhead">Papers</h3>
+    <h3 class="subhead">Academic Research</h3>
 
-    <a class="essay-card" href="thesis/" style="--card: var(--mint);">
+    <a class="essay-card" href="thesis/" style="--card: var(--clay);">
       <div class="title">Foreclosing the Argument: A Computational Approach to Thought-Terminating Clichés in Online Discourse</div>
       <div class="date mono">MSc thesis · University of Oxford · 2026</div>
       <div class="desc">How humans and LLMs disagree about what counts as a thought-terminating
         cliché, using 83 trained annotators and 12 LLM configurations on 589 Reddit comments</div>
     </a>
 
-    <a class="essay-card" href="genz-detection/" style="--card: var(--apricot);">
+    <a class="essay-card" href="genz-detection/" style="--card: var(--clay);">
       <div class="title">Detecting Gen-Z Language Register: A Comparative Evaluation of Classifiers</div>
       <div class="date mono">Paper + code · Oxford Internet Institute · 2026</div>
       <div class="desc">A comparative evaluation of six classifiers—from a word-frequency
@@ -381,16 +384,16 @@
         neighborhoods—or merely follow it</div>
     </a>
 
-    <h3 class="subhead">Other projects</h3>
+    <h3 class="subhead">Other Projects</h3>
 
-    <a class="project" href="https://github.com/michimwong/f1_parenthood_tax" style="--card: var(--mint);">
+    <a class="project" href="https://github.com/michimwong/f1_parenthood_tax" style="--card: var(--teal);">
       <div class="title">F1's Parenthood Tax</div>
       <div class="desc">A quasi-experimental study using teammate-normalized qualifying data
         (2006–2024) to test whether Formula 1 drivers slow down after having their first
         child—finding a small, statistically insignificant "parenthood tax" on pace</div>
     </a>
 
-    <a class="project" href="https://qualtricsxmnnnkbpddz.lhr1.qualtrics.com/jfe/preview/previewId/5617da93-842d-423b-bb6a-eeb33681a54f/SV_1HYLHxKy5QYEHEa?Q_CHL=preview&amp;Q_SurveyVersionID=current" target="_blank" rel="noopener" style="--card: var(--stone);">
+    <a class="project" href="https://qualtricsxmnnnkbpddz.lhr1.qualtrics.com/jfe/preview/previewId/5617da93-842d-423b-bb6a-eeb33681a54f/SV_1HYLHxKy5QYEHEa?Q_CHL=preview&amp;Q_SurveyVersionID=current" target="_blank" rel="noopener" style="--card: var(--teal);">
       <div class="title">GANNI Consumer Research Survey</div>
       <div class="desc">A market and consumer research survey exploring brand perception and
         purchasing behavior for the fashion label GANNI, designed and built in Qualtrics</div>
@@ -411,14 +414,14 @@
 
     <div class="card-grid">
 
-      <a class="write-card" href="https://www.moadsf.org/moad-journal/we-are-also-the-universe" target="_blank" rel="noopener" style="--card: var(--mint);">
+      <a class="write-card" href="https://www.moadsf.org/moad-journal/we-are-also-the-universe" target="_blank" rel="noopener" style="--card: var(--apricot);">
         <img class="thumb" src="../assets/writing/we-are-also-the-universe.jpeg"
              alt="vanessa german, Self Portrait with the Universe in my Mouth">
         <div class="body">
           <div class="title">We Are Also the Universe</div>
           <div class="date mono">MoAD Journal · July 31, 2024</div>
           <div class="desc">On vanessa german's sculptural self-portraits, and how found
-            materials turn personal emotion into work that pulls the viewer in.</div>
+            materials turn personal emotion into work that pulls the viewer in</div>
         </div>
       </a>
 
@@ -429,18 +432,18 @@
           <div class="title">Many Meanings of Animation</div>
           <div class="date mono">MoAD Journal · August 7, 2024</div>
           <div class="desc">On Rachel Jones's exhibition <em>!!!!!</em>, where oil-pastel
-            mouths borrow from Looney Tunes to amplify Black voices.</div>
+            mouths borrow from Looney Tunes to amplify Black voices</div>
         </div>
       </a>
 
-      <a class="write-card" href="https://www.moadsf.org/moad-journal/currents-in-an-ocean-of-art" target="_blank" rel="noopener" style="--card: var(--stone);">
+      <a class="write-card" href="https://www.moadsf.org/moad-journal/currents-in-an-ocean-of-art" target="_blank" rel="noopener" style="--card: var(--apricot);">
         <img class="thumb" src="../assets/writing/currents-in-an-ocean-of-art.jpeg"
              alt="Artwork from MoAD's Unruly Navigations exhibition">
         <div class="body">
           <div class="title">Currents in an Ocean of Art: Unruly Navigations</div>
           <div class="date mono">MoAD Journal · August 19, 2024</div>
           <div class="desc">A walk through MoAD's <em>Unruly Navigations</em>, reading
-            artistic resistance through oceanic metaphor and diasporic narrative.</div>
+            artistic resistance through oceanic metaphor and diasporic narrative</div>
         </div>
       </a>
 
@@ -460,18 +463,21 @@
 
     <a class="essay-card" href="../essays/lart-pour-lart/" style="--card: var(--stone);">
       <div class="title">Art and Society: L’Art pour L’Art in Manet’s <em>A Bar at the Folies-Bergère</em></div>
+      <div class="date mono">Personal essay · May 2024</div>
       <div class="desc">How Manet’s final masterpiece fluctuates between Realism and Impressionism,
         tracing the 19th-century shift toward art for art’s sake</div>
     </a>
 
-    <a class="essay-card" href="../essays/arts-of-noticing/" style="--card: var(--mint);">
+    <a class="essay-card" href="../essays/arts-of-noticing/" style="--card: var(--stone);">
       <div class="title">Combatting 24/7 Time in <em>Faces Places</em> and <em>The Edge of the Sea</em></div>
+      <div class="date mono">Personal essay · May 2024</div>
       <div class="desc">How Varda &amp; JR’s documentary and Rachel Carson’s seaside guide use the
         art of noticing to resist the monotony of “24/7 time”</div>
     </a>
 
-    <a class="essay-card" href="../essays/marvel-cinema/" style="--card: var(--clay);">
+    <a class="essay-card" href="../essays/marvel-cinema/" style="--card: var(--stone);">
       <div class="title">No, Martin Scorsese, Marvel Movies <em>Can</em> Be Cinema</div>
+      <div class="date mono">Personal essay · November 2022</div>
       <div class="desc">On ambiguity, morally gray monsters, and how <em>Werewolf by Night</em> breaks
         out of Marvel’s predictable mold</div>
     </a>

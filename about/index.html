@@ -105,6 +105,7 @@
     --sand:    #E2C29F;
     --mint:    #BDDBCA;
     --stone:   #AAA2A0;
+    --teal:    #5E9C80;   /* deepened mint, matches the figures */
     --maxw:   680px;
   }
 
@@ -262,6 +263,22 @@
     outline-offset: 6px;
   }
 
+  /* -------- About photo -------- */
+  .about-photo { margin: 2rem 0 0; }
+  .about-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+  }
+  .about-photo figcaption {
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.5;
+    margin-top: .7rem;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
@@ -273,7 +290,7 @@
 
   <header>
     <p><a class="back mono" href="../">← Back to home</a></p>
-    <h1>About</h1>
+    <h1>About Me</h1>
   </header>
 
   <section style="margin-top: 2vh;">
@@ -281,7 +298,12 @@
        in Social Data Science at the University of Oxford, and before that I studied
        Sociology and Data Science at NYU. My work sits at the intersection of the social
        and data sciences, using machine learning, NLP, and causal inference to study how
-       people form identities and how ideas spread online.</p>
+       people form identities, how they behave in digital spaces, and how their ideas spread online.</p>
+
+    <figure class="about-photo">
+      <img src="../assets/michi-amnh.jpg" alt="Michi in a purple NYU graduation gown and 2025 cap, mock-screaming next to a snarling taxidermy tiger at the American Museum of Natural History">
+      <figcaption>I am a huge lover and patron of museums, so much so that I took my grad photos at the American Museum of Natural History!</figcaption>
+    </figure>
   </section>
 
   <!-- ======================= EDUCATION ======================= -->
@@ -294,8 +316,8 @@
     <div class="entry">
       <div class="role">University of Oxford</div>
       <div class="meta">MSc, Social Data Science (Merit) · October 2025 – August 2026</div>
-      <p>Thesis: “Foreclosing the Argument: a Computational Approach to Thought-Terminating Clichés,”
-         co-supervised by Bernie Hogan and Mohsen Mosleh</p>
+      <p>Thesis: “Foreclosing the Argument: a Computational Approach to Thought-Terminating Clichés”</p>
+      <p>Co-supervised by Bernie Hogan and Mohsen Mosleh</p>
     </div>
 
     <div class="entry">
@@ -314,7 +336,10 @@
     <p><strong>Programming:</strong> Python · R · SQL · HTML/CSS</p>
     <p><strong>Libraries:</strong> HuggingFace · matplotlib · NumPy · Pandas · PyTorch · scikit-learn · spaCy · TensorFlow · XGBoost</p>
     <p><strong>Data &amp; tools:</strong> Claude Code · Excel · Flask · Git · Heroku · Hex · Looker · Mixpanel · Prolific · Qualtrics · Snowflake · Tableau</p>
-    <p><strong>Methods:</strong> A/B testing · causal inference · dashboard reporting · experimental design · hypothesis testing · machine learning · marketing attribution · NLP · regression &amp; decomposition · sampling &amp; bias correction · statistical modeling · survey methodology</p>
+    <p><strong>Experimentation &amp; causal inference:</strong> A/B testing · experimental design · power analysis · difference-in-differences · propensity score matching · regression discontinuity · marketing attribution · incrementality testing</p>
+    <p><strong>Research methods:</strong> survey design · sampling &amp; weighting · scale development &amp; validation · factor analysis · conjoint/MaxDiff · user interviews · usability testing · thematic coding · mixed-methods research</p>
+    <p><strong>Modeling &amp; NLP:</strong> regression &amp; decomposition · segmentation &amp; clustering · classification · topic modeling · embeddings · LLM-based text analysis · LLM evaluation</p>
+    <p><strong>Product &amp; marketing analytics:</strong> funnel analysis · cohort &amp; retention analysis · LTV modeling · metric definition · dashboard reporting · stakeholder storytelling</p>
     <p><strong>Languages:</strong> English (native) · Spanish (proficient) · French (reading knowledge)</p>
   </section>
 
