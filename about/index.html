@@ -9,20 +9,103 @@
 <meta name="description" content="About Michi Wong">
 
 <style>
-  :root {
-    --paper:  #FAF6F0;
-    --ink:    #2B211B;
-    --muted:  #8A776B;
-    --accent: #742F14;
-    --line:   #EADFD3;
-    --maxw:   680px;
+  /* -------- Fonts -------- */
+  @font-face {
+    font-family: "Louise";
+    src: url("../assets/fonts/louise/Louise-Regular.woff2") format("woff2"),
+         url("../assets/fonts/louise/Louise-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../assets/fonts/bonum/texgyrebonum-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../assets/fonts/bonum/texgyrebonum-italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../assets/fonts/bonum/texgyrebonum-bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../assets/fonts/bonum/texgyrebonum-bolditalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
 
-    /* palette accents */
-    --rust:   #742F14;
-    --blue:   #5A84AC;
-    --orange: #FC9C44;
-    --tan:    #C7AC9F;
-    --brown:  #5C3C2C;
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../assets/fonts/fraunces/Fraunces-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../assets/fonts/fraunces/Fraunces-Italic-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Goudy Bookletter 1911";
+    src: url("../assets/fonts/goudy-bookletter/GoudyBookletter1911.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Italic-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  :root {
+    /* Display font for headings; body font for reading text (Schibsted Grotesk) */
+    --font-display: "Louise", Georgia, serif;
+    --font-body:    "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Also tried: "Goudy Bookletter 1911", "Fraunces" */
+    /* Previous body font: "TeX Gyre Bonum", "Bookman Old Style", Bookman, Georgia, serif */
+
+    --paper:   #FFFFFF;   /* page background (white) */
+    --surface: #FFFFFF;   /* cards, abstract, code blocks (palette off-white: #F6F5F5) */
+    --ink:     #2E2622;   /* main text */
+    --muted:   #6B625E;   /* secondary text (darkened stone) */
+    --accent:  #8A5A36;   /* links (darkened clay, readable on white) */
+    --line:    #E8E4E2;   /* hairline dividers */
+
+    /* palette accents (decorative: borders, section rules, tints) */
+    --clay:    #B78A66;
+    --apricot: #DFAA6C;
+    --sand:    #E2C29F;
+    --mint:    #BDDBCA;
+    --stone:   #AAA2A0;
+    --maxw:   680px;
   }
 
   * { box-sizing: border-box; }
@@ -32,7 +115,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 17px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -46,7 +129,7 @@
     height: 4px;
     width: var(--scroll, 0%);
     background: linear-gradient(90deg,
-      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+      var(--clay) 0%, var(--apricot) 30%, var(--sand) 50%, var(--mint) 72%, var(--stone) 100%);
     background-size: 100vw 100%;
     background-repeat: no-repeat;
     z-index: 50;
@@ -104,7 +187,7 @@
     border-bottom: 2px solid var(--sec, var(--line));
   }
   .section-head .mono {
-    color: color-mix(in srgb, var(--sec, var(--muted)) 80%, var(--ink));
+    color: color-mix(in srgb, var(--sec, var(--muted)) 55%, var(--ink));
     font-weight: 600;
   }
   .section-head h2 {
@@ -125,6 +208,58 @@
     border-top: 1px solid var(--line);
     color: var(--muted);
     font-size: .9rem;
+  }
+
+  /* Headings use the display font (Louise has a single regular weight) */
+  h1, h2:not(.mono) {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  /* Louise is a thin script, so it needs more size than a sans-serif to stay legible */
+  .section-head h2, .refs h2 { font-size: 1.8rem; line-height: 1.1; }
+  article h2:not(.mono) { font-size: 2rem; line-height: 1.15; }
+
+  /* Link text (nav, back links, "more" links, calls to action) uses the body font, not mono */
+  a.mono, .mono a, a .mono {
+    font-family: var(--font-body);
+    font-size: .95rem;
+    letter-spacing: 0;
+  }
+
+  /* -------- Design refresh -------- */
+  /* Louise titles: short title in script, subtitle in the body font */
+  .article-head h1 { line-height: 1.4; text-wrap: balance; }
+  .article-head h1.short { font-size: clamp(2.6rem, 8vw, 3.8rem); line-height: 1.25; margin-bottom: .2rem; }
+  .title-sub {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0 0 .9rem;
+    text-wrap: balance;
+  }
+  /* Louise's slanted ascenders (e.g. "l") overhang their advance, so the apostrophe
+     lands inside them; push it right and pull the following letter back in */
+  .ap { display: inline-block; margin: 0 -.5em 0 .28em; }
+
+  /* Mini-headers inside papers and essays (numbers included) use Louise */
+  article h3, article h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
+  article h3 { font-size: 1.6rem; line-height: 1.2; }
+  article h4 { font-size: 1.35rem; line-height: 1.2; }
+  .abstract h2 { font-size: 1.8rem; margin-bottom: .5rem; }
+
+  /* Name, class, location and year in the body font */
+  .doc-head.mono, .date.mono { font-family: var(--font-body); letter-spacing: 0; }
+  .doc-head.mono { font-size: .95rem; }
+  .date.mono { font-size: .88rem; }
+
+  /* Links from the text to tables and figures */
+  a.xref { border-bottom: none; }
+  a.xref:hover { border-bottom: 1px solid var(--accent); }
+  figure[id], .table-wrap[id] { scroll-margin-top: 2rem; }
+  figure:target img, .table-wrap:target table {
+    outline: 3px solid color-mix(in srgb, var(--apricot) 45%, transparent);
+    outline-offset: 6px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -151,7 +286,7 @@
 
   <!-- ======================= EDUCATION ======================= -->
   <section>
-    <div class="section-head" style="--sec: var(--blue);">
+    <div class="section-head" style="--sec: var(--mint);">
       <span class="mono">01</span>
       <h2>Education</h2>
     </div>
@@ -172,7 +307,7 @@
 
   <!-- ======================= SKILLS ======================= -->
   <section>
-    <div class="section-head" style="--sec: var(--orange);">
+    <div class="section-head" style="--sec: var(--apricot);">
       <span class="mono">02</span>
       <h2>Skills</h2>
     </div>
@@ -185,7 +320,7 @@
 
   <!-- ======================= HONORS ======================= -->
   <section>
-    <div class="section-head" style="--sec: var(--rust);">
+    <div class="section-head" style="--sec: var(--clay);">
       <span class="mono">03</span>
       <h2>Honors &amp; Awards</h2>
     </div>

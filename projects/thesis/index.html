@@ -9,21 +9,105 @@
 <meta name="description" content="MSc thesis abstract: a computational, perspectivist approach to annotating thought-terminating clichés in online discourse.">
 
 <style>
+  /* -------- Fonts -------- */
+  @font-face {
+    font-family: "Louise";
+    src: url("../../assets/fonts/louise/Louise-Regular.woff2") format("woff2"),
+         url("../../assets/fonts/louise/Louise-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bolditalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Italic-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Goudy Bookletter 1911";
+    src: url("../../assets/fonts/goudy-bookletter/GoudyBookletter1911.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Italic-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
   :root {
-    --paper:  #FAF6F0;
-    --ink:    #2B211B;
-    --muted:  #8A776B;
-    --accent: #742F14;
-    --line:   #EADFD3;
+    /* Display font for headings; body font for reading text (Schibsted Grotesk) */
+    --font-display: "Louise", Georgia, serif;
+    --font-body:    "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Also tried: "Goudy Bookletter 1911", "Fraunces" */
+    /* Previous body font: "TeX Gyre Bonum", "Bookman Old Style", Bookman, Georgia, serif */
+
+    --paper:   #FFFFFF;   /* page background (white) */
+    --surface: #FFFFFF;   /* cards, abstract, code blocks (palette off-white: #F6F5F5) */
+    --ink:     #2E2622;   /* main text */
+    --muted:   #6B625E;   /* secondary text (darkened stone) */
+    --accent:  #8A5A36;   /* links (darkened clay, readable on white) */
+    --line:    #E8E4E2;   /* hairline dividers */
+
+    /* palette accents (decorative: borders, section rules, tints) */
+    --clay:    #B78A66;
+    --apricot: #DFAA6C;
+    --sand:    #E2C29F;
+    --mint:    #BDDBCA;
+    --stone:   #AAA2A0;
     --maxw:   720px;
 
-    --rust:   #742F14;
-    --blue:   #5A84AC;
-    --orange: #FC9C44;
-    --tan:    #C7AC9F;
-    --brown:  #5C3C2C;
-
-    --sec:    var(--blue);
+    --sec:    var(--mint);
   }
 
   * { box-sizing: border-box; }
@@ -33,7 +117,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -46,7 +130,7 @@
     height: 4px;
     width: var(--scroll, 0%);
     background: linear-gradient(90deg,
-      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+      var(--clay) 0%, var(--apricot) 30%, var(--sand) 50%, var(--mint) 72%, var(--stone) 100%);
     background-size: 100vw 100%;
     background-repeat: no-repeat;
     z-index: 50;
@@ -108,9 +192,9 @@
     border-radius: 12px;
     color: inherit;
     background: linear-gradient(120deg,
-      color-mix(in srgb, var(--orange) 16%, var(--paper)) 0%,
-      color-mix(in srgb, var(--tan) 12%, var(--paper)) 50%,
-      color-mix(in srgb, var(--blue) 16%, var(--paper)) 100%);
+      color-mix(in srgb, var(--apricot) 16%, var(--paper)) 0%,
+      color-mix(in srgb, var(--sand) 12%, var(--paper)) 50%,
+      color-mix(in srgb, var(--mint) 16%, var(--paper)) 100%);
     transition: transform .15s ease, border-color .15s ease;
   }
   .link-block:hover { transform: translateY(-2px); border-color: var(--accent); border-left-color: var(--sec); }
@@ -124,7 +208,7 @@
     padding: 1.2rem 1.4rem;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: color-mix(in srgb, var(--paper) 60%, white);
+    background: var(--surface);
   }
   .abstract h2 { margin-top: 0; }
   .abstract p:last-child { margin-bottom: 0; }
@@ -153,8 +237,8 @@
   blockquote {
     margin: 0 0 1.4rem;
     padding: .9rem 1.2rem;
-    border-left: 3px solid var(--tan);
-    background: color-mix(in srgb, var(--paper) 60%, white);
+    border-left: 3px solid var(--sand);
+    background: var(--surface);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: .85rem;
     line-height: 1.6;
@@ -228,6 +312,58 @@
     line-height: 1.5;
   }
 
+  /* Headings use the display font (Louise has a single regular weight) */
+  h1, h2:not(.mono) {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  /* Louise is a thin script, so it needs more size than a sans-serif to stay legible */
+  .section-head h2, .refs h2 { font-size: 1.8rem; line-height: 1.1; }
+  article h2:not(.mono) { font-size: 2rem; line-height: 1.15; }
+
+  /* Link text (nav, back links, "more" links, calls to action) uses the body font, not mono */
+  a.mono, .mono a, a .mono {
+    font-family: var(--font-body);
+    font-size: .95rem;
+    letter-spacing: 0;
+  }
+
+  /* -------- Design refresh -------- */
+  /* Louise titles: short title in script, subtitle in the body font */
+  .article-head h1 { line-height: 1.4; text-wrap: balance; }
+  .article-head h1.short { font-size: clamp(2.6rem, 8vw, 3.8rem); line-height: 1.25; margin-bottom: .2rem; }
+  .title-sub {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0 0 .9rem;
+    text-wrap: balance;
+  }
+  /* Louise's slanted ascenders (e.g. "l") overhang their advance, so the apostrophe
+     lands inside them; push it right and pull the following letter back in */
+  .ap { display: inline-block; margin: 0 -.5em 0 .28em; }
+
+  /* Mini-headers inside papers and essays (numbers included) use Louise */
+  article h3, article h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
+  article h3 { font-size: 1.6rem; line-height: 1.2; }
+  article h4 { font-size: 1.35rem; line-height: 1.2; }
+  .abstract h2 { font-size: 1.8rem; margin-bottom: .5rem; }
+
+  /* Name, class, location and year in the body font */
+  .doc-head.mono, .date.mono { font-family: var(--font-body); letter-spacing: 0; }
+  .doc-head.mono { font-size: .95rem; }
+  .date.mono { font-size: .88rem; }
+
+  /* Links from the text to tables and figures */
+  a.xref { border-bottom: none; }
+  a.xref:hover { border-bottom: 1px solid var(--accent); }
+  figure[id], .table-wrap[id] { scroll-margin-top: 2rem; }
+  figure:target img, .table-wrap:target table {
+    outline: 3px solid color-mix(in srgb, var(--apricot) 45%, transparent);
+    outline-offset: 6px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
@@ -239,15 +375,16 @@
 
   <div class="article-head">
     <p><a class="back mono" href="../">← Projects &amp; Writing</a></p>
-    <h1>Foreclosing the Argument: A Computational Approach to Thought-Terminating Clichés in Online Discourse</h1>
+    <h1 class="short">Foreclosing the Argument</h1>
+    <p class="title-sub">A Computational Approach to Thought-Terminating Clichés in Online Discourse</p>
     <div class="doc-head mono">
-      Michi Wong · MSc Social Data Science thesis, University of Oxford · 2026<br>
+      Michi Wong · MSc Social Data Science Thesis, Oxford Internet Institute · August 2026<br>
       Supervised by Bernie Hogan and Mohsen Mosleh
     </div>
   </div>
 
   <section class="abstract">
-    <h2 class="mono">Abstract</h2>
+    <h2>Abstract</h2>
     <p>Thought-terminating clichés (TTCs) are loaded, formulaic phrases whose function in an exchange is to foreclose inquiry rather than advance it. Despite their prevalence in online discourse, TTCs have received little systematic empirical attention, and existing literatures—computational natural language processing (NLP) and sociolinguistic research alike—collapse annotator disagreement into a single gold label before asking whether the construct can be reliably applied at all. This thesis addresses that gap by inverting the typical priority of detection over annotation: instead of training a classifier to recover a fixed ground-truth label, this study treats the annotation decision itself as the object of analysis. Using a theory-derived codebook and a three property (loadedness, formulaicity, and thought-terminatingness) operationalization of the construct, 589 thread-contextualized comments from deliberative subreddits were double-annotated by 83 trained and gate-screened humans as well as labeled by 12 LLM configurations spanning three providers and four variants. Under a perspectivist framework that treats annotator disagreement as signal and not error, agreement between humans, LLMs, and humans and LLMs is assessed using chance-corrected symmetric metrics that do not designate a ground truth label set. An additional battery of 58 intrinsic and relational text features is used to locate and compare where each annotator population draws its class boundary. This thesis finds that agreement is low between humans, but notes that this measure is consistent with similarly interpretive constructs. Models display higher inter-annotator agreement in both label and TTC-triggering span. Both populations anchor the positive label in the same affective region, yet whether they share a boundary of disagreement remains unresolved. This thesis ultimately contributes an agreement and construct boundary analysis of a theoretically significant but methodologically overlooked subjective construct.</p>
   </section>
 

@@ -9,21 +9,105 @@
 <meta name="description" content="A staggered difference-in-differences study of Gail’s café openings and property prices in London neighborhoods.">
 
 <style>
+  /* -------- Fonts -------- */
+  @font-face {
+    font-family: "Louise";
+    src: url("../../assets/fonts/louise/Louise-Regular.woff2") format("woff2"),
+         url("../../assets/fonts/louise/Louise-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bolditalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Italic-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Goudy Bookletter 1911";
+    src: url("../../assets/fonts/goudy-bookletter/GoudyBookletter1911.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Italic-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
   :root {
-    --paper:  #FAF6F0;
-    --ink:    #2B211B;
-    --muted:  #8A776B;
-    --accent: #742F14;
-    --line:   #EADFD3;
+    /* Display font for headings; body font for reading text (Schibsted Grotesk) */
+    --font-display: "Louise", Georgia, serif;
+    --font-body:    "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Also tried: "Goudy Bookletter 1911", "Fraunces" */
+    /* Previous body font: "TeX Gyre Bonum", "Bookman Old Style", Bookman, Georgia, serif */
+
+    --paper:   #FFFFFF;   /* page background (white) */
+    --surface: #FFFFFF;   /* cards, abstract, code blocks (palette off-white: #F6F5F5) */
+    --ink:     #2E2622;   /* main text */
+    --muted:   #6B625E;   /* secondary text (darkened stone) */
+    --accent:  #8A5A36;   /* links (darkened clay, readable on white) */
+    --line:    #E8E4E2;   /* hairline dividers */
+
+    /* palette accents (decorative: borders, section rules, tints) */
+    --clay:    #B78A66;
+    --apricot: #DFAA6C;
+    --sand:    #E2C29F;
+    --mint:    #BDDBCA;
+    --stone:   #AAA2A0;
     --maxw:   720px;
 
-    --rust:   #742F14;
-    --blue:   #5A84AC;
-    --orange: #FC9C44;
-    --tan:    #C7AC9F;
-    --brown:  #5C3C2C;
-
-    --sec:    var(--rust);
+    --sec:    var(--clay);
   }
 
   * { box-sizing: border-box; }
@@ -33,7 +117,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -46,7 +130,7 @@
     height: 4px;
     width: var(--scroll, 0%);
     background: linear-gradient(90deg,
-      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+      var(--clay) 0%, var(--apricot) 30%, var(--sand) 50%, var(--mint) 72%, var(--stone) 100%);
     background-size: 100vw 100%;
     background-repeat: no-repeat;
     z-index: 50;
@@ -108,9 +192,9 @@
     border-radius: 12px;
     color: inherit;
     background: linear-gradient(120deg,
-      color-mix(in srgb, var(--orange) 16%, var(--paper)) 0%,
-      color-mix(in srgb, var(--tan) 12%, var(--paper)) 50%,
-      color-mix(in srgb, var(--blue) 16%, var(--paper)) 100%);
+      color-mix(in srgb, var(--apricot) 16%, var(--paper)) 0%,
+      color-mix(in srgb, var(--sand) 12%, var(--paper)) 50%,
+      color-mix(in srgb, var(--mint) 16%, var(--paper)) 100%);
     transition: transform .15s ease, border-color .15s ease;
   }
   .link-block:hover { transform: translateY(-2px); border-color: var(--accent); border-left-color: var(--sec); }
@@ -124,7 +208,7 @@
     padding: 1.2rem 1.4rem;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: color-mix(in srgb, var(--paper) 60%, white);
+    background: var(--surface);
   }
   .abstract h2 { margin-top: 0; }
   .abstract p:last-child { margin-bottom: 0; }
@@ -153,8 +237,8 @@
   blockquote {
     margin: 0 0 1.4rem;
     padding: .9rem 1.2rem;
-    border-left: 3px solid var(--tan);
-    background: color-mix(in srgb, var(--paper) 60%, white);
+    border-left: 3px solid var(--sand);
+    background: var(--surface);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: .85rem;
     line-height: 1.6;
@@ -232,9 +316,61 @@
   a.cite { border-bottom: none; }
   a.cite:hover { border-bottom: 1px solid var(--accent); }
   .refs .ref { scroll-margin-top: 2rem; border-radius: 4px; transition: background-color .3s ease; }
-  .refs .ref:target { background: color-mix(in srgb, var(--orange) 20%, transparent); }
+  .refs .ref:target { background: color-mix(in srgb, var(--apricot) 20%, transparent); }
   a.cite { scroll-margin-top: 30vh; }
   .refs .ref a.ref-back { border-bottom: none; margin-left: .35rem; }
+
+  /* Headings use the display font (Louise has a single regular weight) */
+  h1, h2:not(.mono) {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  /* Louise is a thin script, so it needs more size than a sans-serif to stay legible */
+  .section-head h2, .refs h2 { font-size: 1.8rem; line-height: 1.1; }
+  article h2:not(.mono) { font-size: 2rem; line-height: 1.15; }
+
+  /* Link text (nav, back links, "more" links, calls to action) uses the body font, not mono */
+  a.mono, .mono a, a .mono {
+    font-family: var(--font-body);
+    font-size: .95rem;
+    letter-spacing: 0;
+  }
+
+  /* -------- Design refresh -------- */
+  /* Louise titles: short title in script, subtitle in the body font */
+  .article-head h1 { line-height: 1.4; text-wrap: balance; }
+  .article-head h1.short { font-size: clamp(2.6rem, 8vw, 3.8rem); line-height: 1.25; margin-bottom: .2rem; }
+  .title-sub {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0 0 .9rem;
+    text-wrap: balance;
+  }
+  /* Louise's slanted ascenders (e.g. "l") overhang their advance, so the apostrophe
+     lands inside them; push it right and pull the following letter back in */
+  .ap { display: inline-block; margin: 0 -.5em 0 .28em; }
+
+  /* Mini-headers inside papers and essays (numbers included) use Louise */
+  article h3, article h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
+  article h3 { font-size: 1.6rem; line-height: 1.2; }
+  article h4 { font-size: 1.35rem; line-height: 1.2; }
+  .abstract h2 { font-size: 1.8rem; margin-bottom: .5rem; }
+
+  /* Name, class, location and year in the body font */
+  .doc-head.mono, .date.mono { font-family: var(--font-body); letter-spacing: 0; }
+  .doc-head.mono { font-size: .95rem; }
+  .date.mono { font-size: .88rem; }
+
+  /* Links from the text to tables and figures */
+  a.xref { border-bottom: none; }
+  a.xref:hover { border-bottom: 1px solid var(--accent); }
+  figure[id], .table-wrap[id] { scroll-margin-top: 2rem; }
+  figure:target img, .table-wrap:target table {
+    outline: 3px solid color-mix(in srgb, var(--apricot) 45%, transparent);
+    outline-offset: 6px;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
@@ -247,7 +383,8 @@
 
   <div class="article-head">
     <p><a class="back mono" href="../">← Projects &amp; Writing</a></p>
-    <h1>The Gail’s Effect: Café Location Expansion and Gentrification in London Neighborhoods</h1>
+    <h1 class="short">The Gail<span class="ap">’</span>s Effect</h1>
+    <p class="title-sub">Café Location Expansion and Gentrification in London Neighborhoods</p>
     <div class="doc-head mono">
       Michi Wong · Applied Analytical Statistics, Oxford Internet Institute · May 2026
     </div>
@@ -260,7 +397,7 @@
   </a>
 
   <section class="abstract">
-    <h2 class="mono">Abstract</h2>
+    <h2>Abstract</h2>
     <p>Gail’s bakeries have become a cultural shorthand for London neighborhood gentrification, yet no study has tested whether this link reflects a causal relationship between premium café openings and property price appreciation. This study provides the first quasi-experimental evidence on this question, exploiting the staggered timing of Gail’s 2018–2024 London expansion to estimate the effect of café openings on neighborhood median property prices using a Callaway-Sant’Anna difference-in-differences design strategy. The overall average treatment effect on the treated is −0.079 log points, which is directionally consistent across specifications but does not achieve statistical significance. The findings challenge the popular narrative of the “Gail’s effect”; rather than driving property prices, Gail’s selects into neighborhoods whose socioeconomic transition is already underway, functioning as a lagging indicator of gentrification instead of a catalyst of it.</p>
   </section>
 
@@ -293,9 +430,9 @@
 
     <h3><span class="num">2.2</span>Parallel trends tests</h3>
 
-    <p>The parallel trends assumption of this DiD design requires that, in the absence of a Gail’s opening, property prices in treated LSOAs would have evolved along the same trajectory as those in the matched control LSOAs. After matching the treatment and control LSOAs, most standardized mean differences were below 0.1 (Table 1), indicating an adequate observed covariate balance (<a class="cite" id="cite-rosenbaum-1983-1" href="#ref-rosenbaum-1983">Rosenbaum &amp; Rubin, 1983</a>). By restricting estimation to matched LSOAs, the final dataset controls for observable pre-treatment differences in price level, price trend, and socioeconomic composition that could confound the DiD estimate. This matched design strengthens the plausibility of the parallel trends assumption by ensuring that the control group is drawn from LSOAs with similar pre-treatment trajectories to those that received a Gail’s.</p>
+    <p>The parallel trends assumption of this DiD design requires that, in the absence of a Gail’s opening, property prices in treated LSOAs would have evolved along the same trajectory as those in the matched control LSOAs. After matching the treatment and control LSOAs, most standardized mean differences were below 0.1 (<a class="xref" href="#table-1">Table 1</a>), indicating an adequate observed covariate balance (<a class="cite" id="cite-rosenbaum-1983-1" href="#ref-rosenbaum-1983">Rosenbaum &amp; Rubin, 1983</a>). By restricting estimation to matched LSOAs, the final dataset controls for observable pre-treatment differences in price level, price trend, and socioeconomic composition that could confound the DiD estimate. This matched design strengthens the plausibility of the parallel trends assumption by ensuring that the control group is drawn from LSOAs with similar pre-treatment trajectories to those that received a Gail’s.</p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-1">
       <table>
         <caption>Table 1: Covariate Balance After Matching</caption>
         <thead>
@@ -312,14 +449,14 @@
       </table>
     </div>
 
-    <p>As shown in Figure 1, treated and matched control LSOAs follow closely-aligned price trajectories across the baseline pre-treatment window: the overlap in confidence intervals throughout this period is consistent with parallel trends (<a class="cite" id="cite-angrist-2009-1" href="#ref-angrist-2009">Angrist &amp; Pischke, 2009</a>). To further assess the parallel trends assumption, pre-treatment price trajectories for treated and control LSOAs were formally evaluated with a fixed-effects OLS estimation over the baseline period. The treatment-by-year interaction coefficients in Table 2 indicate that the treated and matched control LSOAs experienced statistically indistinguishable price growth in the years preceding any café opening, consistent with the parallel trends assumption that underpins this study’s DiD design. Thus, the covariate balance, visually parallel pre-treatment trajectories, and lack of statistically significant interaction terms support parallel trends between the treated and control groups.</p>
+    <p>As shown in <a class="xref" href="#fig-1">Figure 1</a>, treated and matched control LSOAs follow closely-aligned price trajectories across the baseline pre-treatment window: the overlap in confidence intervals throughout this period is consistent with parallel trends (<a class="cite" id="cite-angrist-2009-1" href="#ref-angrist-2009">Angrist &amp; Pischke, 2009</a>). To further assess the parallel trends assumption, pre-treatment price trajectories for treated and control LSOAs were formally evaluated with a fixed-effects OLS estimation over the baseline period. The treatment-by-year interaction coefficients in <a class="xref" href="#table-2">Table 2</a> indicate that the treated and matched control LSOAs experienced statistically indistinguishable price growth in the years preceding any café opening, consistent with the parallel trends assumption that underpins this study’s DiD design. Thus, the covariate balance, visually parallel pre-treatment trajectories, and lack of statistically significant interaction terms support parallel trends between the treated and control groups.</p>
 
-    <figure>
+    <figure id="fig-1">
       <img src="fig1.png" alt="Line chart of mean log median property price, 2013–2017, for treated Gail’s LSOAs and matched controls, with overlapping confidence bands." loading="lazy">
       <figcaption>Figure 1: Pre-Treatment Property Price Trends: Treated vs. Matched Controls</figcaption>
     </figure>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-2">
       <table>
         <caption>Table 2: Fixed-Effects OLS: Interaction of Treated × Year</caption>
         <thead>
@@ -345,16 +482,16 @@
 
     <h2><span class="num">3</span>Results</h2>
 
-    <p>The Callaway-Sant’Anna doubly-robust estimator yielded an overall ATT of −0.079 log points (95% CI: [−0.202, 0.043]), corresponding to an approximate 7.59% reduction in neighborhood median property prices in treated LSOAs relative to their matched controls, though this estimate is not statistically significant at the α = 0.05 level and the null hypothesis cannot be rejected. The dynamic aggregation—which averages effects by event time—produced a similar negative point estimate to the overall aggregation (dynamic ATT: −0.067 log points; 95% CI: [−0.185, 0.050]). Figure 2 plots the dynamic ATT from four years before to four years after each café opening: from event time +1 onward, the dynamic ATT estimates are negative, yet none exhibit statistical significance. Thus, while the point estimates consistently suggest a slight negative association, the width of the confidence intervals prevent any definitive conclusion about the existence or direction of an aggregate Gail’s housing price effect.</p>
+    <p>The Callaway-Sant’Anna doubly-robust estimator yielded an overall ATT of −0.079 log points (95% CI: [−0.202, 0.043]), corresponding to an approximate 7.59% reduction in neighborhood median property prices in treated LSOAs relative to their matched controls, though this estimate is not statistically significant at the α = 0.05 level and the null hypothesis cannot be rejected. The dynamic aggregation—which averages effects by event time—produced a similar negative point estimate to the overall aggregation (dynamic ATT: −0.067 log points; 95% CI: [−0.185, 0.050]). <a class="xref" href="#fig-2">Figure 2</a> plots the dynamic ATT from four years before to four years after each café opening: from event time +1 onward, the dynamic ATT estimates are negative, yet none exhibit statistical significance. Thus, while the point estimates consistently suggest a slight negative association, the width of the confidence intervals prevent any definitive conclusion about the existence or direction of an aggregate Gail’s housing price effect.</p>
 
-    <figure>
+    <figure id="fig-2">
       <img src="fig2.png" alt="Event study plot of average treatment effect on log price from four years before to four years after a Gail’s opening; all confidence bands include zero." loading="lazy">
       <figcaption>Figure 2: Event Study: Effect of Gail’s Opening on Property Prices</figcaption>
     </figure>
 
-    <p>Disaggregating the ATT by cohort reveals considerable heterogeneity across Gail’s expansion waves. Of the six post-treatment cohorts, only the 2021 cohort produced a statistically significant result (ATT: −0.271 log points; 95% CI: [−0.312, −0.229]), indicating that LSOAs where a Gail’s opened in 2021 experienced a statistically distinguishable reduction in median property prices relative to their matched controls. Beyond this result, cohort-specific ATTs vary considerably both in direction and magnitude (Table 3). The positive estimate for the 2018 cohort and the wide standard errors for the 2020 cohort reflect the small number of treated LSOAs per year, and estimates should be interpreted with caution given the limited statistical power available at the cohort-level.</p>
+    <p>Disaggregating the ATT by cohort reveals considerable heterogeneity across Gail’s expansion waves. Of the six post-treatment cohorts, only the 2021 cohort produced a statistically significant result (ATT: −0.271 log points; 95% CI: [−0.312, −0.229]), indicating that LSOAs where a Gail’s opened in 2021 experienced a statistically distinguishable reduction in median property prices relative to their matched controls. Beyond this result, cohort-specific ATTs vary considerably both in direction and magnitude (<a class="xref" href="#table-3">Table 3</a>). The positive estimate for the 2018 cohort and the wide standard errors for the 2020 cohort reflect the small number of treated LSOAs per year, and estimates should be interpreted with caution given the limited statistical power available at the cohort-level.</p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-3">
       <table>
         <caption>Table 3: Callaway-Sant’Anna Cohort-Specific ATT</caption>
         <thead>
@@ -375,7 +512,7 @@
       </table>
     </div>
 
-    <p>The TWFE robustness check generated a post-treatment coefficient of −0.075 log points (95% CI: [−0.123, −0.028]) that is statistically significant at the α = 0.05 level. This estimate closely mirrors the Callaway-Sant’Anna overall ATT in both direction and magnitude—however, this convergence reflects similarity in the weighted average treatment effect across cohorts rather than homogeneity of cohort-specific effects, which vary considerably from +0.130 to −0.325 log points (Table 3). The TWFE specification compresses this heterogeneity into a single pooled coefficient, and should therefore be interpreted as an average across Gail’s expansion waves rather than as a stable, cohort-invariant effect.</p>
+    <p>The TWFE robustness check generated a post-treatment coefficient of −0.075 log points (95% CI: [−0.123, −0.028]) that is statistically significant at the α = 0.05 level. This estimate closely mirrors the Callaway-Sant’Anna overall ATT in both direction and magnitude—however, this convergence reflects similarity in the weighted average treatment effect across cohorts rather than homogeneity of cohort-specific effects, which vary considerably from +0.130 to −0.325 log points (<a class="xref" href="#table-3">Table 3</a>). The TWFE specification compresses this heterogeneity into a single pooled coefficient, and should therefore be interpreted as an average across Gail’s expansion waves rather than as a stable, cohort-invariant effect.</p>
 
     <h2><span class="num">4</span>Discussion</h2>
 

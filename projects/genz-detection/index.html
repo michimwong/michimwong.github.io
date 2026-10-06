@@ -9,21 +9,105 @@
 <meta name="description" content="A comparative evaluation of six classifiers for detecting Gen-Z language register, tested on curated and naturalistic Reddit text.">
 
 <style>
+  /* -------- Fonts -------- */
+  @font-face {
+    font-family: "Louise";
+    src: url("../../assets/fonts/louise/Louise-Regular.woff2") format("woff2"),
+         url("../../assets/fonts/louise/Louise-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TeX Gyre Bonum";
+    src: url("../../assets/fonts/bonum/texgyrebonum-bolditalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Fraunces";
+    src: url("../../assets/fonts/fraunces/Fraunces-Italic-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Goudy Bookletter 1911";
+    src: url("../../assets/fonts/goudy-bookletter/GoudyBookletter1911.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../assets/fonts/schibsted-grotesk/SchibstedGrotesk-Italic-Variable.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
   :root {
-    --paper:  #FAF6F0;
-    --ink:    #2B211B;
-    --muted:  #8A776B;
-    --accent: #742F14;
-    --line:   #EADFD3;
+    /* Display font for headings; body font for reading text (Schibsted Grotesk) */
+    --font-display: "Louise", Georgia, serif;
+    --font-body:    "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Also tried: "Goudy Bookletter 1911", "Fraunces" */
+    /* Previous body font: "TeX Gyre Bonum", "Bookman Old Style", Bookman, Georgia, serif */
+
+    --paper:   #FFFFFF;   /* page background (white) */
+    --surface: #FFFFFF;   /* cards, abstract, code blocks (palette off-white: #F6F5F5) */
+    --ink:     #2E2622;   /* main text */
+    --muted:   #6B625E;   /* secondary text (darkened stone) */
+    --accent:  #8A5A36;   /* links (darkened clay, readable on white) */
+    --line:    #E8E4E2;   /* hairline dividers */
+
+    /* palette accents (decorative: borders, section rules, tints) */
+    --clay:    #B78A66;
+    --apricot: #DFAA6C;
+    --sand:    #E2C29F;
+    --mint:    #BDDBCA;
+    --stone:   #AAA2A0;
     --maxw:   720px;
 
-    --rust:   #742F14;
-    --blue:   #5A84AC;
-    --orange: #FC9C44;
-    --tan:    #C7AC9F;
-    --brown:  #5C3C2C;
-
-    --sec:    var(--orange);
+    --sec:    var(--apricot);
   }
 
   * { box-sizing: border-box; }
@@ -33,7 +117,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -46,7 +130,7 @@
     height: 4px;
     width: var(--scroll, 0%);
     background: linear-gradient(90deg,
-      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+      var(--clay) 0%, var(--apricot) 30%, var(--sand) 50%, var(--mint) 72%, var(--stone) 100%);
     background-size: 100vw 100%;
     background-repeat: no-repeat;
     z-index: 50;
@@ -108,9 +192,9 @@
     border-radius: 12px;
     color: inherit;
     background: linear-gradient(120deg,
-      color-mix(in srgb, var(--orange) 16%, var(--paper)) 0%,
-      color-mix(in srgb, var(--tan) 12%, var(--paper)) 50%,
-      color-mix(in srgb, var(--blue) 16%, var(--paper)) 100%);
+      color-mix(in srgb, var(--apricot) 16%, var(--paper)) 0%,
+      color-mix(in srgb, var(--sand) 12%, var(--paper)) 50%,
+      color-mix(in srgb, var(--mint) 16%, var(--paper)) 100%);
     transition: transform .15s ease, border-color .15s ease;
   }
   .link-block:hover { transform: translateY(-2px); border-color: var(--accent); border-left-color: var(--sec); }
@@ -124,7 +208,7 @@
     padding: 1.2rem 1.4rem;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: color-mix(in srgb, var(--paper) 60%, white);
+    background: var(--surface);
   }
   .abstract h2 { margin-top: 0; }
   .abstract p:last-child { margin-bottom: 0; }
@@ -153,10 +237,10 @@
   blockquote {
     margin: 0 0 1.4rem;
     padding: .9rem 1.2rem;
-    border-left: 3px solid var(--tan);
-    background: color-mix(in srgb, var(--paper) 60%, white);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: .85rem;
+    border-left: 3px solid var(--sand);
+    background: var(--surface);
+    font-family: var(--font-body);
+    font-size: .95rem;
     line-height: 1.6;
   }
   blockquote p { margin: 0 0 .6rem; }
@@ -232,9 +316,62 @@
   a.cite { border-bottom: none; }
   a.cite:hover { border-bottom: 1px solid var(--accent); }
   .refs .ref { scroll-margin-top: 2rem; border-radius: 4px; transition: background-color .3s ease; }
-  .refs .ref:target { background: color-mix(in srgb, var(--orange) 20%, transparent); }
+  .refs .ref:target { background: color-mix(in srgb, var(--apricot) 20%, transparent); }
   a.cite { scroll-margin-top: 30vh; }
   .refs .ref a.ref-back { border-bottom: none; margin-left: .35rem; }
+
+  /* Headings use the display font (Louise has a single regular weight) */
+  h1, h2:not(.mono) {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  /* Louise is a thin script, so it needs more size than a sans-serif to stay legible */
+  .section-head h2, .refs h2 { font-size: 1.8rem; line-height: 1.1; }
+  article h2:not(.mono) { font-size: 2rem; line-height: 1.15; }
+
+  /* Link text (nav, back links, "more" links, calls to action) uses the body font, not mono */
+  a.mono, .mono a, a .mono {
+    font-family: var(--font-body);
+    font-size: .95rem;
+    letter-spacing: 0;
+  }
+
+  /* -------- Design refresh -------- */
+  .note { color: var(--muted); font-size: .95rem; }
+  /* Louise titles: short title in script, subtitle in the body font */
+  .article-head h1 { line-height: 1.4; text-wrap: balance; }
+  .article-head h1.short { font-size: clamp(2.6rem, 8vw, 3.8rem); line-height: 1.25; margin-bottom: .2rem; }
+  .title-sub {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0 0 .9rem;
+    text-wrap: balance;
+  }
+  /* Louise's slanted ascenders (e.g. "l") overhang their advance, so the apostrophe
+     lands inside them; push it right and pull the following letter back in */
+  .ap { display: inline-block; margin: 0 -.5em 0 .28em; }
+
+  /* Mini-headers inside papers and essays (numbers included) use Louise */
+  article h3, article h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
+  article h3 { font-size: 1.6rem; line-height: 1.2; }
+  article h4 { font-size: 1.35rem; line-height: 1.2; }
+  .abstract h2 { font-size: 1.8rem; margin-bottom: .5rem; }
+
+  /* Name, class, location and year in the body font */
+  .doc-head.mono, .date.mono { font-family: var(--font-body); letter-spacing: 0; }
+  .doc-head.mono { font-size: .95rem; }
+  .date.mono { font-size: .88rem; }
+
+  /* Links from the text to tables and figures */
+  a.xref { border-bottom: none; }
+  a.xref:hover { border-bottom: 1px solid var(--accent); }
+  figure[id], .table-wrap[id] { scroll-margin-top: 2rem; }
+  figure:target img, .table-wrap:target table {
+    outline: 3px solid color-mix(in srgb, var(--apricot) 45%, transparent);
+    outline-offset: 6px;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
@@ -247,7 +384,8 @@
 
   <div class="article-head">
     <p><a class="back mono" href="../">← Projects &amp; Writing</a></p>
-    <h1>Detecting Gen-Z Language Register: A Comparative Evaluation of Classifiers</h1>
+    <h1 class="short">Detecting Gen-Z Language Register</h1>
+    <p class="title-sub">A Comparative Evaluation of Classifiers</p>
     <div class="doc-head mono">
       Michi Wong · Applied Machine Learning, Oxford Internet Institute · March 2026
     </div>
@@ -260,7 +398,7 @@
   </a>
 
   <section class="abstract">
-    <h2 class="mono">Abstract</h2>
+    <h2>Abstract</h2>
     <p>Despite its sociolinguistic distinctiveness, Gen-Z language remains poorly operationalized as a machine learning detection target. This study frames Gen-Z register detection as a supervised classification problem, evaluating six models on both in-distribution training data and out-of-distribution Reddit text. GPT-4o-mini achieved the strongest performance on the naturalistic Reddit data, supporting the argument that training on internet-native data allows LLMs to acquire implicit register knowledge. Traditional classification models degraded under the domain shift, reflecting a structural mismatch between the curated training data and real-world Gen-Z language. These findings ultimately highlight the need for naturally-occurring, mixed-register training corpora as a prerequisite for robust Gen-Z register detection tasks.</p>
   </section>
 
@@ -284,7 +422,7 @@
 
     <p>The merged dataset (<em>n</em> = 15,401) of labeled Gen-Z and standard English examples followed a minimal preprocessing protocol in order to preserve the orthographic and paralinguistic features of the original text. The corpus was divided into training (70%), validation (15%), and test sets (15%) using stratified random sampling with a fixed random seed.</p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-1">
       <table>
         <caption>Table 1: Training Dataset Summary Statistics (<em>n</em> = 15,401)</caption>
         <thead>
@@ -323,7 +461,7 @@
 
     <p>5. Rather than utilizing the bag-of-words structure of the previous classifiers, the BERT model produced a contextualized representation of the text—each token’s embedding reflected its meaning in the specific context of its surrounding text instead of its frequency across the corpus. The pretrained bert-base-uncased model was fine-tuned over three epochs to avoid overfitting (<a class="cite" id="cite-devlin-2018-1" href="#ref-devlin-2018">Devlin et al., 2018</a>). Because BERT encoded contextualized representations of each token, <a class="cite" id="cite-halliday-1978-2" href="#ref-halliday-1978">Halliday’s (1978)</a> register theory implies that the model was better positioned to recognize Gen-Z language.</p>
 
-    <p>6. GPT-4o-mini was selected as a representative and computationally-accessible frontier model. The GPT-4o-mini classifier was unique in that it received no task-specific training. Rather than learning from a labeled corpus, the AI model was queried with a zero-shot prompt and classified each text solely based on OpenAI’s model training. Zero-shot prompting (<a href="#appendix-a">Appendix A</a>) was chosen over few-shot prompting because it isolated the contribution of OpenAI’s training protocol. The model was instructed to return a binary label of whether an example contained “Gen-Z slang or language”; this wording was kept intentionally vague so as to allow the model to draw on its own knowledge of Gen-Z communication.</p>
+    <p>6. GPT-4o-mini was selected as a representative and computationally-accessible frontier model. The GPT-4o-mini classifier was unique in that it received no task-specific training. Rather than learning from a labeled corpus, the AI model was queried with a zero-shot prompt and classified each text solely based on OpenAI’s model training. Zero-shot prompting (<a class="xref" href="#appendix-a">Appendix A</a>) was chosen over few-shot prompting because it isolated the contribution of OpenAI’s training protocol. The model was instructed to return a binary label of whether an example contained “Gen-Z slang or language”; this wording was kept intentionally vague so as to allow the model to draw on its own knowledge of Gen-Z communication.</p>
 
     <p>All supervised models were trained and evaluated on the same datasets in order to establish comparability. Model performance was assessed using accuracy, precision, recall, and macro-averaged F1 score.</p>
 
@@ -335,9 +473,9 @@
 
     <h2><span class="num">3</span>Results</h2>
 
-    <p>The in-distribution classification performance of all six models revealed a clear performance gradient across model architectures (Table 2). The word frequency baseline performed noticeably worse than the trained models, and its low recall of 66.5% suggested that a substantial proportion of Gen-Z language examples were not matched by the lexicon. The fine-tuned BERT model achieved the highest performance across all metrics, with an accuracy of 99.6%, precision of 99.9%, recall of 99.4%, and a macro-averaged F1 score of 0.997; these near-perfect scores were consistent with BERT’s tendency to overfit to a narrow training distribution and should therefore be interpreted with caution (<a class="cite" id="cite-hao-2019-1" href="#ref-hao-2019">Hao et al., 2019</a>). The three sklearn classifiers—logistic regression, SVM, and random forest—occupied a narrow performance band beneath BERT, suggesting diminishing returns to model complexity when using bag-of-words approaches for Gen-Z language detection. Despite receiving no task-specific training or labeled data, GPT-4o-mini displayed performance metrics approximately in line with the sklearn classifiers; most notably, it exhibited near-perfect precision but substantially lower recall, indicating a conservative classification strategy relative to the supervised models. These in-distribution results established a performance baseline for each model, against which the out-of-distribution Reddit results were compared to.</p>
+    <p>The in-distribution classification performance of all six models revealed a clear performance gradient across model architectures (<a class="xref" href="#table-2">Table 2</a>). The word frequency baseline performed noticeably worse than the trained models, and its low recall of 66.5% suggested that a substantial proportion of Gen-Z language examples were not matched by the lexicon. The fine-tuned BERT model achieved the highest performance across all metrics, with an accuracy of 99.6%, precision of 99.9%, recall of 99.4%, and a macro-averaged F1 score of 0.997; these near-perfect scores were consistent with BERT’s tendency to overfit to a narrow training distribution and should therefore be interpreted with caution (<a class="cite" id="cite-hao-2019-1" href="#ref-hao-2019">Hao et al., 2019</a>). The three sklearn classifiers—logistic regression, SVM, and random forest—occupied a narrow performance band beneath BERT, suggesting diminishing returns to model complexity when using bag-of-words approaches for Gen-Z language detection. Despite receiving no task-specific training or labeled data, GPT-4o-mini displayed performance metrics approximately in line with the sklearn classifiers; most notably, it exhibited near-perfect precision but substantially lower recall, indicating a conservative classification strategy relative to the supervised models. These in-distribution results established a performance baseline for each model, against which the out-of-distribution Reddit results were compared to.</p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-2">
       <table>
         <caption>Table 2: Test Set Performance</caption>
         <thead>
@@ -357,11 +495,11 @@
       </table>
     </div>
 
-    <p>The Reddit evaluation exposed a substantial gap between benchmark performance and performance on naturally-occurring text. Table 3 shows model performance on the manually annotated r/CasualConversation dataset. Predicting standard English for all examples—the all-negative baseline—would achieve an accuracy of 83.3%; any model that did not meaningfully exceed this threshold offers no practical utility as a classifier. GPT-4o-mini was the only model to outperform this baseline, achieving an accuracy of 85.0% and a macro-averaged F1 score of 0.384. Similarly to its performance on the original test set, the frontier model retained a conservative classification behavior which proved to be better calibrated to the sparse positive rate of the Reddit dataset.</p>
+    <p>The Reddit evaluation exposed a substantial gap between benchmark performance and performance on naturally-occurring text. <a class="xref" href="#table-3">Table 3</a> shows model performance on the manually annotated r/CasualConversation dataset. Predicting standard English for all examples—the all-negative baseline—would achieve an accuracy of 83.3%; any model that did not meaningfully exceed this threshold offers no practical utility as a classifier. GPT-4o-mini was the only model to outperform this baseline, achieving an accuracy of 85.0% and a macro-averaged F1 score of 0.384. Similarly to its performance on the original test set, the frontier model retained a conservative classification behavior which proved to be better calibrated to the sparse positive rate of the Reddit dataset.</p>
 
     <p>All five remaining models fell below the all-negative accuracy threshold. BERT—which had the highest in-distribution performance metrics—produced an out-of-distribution accuracy of 33.3%; its high recall and low precision indicated that the model predicted Gen-Z register for a large majority of Reddit data regardless of its actual content. The logistic regression, SVM, and random forest models exhibited a similar pattern of false positives, suggesting that this pattern in performance metrics is not model-specific. These results ultimately caution against treating benchmark performance as a reliable proxy for real-world utility in Gen-Z register detection tasks.</p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="table-3">
       <table>
         <caption>Table 3: r/CasualConversation Performance</caption>
         <thead>
@@ -385,11 +523,11 @@
 
     <h3><span class="num">4.1</span>Main Findings</h3>
 
-    <p>The most central finding across the results is the inversion between in-distribution and real-world performance: BERT achieved the highest test F1 score but was unable to extrapolate to naturally-occurring data. BERT’s near-perfect in-distribution performance suggests the model achieved high benchmark scores through exploiting surface-level features in the training data instead of learning underlying linguistic constructs. Contrastingly, GPT-4o-mini was the only model to outperform the all-negative Reddit baseline despite mediocre performance on the in-distribution test set. Although this finding cannot be directly verified due to GPT-4o-mini being a closed model, the out-of-distribution performance of the frontier model suggests that LLMs acquire implicit register knowledge through pretraining on internet-native datasets. These contrasting out-of-distribution performance evaluations are made clearer when comparing GPT-4o-mini’s conservative classification behavior against the indiscriminate positive-class bias exhibited by the other classification models; their high false positive rates (<a href="#fig-a1">Figure A1</a>) thus reflect their inability to distinguish registers.</p>
+    <p>The most central finding across the results is the inversion between in-distribution and real-world performance: BERT achieved the highest test F1 score but was unable to extrapolate to naturally-occurring data. BERT’s near-perfect in-distribution performance suggests the model achieved high benchmark scores through exploiting surface-level features in the training data instead of learning underlying linguistic constructs. Contrastingly, GPT-4o-mini was the only model to outperform the all-negative Reddit baseline despite mediocre performance on the in-distribution test set. Although this finding cannot be directly verified due to GPT-4o-mini being a closed model, the out-of-distribution performance of the frontier model suggests that LLMs acquire implicit register knowledge through pretraining on internet-native datasets. These contrasting out-of-distribution performance evaluations are made clearer when comparing GPT-4o-mini’s conservative classification behavior against the indiscriminate positive-class bias exhibited by the other classification models; their high false positive rates (<a class="xref" href="#fig-a1">Figure A1</a>) thus reflect their inability to distinguish registers.</p>
 
     <p>Furthermore, the consistent in-distribution performance among the trained models confirms that Gen-Z register detection is feasible when training and evaluation data are drawn from the same corpus. The narrow F1 band among the three sklearn classifiers (0.940 − 0.959) signals that, when using bag-of-words methods, the exact choice of classifier architecture has relatively little bearing on performance. Moreover, if model complexity is the primary determinant of generalization, BERT should have outperformed the bag-of-word methods on the Reddit data; instead, the performance collapse of all trained classifiers on the Reddit corpus points to a systematic mismatch between the training data and the deployment context. Rather than any individual model being the driver for failing to generalize to Reddit, the training corpus itself is not naturalistic enough for the models to extrapolate to. Online Gen-Z communication is ultimately more variable than the curated training set of register-dense examples suggests.</p>
 
-    <p>In addition to the findings about model generalization, the results are consistent with the register theory: Gen-Z language is not defined by a fixed vocabulary but by a unique configuration of sociolinguistic features. <a class="cite" id="cite-halliday-1978-3" href="#ref-halliday-1978">Halliday’s (1978)</a> three-dimensional register model helps explain why the trained classifiers could not generalize: the training data captured the stylistic features of Gen-Z register but not its social context or the relationship between speakers. The word frequency baseline failed to detect register because Gen-Z lexicon is confounded with standard English (e.g., “slay” can mean to literally kill or to be fashionable). The logistic regression feature importance analysis (<a href="#fig-a2">Figure A2</a>) supports this interpretation, with ambiguous terms such as “it” and “you” emerging as highly-weighted Gen-Z features despite their presence in both registers. Gen-Z language is therefore not a simple enumerable lexicon, but is instead a learned combination of features.</p>
+    <p>In addition to the findings about model generalization, the results are consistent with the register theory: Gen-Z language is not defined by a fixed vocabulary but by a unique configuration of sociolinguistic features. <a class="cite" id="cite-halliday-1978-3" href="#ref-halliday-1978">Halliday’s (1978)</a> three-dimensional register model helps explain why the trained classifiers could not generalize: the training data captured the stylistic features of Gen-Z register but not its social context or the relationship between speakers. The word frequency baseline failed to detect register because Gen-Z lexicon is confounded with standard English (e.g., “slay” can mean to literally kill or to be fashionable). The logistic regression feature importance analysis (<a class="xref" href="#fig-a2">Figure A2</a>) supports this interpretation, with ambiguous terms such as “it” and “you” emerging as highly-weighted Gen-Z features despite their presence in both registers. Gen-Z language is therefore not a simple enumerable lexicon, but is instead a learned combination of features.</p>
 
     <p>Overall, these findings show that benchmark performance on a curated translation dataset is a poor proxy for naturalistic Gen-Z register. The paired translation structure of the training data ensured that every positive training example was maximally Gen-Z, limiting the classifier models’ exposure to the type of mixed-register text that is most representative of the real-world. The dataset’s class imbalance compounded this saturation effect: because Dataset #3 contributed positive-class examples only, the majority Gen-Z label distribution was driven by a corpus of slang definitions and example sentences that represented the most register-dense form of Gen-Z language, further biasing the models away from the naturalistic, mixed-register text they would encounter when deployed. Although the classification results validate the theoretical framing of Gen-Z language as its own distinct register, the available training data only captures the most concentrated form of this language. These results collectively reframe the model comparison question—rather than asking which architecture best detects Gen-Z register, the more salient question is which dataset structure best prepares a model for practical implementations.</p>
 
@@ -442,7 +580,7 @@
       <figcaption>Figure A2: Logistic Regression Feature Importance</figcaption>
     </figure>
 
-    <p class="mono">The code appendix from the original submission is available in the <a href="https://github.com/michimwong/genz-detection" target="_blank" rel="noopener">GitHub repository</a>.</p>
+    <p class="note">The code appendix from the original submission is available in the <a href="https://github.com/michimwong/genz-detection" target="_blank" rel="noopener">GitHub repository</a>.</p>
 
   </article>
 
