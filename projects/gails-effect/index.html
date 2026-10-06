@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+
+<title>The Gail’s Effect — Michi Wong</title>
+<meta name="description" content="A staggered difference-in-differences study of Gail’s café openings and property prices in London neighborhoods.">
+
+<style>
+  :root {
+    --paper:  #FAF6F0;
+    --ink:    #2B211B;
+    --muted:  #8A776B;
+    --accent: #742F14;
+    --line:   #EADFD3;
+    --maxw:   720px;
+
+    --rust:   #742F14;
+    --blue:   #5A84AC;
+    --orange: #FC9C44;
+    --tan:    #C7AC9F;
+    --brown:  #5C3C2C;
+
+    --sec:    var(--rust);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: var(--scroll, 0%);
+    background: linear-gradient(90deg,
+      var(--rust) 0%, var(--orange) 30%, var(--tan) 50%, var(--blue) 72%, var(--brown) 100%);
+    background-size: 100vw 100%;
+    background-repeat: no-repeat;
+    z-index: 50;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12vh 24px 18vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color .15s ease;
+    overflow-wrap: anywhere;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+  .back { border-bottom: none; }
+  .back:hover { color: var(--ink); }
+
+  .article-head {
+    margin-bottom: 4vh;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--sec, var(--line));
+  }
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 1.5rem 0 .6rem;
+    font-weight: 650;
+  }
+  .doc-head { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+
+  /* -------- Link-out block (GitHub / request) -------- */
+  .link-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .3rem;
+    margin: 0 0 5vh;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--sec);
+    border-radius: 12px;
+    color: inherit;
+    background: linear-gradient(120deg,
+      color-mix(in srgb, var(--orange) 16%, var(--paper)) 0%,
+      color-mix(in srgb, var(--tan) 12%, var(--paper)) 50%,
+      color-mix(in srgb, var(--blue) 16%, var(--paper)) 100%);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .link-block:hover { transform: translateY(-2px); border-color: var(--accent); border-left-color: var(--sec); }
+  .link-block .lb-title { font-weight: 600; font-size: 1.05rem; }
+  .link-block .lb-desc { color: var(--muted); font-size: .95rem; line-height: 1.5; }
+  .link-block .lb-cta { margin-top: .3rem; color: var(--accent); font-weight: 600; }
+
+  /* -------- Paper body -------- */
+  .abstract {
+    margin: 0 0 5vh;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--paper) 60%, white);
+  }
+  .abstract h2 { margin-top: 0; }
+  .abstract p:last-child { margin-bottom: 0; }
+
+  article h2 {
+    font-size: 1.4rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 3.5rem 0 1rem;
+  }
+  article h3 {
+    font-size: 1.1rem;
+    font-weight: 650;
+    margin: 2.2rem 0 .8rem;
+  }
+  article h4 {
+    font-size: 1rem;
+    font-weight: 650;
+    margin: 1.8rem 0 .6rem;
+  }
+  article h2 .num, article h3 .num, article h4 .num { color: var(--muted); margin-right: .5rem; }
+  article p { margin: 0 0 1.4rem; }
+  article ul, article ol { margin: 0 0 1.4rem; padding-left: 1.3rem; }
+  article li { margin-bottom: .4rem; }
+
+  blockquote {
+    margin: 0 0 1.4rem;
+    padding: .9rem 1.2rem;
+    border-left: 3px solid var(--tan);
+    background: color-mix(in srgb, var(--paper) 60%, white);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .85rem;
+    line-height: 1.6;
+  }
+  blockquote p { margin: 0 0 .6rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+
+  /* Figures */
+  figure { margin: 2rem 0 2.4rem; }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: .9rem;
+    margin-top: .7rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* Tables (booktabs style) */
+  .table-wrap { overflow-x: auto; margin: 2rem 0 2.4rem; }
+  table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: .85rem;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  caption {
+    caption-side: top;
+    color: var(--muted);
+    font-size: .9rem;
+    padding-bottom: .6rem;
+  }
+  th, td { padding: .3rem .7rem; text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-weight: 600; border-bottom: 1px solid var(--ink); vertical-align: bottom; }
+  thead tr.group th { border-bottom: 1px solid var(--line); text-align: center; }
+  tbody tr.sub td { font-style: italic; color: var(--muted); padding-top: .6rem; }
+  tbody tr.total td { font-weight: 650; border-top: 1px solid var(--ink); }
+  tfoot td {
+    text-align: left;
+    color: var(--muted);
+    font-size: .8rem;
+    border-top: 1px solid var(--ink);
+    white-space: normal;
+  }
+  .table-note { color: var(--muted); font-size: .8rem; text-align: center; margin-top: .5rem; }
+
+  /* References (APA, hanging indent) */
+  .refs { margin-top: 5vh; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .refs h2 {
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.2rem;
+  }
+  .refs .ref {
+    padding-left: 2em;
+    text-indent: -2em;
+    margin-bottom: 1rem;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+
+  /* In-text citations link to their reference (like the essays' footnotes) */
+  a.cite { border-bottom: none; }
+  a.cite:hover { border-bottom: 1px solid var(--accent); }
+  .refs .ref { scroll-margin-top: 2rem; border-radius: 4px; transition: background-color .3s ease; }
+  .refs .ref:target { background: color-mix(in srgb, var(--orange) 20%, transparent); }
+  a.cite { scroll-margin-top: 30vh; }
+  .refs .ref a.ref-back { border-bottom: none; margin-left: .35rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <div class="article-head">
+    <p><a class="back mono" href="../">← Projects &amp; Writing</a></p>
+    <h1>The Gail’s Effect: Café Location Expansion and Gentrification in London Neighborhoods</h1>
+    <div class="doc-head mono">
+      Michi Wong · Applied Analytical Statistics, Oxford Internet Institute · May 2026
+    </div>
+  </div>
+
+  <a class="link-block" href="https://github.com/michimwong/gails_effect" target="_blank" rel="noopener">
+    <span class="lb-title">Code &amp; data on GitHub</span>
+    <span class="lb-desc">Data collection from OpenStreetMap and the Land Registry, propensity score matching, and Callaway-Sant’Anna estimation</span>
+    <span class="lb-cta mono">michimwong/gails_effect →</span>
+  </a>
+
+  <section class="abstract">
+    <h2 class="mono">Abstract</h2>
+    <p>Gail’s bakeries have become a cultural shorthand for London neighborhood gentrification, yet no study has tested whether this link reflects a causal relationship between premium café openings and property price appreciation. This study provides the first quasi-experimental evidence on this question, exploiting the staggered timing of Gail’s 2018–2024 London expansion to estimate the effect of café openings on neighborhood median property prices using a Callaway-Sant’Anna difference-in-differences design strategy. The overall average treatment effect on the treated is −0.079 log points, which is directionally consistent across specifications but does not achieve statistical significance. The findings challenge the popular narrative of the “Gail’s effect”; rather than driving property prices, Gail’s selects into neighborhoods whose socioeconomic transition is already underway, functioning as a lagging indicator of gentrification instead of a catalyst of it.</p>
+  </section>
+
+  <article>
+
+    <h2><span class="num">1</span>Introduction</h2>
+
+    <p>Dubbed online as the “Gail’s effect,” the arrival of a Gail’s café in London neighborhoods has become a sign that an area is undergoing a rapid socioeconomic transition (<a class="cite" id="cite-fuller-2026-1" href="#ref-fuller-2026">Fuller, 2026</a>; <a class="cite" id="cite-gogarty-2024-1" href="#ref-gogarty-2024">Gogarty, 2024</a>; <a class="cite" id="cite-newkey-burden-2025-1" href="#ref-newkey-burden-2025">Newkey-Burden, 2025</a>). This popular cultural association between premium consumption amenities and neighborhood change reflects the broader pattern of urban gentrification. The foundational sociological theories of gentrification identify the rent gap as the primary mechanism driving neighborhood reinvestment and displacement (<a class="cite" id="cite-glass-1964-1" href="#ref-glass-1964">Glass, 1964</a>; <a class="cite" id="cite-smith-1987-1" href="#ref-smith-1987">Smith, 1987</a>). Subsequent work in urban studies has broadened these frameworks to incorporate the role of consumption, focusing on the ways that retail in working-class neighborhoods functions to reshape community identity and attract higher-income residents (<a class="cite" id="cite-zukin-1998-1" href="#ref-zukin-1998">Zukin, 1998</a>). The standard economic model for analyzing the relationship between neighborhood amenities and housing costs uses hedonic pricing, a method that breaks down property prices into the implicit value of individual characteristics such as location, size, and local offerings (<a class="cite" id="cite-rosen-1974-1" href="#ref-rosen-1974">Rosen, 1974</a>). Recent research has applied this framework to a wide range of amenities, documenting positive price effects associated with proximity to schools, green spaces, and Whole Foods grocery stores (<a class="cite" id="cite-anderson-2017-1" href="#ref-anderson-2017">Anderson, 2017</a>; <a class="cite" id="cite-gibbons-2013-1" href="#ref-gibbons-2013">Gibbons et al., 2013</a>, <a class="cite" id="cite-gibbons-2014-1" href="#ref-gibbons-2014">2014</a>; <a class="cite" id="cite-hoelzlein-2024-1" href="#ref-hoelzlein-2024">Hoelzlein &amp; Miller, 2024</a>; <a class="cite" id="cite-law-2019-1" href="#ref-law-2019">Law et al., 2019</a>). Despite the cultural relevance of the Gail’s effect and the growing body of literature on amenity-driven gentrification, no study has rigorously tested whether premium café chain openings are causally associated with neighborhood property price changes in London. Ultimately, whether consumption amenities—such as Gail’s cafés—cause or merely accompany gentrification remains an empirically contested question.</p>
+
+    <p>This study exploits the staggered timing of Gail’s London expansion to provide the first empirical test of the Gail’s effect. Beginning in 2018 (<a class="cite" id="cite-algospark-nd-1" href="#ref-algospark-nd">Algospark, n.d.</a>), Gail’s rapid expansion across London created a natural quasi-experimental setting in which the opening dates and geography of cafés can be exploited for causal identification. The central research questions are therefore:</p>
+
+    <ul>
+      <li>Do Gail’s café openings lead to gentrification by exerting an independent causal effect on London neighborhood property prices?</li>
+      <li>Or does the chain simply select into areas where prices were already rising?</li>
+    </ul>
+
+    <p>Utilizing a staggered difference-in-differences (DiD) design with the Callaway-Sant’Anna estimator (<a class="cite" id="cite-callaway-2021-1" href="#ref-callaway-2021">Callaway &amp; Sant’Anna, 2021</a>), this model uses variation in the timing of Gail’s openings across London Lower Layer Super Output Areas (LSOAs) between 2018–2024 to identify the treatment effect relative to a propensity score-matched control group of never-treated LSOAs. This study makes three specific contributions to the existing literature: (1) it provides the first empirical analysis of the relationship between premium café openings and property prices in London, (2) it introduces a novel application of the Callaway-Sant’Anna DiD estimator to urban amenity pricing, and (3) it contributes to the literature about whether aspirational consumption amenities are leading or lagging indicators of gentrification.</p>
+
+    <h2><span class="num">2</span>Methods</h2>
+
+    <h3><span class="num">2.1</span>Data</h3>
+
+    <p>Gail’s locations were sourced from OpenStreetMap (OSM) using a bounding-box query over the Greater London area, filtering all nodes and ways tagged with the case-insensitive name “GAIL” (<a class="cite" id="cite-osm-2017-1" href="#ref-osm-2017">OpenStreetMap contributors, 2017</a>). The café postcodes were then recovered using the OSM tagging fields, and locations without an OSM postcode were reverse geocoded using their location point coordinates and the Postcodes.io API (<a class="cite" id="cite-walczak-2023-1" href="#ref-walczak-2023">Walczak, 2023</a>). Locations were filtered to a treatment window of 2018–2024; the 2018 start date captured Gail’s deliberate expansion phase, during which the chain pursued an explicit growth strategy (<a class="cite" id="cite-algospark-nd-2" href="#ref-algospark-nd">Algospark, n.d.</a>), while the 2024 end date ensured that the final treatment cohort retained a sufficient post-treatment window for observing housing prices. The OSM creation timestamp was used as a proxy for the Gail’s locations’ physical opening dates: because cohort assignment is determined by calendar year, any within-year lag between a café opening and its OSM entry creation does not affect assignment—a condition that is generally met for well-mapped urban locations such as London.</p>
+
+    <p>LSOAs were used as the spatial unit of analysis as a proxy for neighborhoods. These census-generated geographies were designed to be internally consistent in population size (approximately 1,500 residents) and socioeconomic composition (<a class="cite" id="cite-ons-2023-1" href="#ref-ons-2023">Office for National Statistics, 2023</a>), and are widely used in urban research in the UK. Although the treatment period spans from 2018–2024, the 2021 LSOA definitions were adopted in order to align with the most current Office of National Statistics geographic framework. Each Gail’s treatment location was mapped to its corresponding LSOA via postcode lookup; where two cafés were assigned to the same LSOA, only the first-opening café was kept.</p>
+
+    <p>The outcome variable was constructed from the Land Registry Price Paid Data (PPD), a record of residential property transactions in England and Wales (<a class="cite" id="cite-hmlr-2026-1" href="#ref-hmlr-2026">HM Land Registry, 2026</a>); because registration is legally required, the PPD functions as a near-complete census of market transactions. However, the PPD excludes non-market transactions—including repossessions and right-to-buy transfers—meaning that the data used in the study only reflects open-market conditions. Residential transaction data for all London LSOAs were retrieved from the Land Registry Linked Data SPARQL endpoint covering 2013–2025 so as to assess pre-treatment housing trends as well as to capture an adequate amount of post-treatment price responses for the final cohort. Individual PPD transactions were then aggregated to an annual median housing price per LSOA; the median was chosen over the mean to reduce sensitivity to high-value outliers common in London’s luxury property market (<a class="cite" id="cite-marsden-2015-1" href="#ref-marsden-2015">Marsden, 2015</a>). LSOAs with fewer than 3 transactions in a given year were excluded from that year’s observation to avoid unreliable price estimates based on sparse markets. The final outcome variable was the natural log of the annual median property price per LSOA; logarithmic transformation is standard in hedonic price models where property price distributions are right-skewed, and this specification allows for the regression coefficients to be directly interpreted as proportional effects on price rather than absolute price changes.</p>
+
+    <p>To characterize pre-existing neighborhood conditions, the study incorporated the 2019 Index of Multiple Deprivation (IMD), a standard measure of socioeconomic disadvantage that combines indicators across income, employment, education, health, crime, housing, and living environment (<a class="cite" id="cite-mhclg-2019-1" href="#ref-mhclg-2019">Ministry of Housing, Communities &amp; Local Government, 2019</a>). Although the 2019 data postdates the earliest cohort by one year, prior research has demonstrated that LSOA-level deprivation rankings exhibit high stability between IMD releases (<a class="cite" id="cite-mclennan-2019-1" href="#ref-mclennan-2019">McLennan et al., 2019</a>), such that the 2019 scores provide a reliable approximation of the neighborhood conditions that prevailed throughout the pre-treatment period. Before DiD estimation, treated London LSOAs with Gail’s location openings were matched to control LSOAs using nearest-neighbor propensity score matching; matching variables of baseline median log-price, baseline price trend, IMD overall score, education sub-score, and employment sub-score were chosen to capture pre-treatment neighborhood comparability on price level, price trajectory, and socioeconomic context. The propensity scoring method excluded geographic distance so as to avoid spatial clustering of controls and potential spillover effects. Matching was performed using logistic propensity scoring with a 1:3 nearest-neighbor algorithm without replacement and a caliper of 0.02 standard deviations to guard against poor-quality matches. The final validated panel contained 403 annual price observations from treated LSOAs and 1,165 from their matched controls.</p>
+
+    <h3><span class="num">2.2</span>Parallel trends tests</h3>
+
+    <p>The parallel trends assumption of this DiD design requires that, in the absence of a Gail’s opening, property prices in treated LSOAs would have evolved along the same trajectory as those in the matched control LSOAs. After matching the treatment and control LSOAs, most standardized mean differences were below 0.1 (Table 1), indicating an adequate observed covariate balance (<a class="cite" id="cite-rosenbaum-1983-1" href="#ref-rosenbaum-1983">Rosenbaum &amp; Rubin, 1983</a>). By restricting estimation to matched LSOAs, the final dataset controls for observable pre-treatment differences in price level, price trend, and socioeconomic composition that could confound the DiD estimate. This matched design strengthens the plausibility of the parallel trends assumption by ensuring that the control group is drawn from LSOAs with similar pre-treatment trajectories to those that received a Gail’s.</p>
+
+    <div class="table-wrap">
+      <table>
+        <caption>Table 1: Covariate Balance After Matching</caption>
+        <thead>
+          <tr><th>Covariate</th><th>Mean<br>Treated</th><th>Mean<br>Control</th><th>Std. Mean<br>Diff.</th><th>Var.<br>Ratio</th><th>eCDF<br>Mean</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Distance</td><td>0.0136</td><td>0.0136</td><td>0.0002</td><td>1.025</td><td>0.0003</td></tr>
+          <tr><td>Baseline log price</td><td>13.373</td><td>13.317</td><td>0.1419</td><td>0.944</td><td>0.0357</td></tr>
+          <tr><td>Baseline price trend</td><td>0.0709</td><td>0.0692</td><td>0.0237</td><td>1.349</td><td>0.0323</td></tr>
+          <tr><td>IMD score</td><td>16.905</td><td>17.522</td><td>−0.0715</td><td>0.811</td><td>0.0526</td></tr>
+          <tr><td>Education score</td><td>6.182</td><td>5.677</td><td>0.0981</td><td>1.051</td><td>0.0416</td></tr>
+          <tr><td>Employment score</td><td>0.0654</td><td>0.0696</td><td>−0.0963</td><td>1.112</td><td>0.0484</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>As shown in Figure 1, treated and matched control LSOAs follow closely-aligned price trajectories across the baseline pre-treatment window: the overlap in confidence intervals throughout this period is consistent with parallel trends (<a class="cite" id="cite-angrist-2009-1" href="#ref-angrist-2009">Angrist &amp; Pischke, 2009</a>). To further assess the parallel trends assumption, pre-treatment price trajectories for treated and control LSOAs were formally evaluated with a fixed-effects OLS estimation over the baseline period. The treatment-by-year interaction coefficients in Table 2 indicate that the treated and matched control LSOAs experienced statistically indistinguishable price growth in the years preceding any café opening, consistent with the parallel trends assumption that underpins this study’s DiD design. Thus, the covariate balance, visually parallel pre-treatment trajectories, and lack of statistically significant interaction terms support parallel trends between the treated and control groups.</p>
+
+    <figure>
+      <img src="fig1.png" alt="Line chart of mean log median property price, 2013–2017, for treated Gail’s LSOAs and matched controls, with overlapping confidence bands." loading="lazy">
+      <figcaption>Figure 1: Pre-Treatment Property Price Trends: Treated vs. Matched Controls</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table>
+        <caption>Table 2: Fixed-Effects OLS: Interaction of Treated × Year</caption>
+        <thead>
+          <tr><th></th><th>Estimate</th><th>Std. Error</th><th><em>t</em>-value</th><th><em>p</em>-value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Control × 2013</td><td>0.0304</td><td>0.0595</td><td>0.510</td><td>0.611</td></tr>
+          <tr><td>Control × 2014</td><td>−0.0246</td><td>0.0689</td><td>−0.357</td><td>0.722</td></tr>
+          <tr><td>Control × 2015</td><td>0.0756</td><td>0.0594</td><td>1.273</td><td>0.205</td></tr>
+          <tr><td>Control × 2016</td><td>0.0195</td><td>0.0551</td><td>0.354</td><td>0.724</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5">RMSE: 0.1658<br>Adj. R<sup>2</sup>: 0.8332<br>Within R<sup>2</sup>: 0.0077</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3><span class="num">2.3</span>Analysis</h3>
+
+    <p>The primary causal estimate was derived from the Callaway-Sant’Anna staggered DiD estimator—this model computes separate average treatment effects on the treated (ATTs) for each cohort period before aggregating them into summary statistics weighted by cohort size (<a class="cite" id="cite-callaway-2021-2" href="#ref-callaway-2021">Callaway &amp; Sant’Anna, 2021</a>). This cohort-by-period structure was well-suited for analyzing café openings because Gail’s expanded in waves across different parts of London: if the price premium for opening a café differs between years, the Callaway-Sant’Anna estimate explicitly captures this variation rather than compressing it into a single coefficient. The Callaway-Sant’Anna estimator was specifically chosen over a standard two-way fixed effects (TWFE) measurement because of the rolling openings of Gail’s locations; TWFE is known to be biased under staggered adoption when treatment effects are heterogeneous across cohorts due to using already-treated units as implicit controls (<a class="cite" id="cite-goodman-bacon-2021-1" href="#ref-goodman-bacon-2021">Goodman-Bacon, 2021</a>), but the Callaway-Sant’Anna estimator avoids this bias by restricting each cohort’s comparison group to never-treated LSOAs only. However, as a robustness check, a TWFE model was also estimated to assess the direction and magnitude of the Callaway-Sant’Anna model estimates—if the estimates diverged, this suggests that treatment effects are heterogeneous across cohorts and would indicate that TWFE is unreliable for this study design.</p>
+
+    <p>The Callaway-Sant’Anna ATT estimates were interpreted as log-point differences of the median property price for one LSOA in one year, which were convertible to approximate percentage effects using (<em>e</em><sup>ATT</sup> − 1) × 100. The estimator also used a doubly-robust method that combined an outcome regression with an inverse-probability weighting step, providing an additional layer of robustness beyond the matched sample—the inclusion of the education sub-score, baseline log-price, and baseline price trend in this regression specification absorb the residual imbalance between the treated and matched control LSOAs that was not fully accounted for by propensity score matching. Standard errors were clustered at the LSOA level because residuals within an LSOA are likely correlated across years. The model ultimately estimates two main aggregations of the ATT: (1) a simple overall ATT that averages all estimates weighted by cohort size and (2) an annual cohort-specific ATT. These aggregations allow the analysis to address both the average effect of a Gail’s opening across all treated LSOAs and years as well as whether the price change has been consistent across Gail’s different expansion waves.</p>
+
+    <h2><span class="num">3</span>Results</h2>
+
+    <p>The Callaway-Sant’Anna doubly-robust estimator yielded an overall ATT of −0.079 log points (95% CI: [−0.202, 0.043]), corresponding to an approximate 7.59% reduction in neighborhood median property prices in treated LSOAs relative to their matched controls, though this estimate is not statistically significant at the α = 0.05 level and the null hypothesis cannot be rejected. The dynamic aggregation—which averages effects by event time—produced a similar negative point estimate to the overall aggregation (dynamic ATT: −0.067 log points; 95% CI: [−0.185, 0.050]). Figure 2 plots the dynamic ATT from four years before to four years after each café opening: from event time +1 onward, the dynamic ATT estimates are negative, yet none exhibit statistical significance. Thus, while the point estimates consistently suggest a slight negative association, the width of the confidence intervals prevent any definitive conclusion about the existence or direction of an aggregate Gail’s housing price effect.</p>
+
+    <figure>
+      <img src="fig2.png" alt="Event study plot of average treatment effect on log price from four years before to four years after a Gail’s opening; all confidence bands include zero." loading="lazy">
+      <figcaption>Figure 2: Event Study: Effect of Gail’s Opening on Property Prices</figcaption>
+    </figure>
+
+    <p>Disaggregating the ATT by cohort reveals considerable heterogeneity across Gail’s expansion waves. Of the six post-treatment cohorts, only the 2021 cohort produced a statistically significant result (ATT: −0.271 log points; 95% CI: [−0.312, −0.229]), indicating that LSOAs where a Gail’s opened in 2021 experienced a statistically distinguishable reduction in median property prices relative to their matched controls. Beyond this result, cohort-specific ATTs vary considerably both in direction and magnitude (Table 3). The positive estimate for the 2018 cohort and the wide standard errors for the 2020 cohort reflect the small number of treated LSOAs per year, and estimates should be interpreted with caution given the limited statistical power available at the cohort-level.</p>
+
+    <div class="table-wrap">
+      <table>
+        <caption>Table 3: Callaway-Sant’Anna Cohort-Specific ATT</caption>
+        <thead>
+          <tr class="group"><th></th><th></th><th></th><th colspan="2">95% Conf. Interval</th></tr>
+          <tr><th>Cohort</th><th>ATT</th><th>Std. Error</th><th>Lower</th><th>Upper</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2018</td><td>−0.0669</td><td>0.0357</td><td>−0.1370</td><td>0.0031</td></tr>
+          <tr><td>2019</td><td>0.1304</td><td>0.0882</td><td>−0.0424</td><td>0.3032</td></tr>
+          <tr><td>2020</td><td>−0.3254</td><td>0.2746</td><td>−0.8637</td><td>0.2129</td></tr>
+          <tr><td>2021</td><td>−0.2707<sup>*</sup></td><td>0.0212</td><td>−0.3122</td><td>−0.2291</td></tr>
+          <tr><td>2022</td><td>−0.1363</td><td>0.0943</td><td>−0.3210</td><td>0.0485</td></tr>
+          <tr><td>2023</td><td>−0.0764</td><td>0.1257</td><td>−0.3227</td><td>0.1699</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5"><sup>*</sup> Confidence band excludes zero.</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p>The TWFE robustness check generated a post-treatment coefficient of −0.075 log points (95% CI: [−0.123, −0.028]) that is statistically significant at the α = 0.05 level. This estimate closely mirrors the Callaway-Sant’Anna overall ATT in both direction and magnitude—however, this convergence reflects similarity in the weighted average treatment effect across cohorts rather than homogeneity of cohort-specific effects, which vary considerably from +0.130 to −0.325 log points (Table 3). The TWFE specification compresses this heterogeneity into a single pooled coefficient, and should therefore be interpreted as an average across Gail’s expansion waves rather than as a stable, cohort-invariant effect.</p>
+
+    <h2><span class="num">4</span>Discussion</h2>
+
+    <h3><span class="num">4.1</span>Main Findings</h3>
+
+    <p>This study finds that Gail’s café openings are associated with a negative but statistically insignificant effect on London neighborhood median property prices in treated LSOAs, meaning that the null hypothesis of zero treatment effect cannot be ruled out. This result stands in contrast to the popular cultural narrative of the “Gail’s effect”—the notion that the arrival of the premium café chain signals and accelerates neighborhood gentrification and rising property values. These findings thus provide no statistically credible evidence of an amenity-driven positive price premium and, if anything, the point estimates consistently lean in the opposite direction.</p>
+
+    <p>The statistically significant result that the 2021 cohort of Gail’s openings yielded a −23.72% decrease in LSOA housing prices is difficult to interpret in isolation from the wider market conditions of that period: this cohort coincides with the immediate post-COVID period where UK property markets experienced a spatial redistribution of demand away from centralized urban areas such as London (<a class="cite" id="cite-gallent-2021-1" href="#ref-gallent-2021">Gallent &amp; Madeddu, 2021</a>). The 2021 negative estimate—and possibly all post-COVID negative estimates—most likely reflect broader macroeconomic disruption rather than a café-specific effect. Similarly, the convergence of the Callaway-Sant’Anna DiD and TWFE point estimates signals that the consistently negative direction is unlikely to be an artifact of model specification, but rather a lasting signal of COVID-induced market disruption during the treatment window. Further studies could address these pandemic-specific shocks by including a post-2020 dummy variable or adding neighborhood-level controls (e.g. work from home rates).</p>
+
+    <p>The absence of a positive price premium contrasts with the well-documented “Whole Foods effect” in the United States where the opening of these health-focused, aspirational grocery stores is associated with significant housing appreciation (<a class="cite" id="cite-anderson-2017-2" href="#ref-anderson-2017">Anderson, 2017</a>; <a class="cite" id="cite-hoelzlein-2024-2" href="#ref-hoelzlein-2024">Hoelzlein &amp; Miller, 2024</a>); this divergence points to the possibility that the mechanism by which upscale food retail affects property prices may operate differently in London than in the US. Furthermore, this study’s negative point estimates are consistent with urban economics literature that treat premium retail amenities as lagging indicators of gentrification rather than leading (<a class="cite" id="cite-danenberg-2024-1" href="#ref-danenberg-2024">Danenberg, 2024</a>; <a class="cite" id="cite-rains-2020-1" href="#ref-rains-2020">Rains, 2020</a>). Gail’s has pursued an explicit growth strategy of targeting locations with high foot-traffic, proximity to public transportation, and a pre-existing professional demographic—all characteristics that correlate with neighborhoods already on an upward price trajectory; by the time a café opens, the most significant price appreciation has likely already occurred and is then reflected in the inflated LSOA baseline prices. Additionally, it may be that the arrival of a Gail’s signals that a neighborhood has completed its transition: demand decreases from buyers and property prices drop because the neighborhood has already been gentrified and hit its peak. Beyond the gentrification context, hedonic pricing literature shows that localized amenity effects on property prices are highly context-dependent, and effect sizes substantially vary by baseline neighborhood characteristics, city-level housing supply, and the nature of the amenity itself—the imprecision of the DiD model is therefore not surprising given the heterogeneity of the LSOA sample (<a class="cite" id="cite-gibbons-2013-2" href="#ref-gibbons-2013">Gibbons et al., 2013</a>; <a class="cite" id="cite-rosen-1974-2" href="#ref-rosen-1974">Rosen, 1974</a>). Overall, these results challenge the popular narrative that premium café chains such as Gail’s drive gentrification by increasing property prices.</p>
+
+    <h3><span class="num">4.2</span>Limitations</h3>
+
+    <p>The most fundamental limitation of this study is the use of the OSM creation timestamp as a proxy for café opening dates: if OSM entries systematically lag behind physical openings by more than a few months, cohort assignment may misclassify a non-trivial share of treated LSOAs. This systematic mismeasurement of treatment dates would introduce an attenuation bias that would push effect estimates toward zero, partially explaining the statistical insignificance of the ATT. Compounding this operationalization concern, the treated London dataset of 31 LSOAs spread across six cohort years is relatively modest, and this small sample size considerably limits the study’s statistical power. The study’s underpowering is primarily inherent to the scale of Gail’s London expansion during the 2018–2024 treatment window rather than a consequence of methodological choices: the chain opened approximately 45 new London locations during the treatment period, of which 31 were captured with sufficient data quality for study inclusion. As a result of this constrained statistical power, the overall ATT confidence interval is wide enough to encompass both meaningful pricing effects and zero, and the null findings should be interpreted with this imprecision in mind. In conjunction, the potential for measurement error in treatment timing and the limited sample size represent salient data constraints, and both would need to be resolved before the DiD estimates could be interpreted without ambiguity.</p>
+
+    <p>Furthermore, the Land Registry PPD dataset does not contain the detailed property information (e.g., property size, number of rooms, floor area) that standard hedonic models would include as controls. While the LSOA fixed effects absorb time-invariant differences across neighborhoods, they cannot account for within-LSOA compositional shifts; if a café opening systematically attracted different housing types to the market, this inability to control for property-level characteristics would introduce omitted variable bias that the PPD cannot account for. The omission of property-level controls is also consequential for the parallel trends assumption: although the parallel trends assumption is supported by the pre-trend tests, unobserved characteristics remain untestable. Gail’s uses the consultancy Algospark to inform their location decisions, but it is likely that their exact forecasting data is not fully captured in the matching covariates (<a class="cite" id="cite-algospark-nd-3" href="#ref-algospark-nd">Algospark, n.d.</a>); the parallel trends assumption would not hold in this case, and the ATT would be biased.</p>
+
+    <p>In addition to the limitations of the omitted variables, the external validity and generalization beyond Greater London Gail’s locations remain a concern. London’s urban housing market is characterized by supply constraints and structurally elevated prices (<a class="cite" id="cite-bosetti-2017-1" href="#ref-bosetti-2017">Bosetti et al., 2017</a>; <a class="cite" id="cite-canepa-2022-1" href="#ref-canepa-2022">Canepa et al., 2022</a>; <a class="cite" id="cite-hilber-2016-1" href="#ref-hilber-2016">Hilber &amp; Vermeulen, 2016</a>), and therefore these conditions may not transfer to other cities such as Oxford, where Gail’s has expanded more recently (<a class="cite" id="cite-evans-2026-1" href="#ref-evans-2026">Evans, 2026</a>) and where the relationship between food retail and property prices is likely mediated by a different set of market dynamics. In addition to the London-only data limitation, this study is also constrained by its focus on Gail’s alone. Blank Street Coffee—a comparable premium chain that entered the London market in 2022—was excluded from the treatment definition, but potential Blank Street openings in control LSOAs may have introduced a treatment-like signal into the comparison group and attenuation bias into the ATT (<a class="cite" id="cite-hansen-2022-1" href="#ref-hansen-2022">Hansen, 2022</a>). While these limitations are important, they largely reflect data constraints rather than flaws in the study design. Given the available data, the Callaway-Sant’Anna DiD framework used in this study provides a principled identification strategy for a research question that has thus far lacked rigorous empirical treatment.</p>
+
+    <h3><span class="num">4.3</span>Future Research</h3>
+
+    <p>To resolve the study’s current limitations, future methodologies should replace the OSM creation timestamp with verified opening dates drawn from news articles, Companies House filings, or direct correspondence with Gail’s corporate office; eliminating this core source of measurement error would likely narrow the ATT confidence intervals and allow for stronger causal inference. Extending the outcome variable from PPD sales prices to include rental prices would similarly enrich the data by providing a more complete picture of London housing. Because rental outcomes are an important facet of housing costs and would help to establish if Gail’s openings affect tenants rather than buyers, future work should address this data limitation by pulling from platforms such as Rightmove, SpareRoom, and Zoopla.</p>
+
+    <p>The present study’s identification strategy could also be strengthened by using a regression discontinuity design that compares housing costs inside and outside a pre-defined distance around each café location. This spatial approach would provide causal identification similarly to that of DiD, but would not have to rely on the parallel trends assumption. In addition to extending the methodologies, future work could also broaden the treatment definition to include Blank Street and other aspirational consumption amenities such as independent bookshops, natural wine bars, or Pilates studios. If the null finding replicates across amenity types, this would be stronger evidence that premium retail openings are lagging rather than leading indicators of gentrification. Ultimately, this study provides the first empirical investigation into the Gail’s effect. Further progress will depend on improved data and expanded methodologies, but the approach here offers a clear and principled starting point.</p>
+
+    <h2><span class="num">5</span>Conclusion</h2>
+
+    <p>This study set out to test whether the cultural association between Gail’s café openings and London neighborhood gentrification—the Gail’s effect—has a detectable causal basis in property price data, exploiting the staggered timing of Gail’s London expansion between 2018–2024 as a quasi-experimental setting for DiD identification. The Callaway-Sant’Anna doubly-robust estimator yielded an overall ATT of −0.079 log points, an estimate that was directionally consistent across both the simple and dynamic aggregations as well as mirrored by the TWFE robustness check; however, this ATT did not achieve statistical significance and the null hypothesis of zero treatment could not be rejected. The only statistically significant finding of a −0.271 log point effect for the 2021 Gail’s opening cohort most plausibly reflects the spatial redistribution of housing demand during the immediate post-COVID period. These findings carry several implications for how London residents, policymakers, and researchers interpret the arrival of premium consumption amenities in urban neighborhoods. The results are most consistent with Gail’s as a lagging indicator of neighborhood socioeconomic transition than as an independent driver of property price increases. The chain appears to select into neighborhoods with pre-established price trajectories, arriving after the most significant property appreciation rather than precipitating it. This interpretation aligns with previous work in urban economics and gentrification research that treat consumption amenities as markers of completed neighborhood transition (<a class="cite" id="cite-chapple-2016-1" href="#ref-chapple-2016">Chapple &amp; Zuk, 2016</a>), yet stands in contrast to the US-based “Whole Foods effect” literature (<a class="cite" id="cite-anderson-2017-3" href="#ref-anderson-2017">Anderson, 2017</a>; <a class="cite" id="cite-hoelzlein-2024-3" href="#ref-hoelzlein-2024">Hoelzlein &amp; Miller, 2024</a>). These contrasting findings suggest that the mechanism by which upscale food retail capitalizes into property prices may operate differently in London’s housing market than in American urban contexts. Further, this study’s null result should not be read as definitive evidence that no Gail’s effect exists; the combination of a small sample, approximate treatment timing via OSM creation timestamps, and the absence of property-level hedonic controls are limitations that constrain the precision of the estimates. Thus, the “Gail’s effect” may be real, but the present evidence suggests that it is a reflection of neighborhood change already underway rather than the engine driving it.</p>
+
+  </article>
+
+  <section class="refs">
+    <h2>References</h2>
+    <div class="ref" id="ref-algospark-nd">Algospark. (n.d.). <em>Location spark transforming expansion and new site selection for gail’s bakery.</em> Retrieved from <a href="https://www.algospark.com/success-stories/location-selection-transforming-expansion-and-new-site-selection-for-gails-bakery/">https://www.algospark.com/success-stories/location-selection-transforming-expansion-and-new-site-selection-for-gails-bakery/</a> (business report) <a class="ref-back" href="#cite-algospark-nd-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-anderson-2017">Anderson, J. (2017). <em>Whole foods &amp; trader joe’s provide a healthy boost to nearby homes.</em> Zillow Research Website. Retrieved from <a href="https://www.zillow.com/research/whole-foods-trader-joes-home-value-11696/">https://www.zillow.com/research/whole-foods-trader-joes-home-value-11696/</a> <a class="ref-back" href="#cite-anderson-2017-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-angrist-2009">Angrist, J. D., &amp; Pischke, J.-S. (2009). Parallel worlds: Fixed effects, differences-in-differences, and panel data. In <em>Mostly harmless econometrics: An empiricist’s companion</em> (pp. 221–248). Princeton University Press. Retrieved 2026-04-28, from <a href="http://www.jstor.org/stable/j.ctvcm4j72.12">http://www.jstor.org/stable/j.ctvcm4j72.12</a> <a class="ref-back" href="#cite-angrist-2009-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-bosetti-2017">Bosetti, N., Sims, S., &amp; Travers, T. (2017, 06). <em>Housing and inequality in london.</em> (report) doi: 10.13140/RG.2.2.22618.75203 <a class="ref-back" href="#cite-bosetti-2017-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-callaway-2021">Callaway, B., &amp; Sant’Anna, P. H. (2021). Difference-in-differences with multiple time periods. <em>Journal of Econometrics, 225</em>(2), 200–230. Retrieved from <a href="https://www.sciencedirect.com/science/article/pii/S0304407620303948">https://www.sciencedirect.com/science/article/pii/S0304407620303948</a> (Themed Issue: Treatment Effect 1) doi: https://doi.org/10.1016/j.jeconom.2020.12.001 <a class="ref-back" href="#cite-callaway-2021-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-canepa-2022">Canepa, A., Chini, E. Z., &amp; Alqaralleh, H. (2022, January). Global cities and local challenges: Booms and busts in the london real estate market. <em>J. Real Estate Fin. Econ., 64</em>(1), 1–29. <a class="ref-back" href="#cite-canepa-2022-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-chapple-2016">Chapple, K., &amp; Zuk, M. (2016). Forewarned: The use of neighborhood early warning systems for gentrification and displacement. <em>Cityscape, 18</em>(3), 109–130. Retrieved 2026-04-28, from <a href="http://www.jstor.org/stable/26328275">http://www.jstor.org/stable/26328275</a> <a class="ref-back" href="#cite-chapple-2016-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-danenberg-2024">Danenberg, R. (2024). Patterns of retail gentrification on inner-city main streets in stockholm: the role of privatized property ownership. <em>Journal of Urban Design, 29</em>(6), 716–734. Retrieved from <a href="https://doi.org/10.1080/13574809.2024.2337722">https://doi.org/10.1080/13574809.2024.2337722</a> doi: 10.1080/13574809.2024.2337722 <a class="ref-back" href="#cite-danenberg-2024-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-evans-2026">Evans, M. (2026). Gail’s bakery to open new branch in oxfordshire town. <em>Oxford Mail.</em> Retrieved from <a href="https://www.oxfordmail.co.uk/news/25922002.gails-bakery-open-new-branch-oxfordshire-town/">https://www.oxfordmail.co.uk/news/25922002.gails-bakery-open-new-branch-oxfordshire-town/</a> <a class="ref-back" href="#cite-evans-2026-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-fuller-2026">Fuller, G. (2026). Banbury is the down at heel corner of the cotswolds. could gail’s be its saving grace? <em>The Telegraph.</em> Retrieved from <a href="https://www.telegraph.co.uk/news/2026/04/08/gails-could-save-banbury-but-at-what-cost/">https://www.telegraph.co.uk/news/2026/04/08/gails-could-save-banbury-but-at-what-cost/</a> <a class="ref-back" href="#cite-fuller-2026-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-gallent-2021">Gallent, N., &amp; Madeddu, M. (2021). Covid-19 and london’s decentralising housing market – what are the planning implications? <em>Planning Practice &amp; Research, 36</em>(5), 567–577. Retrieved from <a href="https://doi.org/10.1080/02697459.2021.1964782">https://doi.org/10.1080/02697459.2021.1964782</a> doi: 10.1080/02697459.2021.1964782 <a class="ref-back" href="#cite-gallent-2021-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-gibbons-2013">Gibbons, S., Machin, S., &amp; Silva, O. (2013). Valuing school quality using boundary discontinuities. <em>Journal of Urban Economics, 75</em>, 15–28. Retrieved from <a href="https://www.sciencedirect.com/science/article/pii/S0094119012000769">https://www.sciencedirect.com/science/article/pii/S0094119012000769</a> doi: https://doi.org/10.1016/j.jue.2012.11.001 <a class="ref-back" href="#cite-gibbons-2013-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-gibbons-2014">Gibbons, S., Mourato, S., &amp; Resende, G. M. (2014, February). The amenity value of english nature: A hedonic price approach. <em>Environ. Resour. Econ. (Dordr.), 57</em>(2), 175–196. <a class="ref-back" href="#cite-gibbons-2014-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-glass-1964">Glass, R. (1964). Aspects of change. In C. for Urban Studies (Ed.), <em>London: Aspects of change</em> (p. xiii–xlii). Publisher Location: MacGibbon &amp; Kee. <a class="ref-back" href="#cite-glass-1964-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-gogarty-2024">Gogarty, J. (2024). Gail’s and the new london class war. <em>The New Statesman.</em> Retrieved from <a href="https://www.newstatesman.com/thestaggers/2024/08/gails-and-the-new-london-class-war">https://www.newstatesman.com/thestaggers/2024/08/gails-and-the-new-london-class-war</a> <a class="ref-back" href="#cite-gogarty-2024-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-goodman-bacon-2021">Goodman-Bacon, A. (2021). Difference-in-differences with variation in treatment timing. <em>Journal of Econometrics, 225</em>(2), 254–277. Retrieved from <a href="https://www.sciencedirect.com/science/article/pii/S0304407621001445">https://www.sciencedirect.com/science/article/pii/S0304407621001445</a> (Themed Issue: Treatment Effect 1) doi: https://doi.org/10.1016/j.jeconom.2021.03.014 <a class="ref-back" href="#cite-goodman-bacon-2021-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-hansen-2022">Hansen, J. (2022). Espresso and venture capital-fuelled nyc cafe will pave london with blank streets. <em>Eater London.</em> Retrieved from <a href="https://london.eater.com/23189424/blank-street-coffee-london-cafes">https://london.eater.com/23189424/blank-street-coffee-london-cafes</a> <a class="ref-back" href="#cite-hansen-2022-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-hilber-2016">Hilber, C. A. L., &amp; Vermeulen, W. (2016). The impact of supply constraints on house prices in england. <em>The Economic Journal, 126</em>(591), 358–405. Retrieved from <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ecoj.12213">https://onlinelibrary.wiley.com/doi/abs/10.1111/ecoj.12213</a> doi: https://doi.org/10.1111/ecoj.12213 <a class="ref-back" href="#cite-hilber-2016-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-hmlr-2026">HM Land Registry. (2026). <em>Price paid data.</em> HM Land Registry. Retrieved from <a href="https://landregistry.data.gov.uk/app/ppd/?relative_url_root=%2Fapp%2Fppd">https://landregistry.data.gov.uk/app/ppd/?relative_url_root=%2Fapp%2Fppd</a> <a class="ref-back" href="#cite-hmlr-2026-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-hoelzlein-2024">Hoelzlein, M., &amp; Miller, S. (2024). <em>The gentrification effect of retail amenities: Evidence from whole foods market.</em> Retrieved from <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5009323">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5009323</a> (preprint) <a class="ref-back" href="#cite-hoelzlein-2024-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-law-2019">Law, S., Paige, B., &amp; Russell, C. (2019). Take a look around: Using street view and satellite images to estimate house prices. <em>ACM Transactions on Intelligent Systems and Technology, 10</em>(5), 1–19. Retrieved from <a href="http://dx.doi.org/10.1145/3342240">http://dx.doi.org/10.1145/3342240</a> doi: 10.1145/3342240 <a class="ref-back" href="#cite-law-2019-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-marsden-2015">Marsden, J. (2015). <em>House prices in london – an economic analysis of london’s housing market.</em> working paper. Retrieved from <a href="https://www.london.gov.uk/sites/default/files/house-prices-in-london.pdf">https://www.london.gov.uk/sites/default/files/house-prices-in-london.pdf</a> <a class="ref-back" href="#cite-marsden-2015-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-mclennan-2019">McLennan, D., Noble, S., Noble, M., Wright, G., &amp; Plunkett, E. (2019, September). <em>The english indices of deprivation 2019: Technical report</em> (Tech. Rep.). London: Ministry of Housing, Communities and Local Government. Retrieved from <a href="https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-technical-report">https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-technical-report</a> <a class="ref-back" href="#cite-mclennan-2019-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-mhclg-2019">Ministry of Housing, Communities &amp; Local Government. (2019). <em>English indices of deprivation 2019</em> (Tech. Rep.). Gov.UK. Retrieved from <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019</a> <a class="ref-back" href="#cite-mhclg-2019-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-newkey-burden-2025">Newkey-Burden, C. (2025). How gail’s became the symbol of high-street gentrification. <em>The Week.</em> Retrieved from <a href="https://theweek.com/culture-life/food-drink/how-gails-became-the-symbol-of-high-street-gentrification">https://theweek.com/culture-life/food-drink/how-gails-became-the-symbol-of-high-street-gentrification</a> <a class="ref-back" href="#cite-newkey-burden-2025-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-ons-2023">Office for National Statistics. (2023). <em>Lsoa (2021) to bua to lad to region (december 2022) best fit lookup in ew (v2).</em> Retrieved from <a href="https://geoportal.statistics.gov.uk/datasets/ons::lsoa-2021-to-bua-to-lad-to-region-december-2022-best-fit-lookup-in-ew-v2/about">https://geoportal.statistics.gov.uk/datasets/ons::lsoa-2021-to-bua-to-lad-to-region-december-2022-best-fit-lookup-in-ew-v2/about</a> <a class="ref-back" href="#cite-ons-2023-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-osm-2017">OpenStreetMap contributors. (2017). <em>Planet dump retrieved from https://planet.osm.org.</em> <a href="https://www.openstreetmap.org">https://www.openstreetmap.org</a>. <a class="ref-back" href="#cite-osm-2017-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-rains-2020">Rains, T. (2020, October). <em>Building a suite of store typologies in retail.</em> Talk, virtual. Retrieved from <a href="https://www.youtube.com/watch?v=Lj3gLx6fSf0">https://www.youtube.com/watch?v=Lj3gLx6fSf0</a> (Presented at the Spatial Data Science Conference 2020) <a class="ref-back" href="#cite-rains-2020-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-rosen-1974">Rosen, S. (1974). Hedonic prices and implicit markets: Product differentiation in pure competition. <em>Journal of Political Economy, 82</em>(1), 34–55. Retrieved 2026-04-28, from <a href="http://www.jstor.org/stable/1830899">http://www.jstor.org/stable/1830899</a> <a class="ref-back" href="#cite-rosen-1974-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-rosenbaum-1983">Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. <em>Biometrika, 70</em>(1), 41–55. <a class="ref-back" href="#cite-rosenbaum-1983-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-smith-1987">Smith, N. (1987). Gentrification and the rent gap. <em>Annals of the Association of American Geographers, 77</em>(3), 462–465. Retrieved 2026-04-28, from <a href="http://www.jstor.org/stable/2563279">http://www.jstor.org/stable/2563279</a> <a class="ref-back" href="#cite-smith-1987-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-walczak-2023">Walczak, E. J. (2023). PostcodesioR: An R package for UK geocoding. <em>Journal of Open Source Software, 8</em>(84), 5334. Retrieved from <a href="https://cran.r-project.org/web/packages/PostcodesioR/">https://cran.r-project.org/web/packages/PostcodesioR/</a> (R package version 0.3.1) doi: 10.21105/joss.05334 <a class="ref-back" href="#cite-walczak-2023-1" aria-label="Back to text">↩</a></div>
+    <div class="ref" id="ref-zukin-1998">Zukin, S. (1998). Urban lifestyles: Diversity and standardisation in spaces of consumption. <em>Urban Studies, 35</em>(5/6), 825–839. Retrieved 2026-04-28, from <a href="http://www.jstor.org/stable/43084034">http://www.jstor.org/stable/43084034</a> <a class="ref-back" href="#cite-zukin-1998-1" aria-label="Back to text">↩</a></div>
+  </section>
+
+</main>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    function update() {
+      var max = root.scrollHeight - root.clientHeight;
+      var pct = max > 0 ? (root.scrollTop || window.scrollY) / max * 100 : 0;
+      root.style.setProperty('--scroll', pct + '%');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+<script>
+  // Point each reference's back-link at the citation the reader last clicked.
+  document.querySelectorAll('a.cite').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var ref = document.getElementById(a.getAttribute('href').slice(1));
+      var back = ref && ref.querySelector('.ref-back');
+      if (back) back.setAttribute('href', '#' + a.id);
+    });
+  });
+</script>
+</body>
+</html>
